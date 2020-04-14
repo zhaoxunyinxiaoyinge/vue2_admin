@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-  <el-button type="success">中国人民解放君</el-button>
+    <keep-alive>
+          <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
-
 <script>
 export default {
   name: 'App',
-  components: {
-   
-  }
 }
 </script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
