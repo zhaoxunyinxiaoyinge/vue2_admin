@@ -1,14 +1,26 @@
 import Vue from "vue";
 import Router from "vue-router"
-import {login,Home} from "components/index.js"
+import {login,Home,User,Welcome} from "components/index.js"
 Vue.use(Router);
 let routes=[
     {
      path:"/login" ,
      component:login
-    },{
+    },
+    {
     path:"/home",
-    component:Home
+    component:Home,
+    redirect:"/welcome",
+    children:[
+        {
+         path:"/welcome",
+         component: Welcome,
+        },
+        {
+        path:"/users",
+        component:User
+        }
+     ]
     }
 ]
 const router=new Router({
@@ -17,10 +29,9 @@ const router=new Router({
 })
 // 全局路由守卫
 router.beforeEach((to,from,next)=>{
-    if(to.path==="/login")return next();
-    let tokens=window.sessionStorage("token");
-    if(!tokens){return next("/login")};
+    if(to.path==="/login") return next();
+    let tokens=window.sessionStorage.getItem("token");
+    if(!tokens){return next("/login")}
     next();
 })
-
 export default router
