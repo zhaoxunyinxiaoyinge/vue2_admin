@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import{Button,Form,FormItem,Input,Icon,Message,Header,Main,Container,Aside,Menu,Submenu,MenuItem,Breadcrumb, BreadcrumbItem, Card
-,Col,Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog,MessageBox} from "element-ui"
+,Col,Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog,MessageBox, Tag,Tree, Select, Option} from "element-ui"
 import router from "./routes/index.js"
 import "./assets/css/reset.css"
 Vue.prototype.$Message=Message;
@@ -29,6 +29,10 @@ Vue.use(Tooltip);
 Vue.use(Pagination);
 Vue.use(Dialog);
 Vue.use(MessageBox);
+Vue.use(Tag);
+Vue.use(Tree);
+Vue.use(Select);
+Vue.use(Option);
 Vue.prototype.$confirm=MessageBox.confirm;
 Vue.config.productionTip = false;
 new Vue({

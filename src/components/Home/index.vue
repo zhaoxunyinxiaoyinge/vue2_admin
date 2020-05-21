@@ -110,6 +110,7 @@ export default {
                 font-weight: normal;
             }
         }
+        
     }
     .el-content {
         flex:1;

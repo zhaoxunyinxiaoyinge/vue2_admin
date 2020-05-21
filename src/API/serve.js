@@ -33,6 +33,42 @@ const Baseurl="http://localhost:8083/api/private/v1/";
     let url=`http://localhost:8083/api/private/v1/users/${id}`;
     return await axios.delete(url);
   }
+  // 获取去昂详列表
+  let getRoles=async ()=>{
+    let url="http://localhost:8083/api/private/v1/rights/list";
+    return await  axios.get(url)
+  }
+  // 获取权限列表
+  let getRole=async ()=>{
+    let url="http://localhost:8083/api/private/v1/roles";
+    return await axios.get(url);
+  }
+  // 这里是修改权限
+  let deleteRole=async(id,rightId)=>{
+    let url=`http://localhost:8083/api/private/v1/roles/${rightId}/rights/${id}`;
+    return await axios.delete(url);
+  }
+  //这里是获取权限列表树
+let getRolesTree=async ()=>{
+  let url="http://localhost:8083/api/private/v1/rights/tree";
+  return await  axios.get(url)
+}
+// 这里是更新对应id下的权限；
+let updateRoles=async(roleId,rids)=>{
+  let url=Baseurl+`roles/${roleId}/rights`;
+  return await axios.post(url,{rids})
+}
+// 获取角色列表
+let getRoleList=async()=>{
+  let url=Baseurl+"roles";
+  return axios.get(url);
+}
+// 对下拉框中的列表进行保存
+let saveRole=async(id,rid)=>{
+  let url=Baseurl+`users/${id}/role`;
+  return axios.put(url,{rid:rid});
+
+}
 export {
   getLogin,
   getMenus,
@@ -40,5 +76,12 @@ export {
   userState,
   addUserState,
   updateUser,
-  deleteUser
+  deleteUser,
+  getRoles,
+  getRole,
+  deleteRole,
+  getRolesTree,
+  updateRoles,
+  getRoleList,
+  saveRole
 }

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router"
-import {login,Home,User,Welcome} from "components/index.js"
+import {login,Home,User,Welcome,Roles,Role} from "components/index.js"
 Vue.use(Router);
 let routes=[
     {
@@ -19,6 +19,13 @@ let routes=[
         {
         path:"/users",
         component:User
+        },
+        {
+          path:"/rights",
+          component:Roles
+        },{
+           path:"/roles",
+           component:Role
         }
      ]
     }

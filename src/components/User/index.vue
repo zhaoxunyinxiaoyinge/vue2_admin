@@ -66,7 +66,7 @@
               placement="top"
               :enterable="false"
             >
-              <el-button type="warning" icon="el-icon-setting"></el-button>
+              <el-button type="warning" icon="el-icon-setting" @click="resetRoles(scope.row)">分配角色</el-button>
             </el-tooltip>
         </template>
         </el-table-column>
@@ -152,10 +152,32 @@
         <el-button type="primary" @click="editCommit">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 这里是分配角色的操作区域 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="RoleVisible"
+      width="30%"
+      >
+      <p>当前的角色:{{userInfo.role_name}}</p>
+      <p>当前的用户:{{userInfo.username}}</p>
+      <!-- 这里是一个下拉框select -->
+      <p>当前分配的角色:<el-select v-model="selectRole" placeholder="请分配权限角色">
+        <el-option
+          v-for="item in rolesAll"
+          :key="item.id"
+          :label="item.roleName"
+          :value="item.id">
+        </el-option>
+      </el-select></p>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="RoleVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveRole">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
-import { userList, userState, addUserState, updateUser,deleteUser} from "API/serve.js";
+import { userList, userState, addUserState, updateUser,deleteUser,getRoleList, saveRole} from "API/serve.js";
 export default {
   created() {
     this.getUserData();
@@ -252,6 +274,7 @@ export default {
         }
       )
     },
+    // 修改角色的信息
    async editDelete(id){
    let res= await this.$confirm('此操作是不可逆的, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -276,6 +299,33 @@ export default {
             message:"取消删除!"
           })
         }
+    },
+  async  resetRoles(role){
+      //显示一个对话框
+      this.RoleVisible=true;
+      this.userInfo=role;
+      // 获取角色列表
+      let res=await getRoleList();
+      if(res.data.meta.status==200){
+        this.rolesAll=res.data.data;
+      }
+    },
+    // 根据下拉框改变用户的角色
+   async saveRole(){
+      let res=await saveRole(this.userInfo.id,this.selectRole);
+      if(res.data.meta.status==200){
+         this.$Message({
+          type:"success",
+          message:"设置成功!"
+        })
+        // 对表格的数据进行更新
+        this.getUserData();
+      }else{
+        this.$Message.error("设置失败!")
+      }
+      this.userInfo={};
+      this.selectRole="";
+      this.RoleVisible=false;
     }
   },
   data() {
@@ -301,11 +351,15 @@ export default {
     return {
       query: "",
       dialogVisible: false,
+      RoleVisible:false,
       pagenum: 1,
       pagesize: 2,
       flag: true,
       total: 0,
       editVisible: false,
+      userInfo:{},
+      selectRole:"",
+      rolesAll:[],
       tableData: [],
       ruleForm: {
         username: "",
