@@ -179,6 +179,9 @@
 <script>
 import { userList, userState, addUserState, updateUser,deleteUser,getRoleList, saveRole} from "API/serve.js";
 export default {
+  mounted(){
+    console.log(this)
+  },
   created() {
     this.getUserData();
   },

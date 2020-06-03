@@ -69,6 +69,11 @@ let saveRole=async(id,rid)=>{
   return axios.put(url,{rid:rid});
 
 }
+//获取商品列表数
+let getGoodcates=async(obj)=>{
+  let url=Baseurl+`categories`;
+  return axios.get(url,{params:obj});
+}
 export {
   getLogin,
   getMenus,
@@ -83,5 +88,6 @@ export {
   getRolesTree,
   updateRoles,
   getRoleList,
-  saveRole
+  saveRole,
+  getGoodcates
 }
