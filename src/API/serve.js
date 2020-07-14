@@ -66,14 +66,25 @@ let getRoleList=async()=>{
 // 对下拉框中的列表进行保存
 let saveRole=async(id,rid)=>{
   let url=Baseurl+`users/${id}/role`;
-  return axios.put(url,{rid:rid});
+  return await axios.put(url,{rid:rid});
 
 }
 //获取商品列表数
 let getGoodcates=async(obj)=>{
   let url=Baseurl+`categories`;
-  return axios.get(url,{params:obj});
+  return await axios.get(url,{params:obj});
 }
+// 获取父级列表的数据，发送网络请求
+let parentGoodCate=async (obj)=>{
+  let url=Baseurl+"categories";
+  return await axios.get(url,{params:obj})
+}
+// 级联选择框下的选择添加商品
+let addGoodCate=async (obj)=>{
+  let url=Baseurl+"categories";
+  return await axios.post(url,obj);
+}
+
 export {
   getLogin,
   getMenus,
@@ -89,5 +100,7 @@ export {
   updateRoles,
   getRoleList,
   saveRole,
-  getGoodcates
+  getGoodcates,
+  parentGoodCate,
+  addGoodCate
 }
