@@ -5,6 +5,7 @@ import Welcome from "./welcome/index.vue"
 import Roles from "./Roles/index.vue"
 import Role from "./userRole/index.vue"
 import categories from "./goods_cates/index.vue"
+import Cparamas from "./goods_params/index.vue"
 export {
     Home,
     login,
@@ -12,5 +13,6 @@ export {
     Welcome,
     Roles,
     Role,
-    categories
+    categories,
+    Cparamas
 }
