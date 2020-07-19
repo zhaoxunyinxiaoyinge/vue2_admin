@@ -35,9 +35,13 @@ let routes=[
           component:categories
         },
         {
-          path:"/goods_parmas",
+          path:"/params",
           component: Cparamas
-        }
+        },
+        {
+          path:"/goods",
+          component: Cparamas
+        },   
      ]
     }
 ]

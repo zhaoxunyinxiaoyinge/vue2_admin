@@ -17,7 +17,7 @@
             >添加商品列表</el-button
           >
         </el-col>
-        <!-- 表格占位 -->
+    <!-- 表格占位 -->
         <zk-table
           :data="cartList"
           :columns="columns"
@@ -26,7 +26,7 @@
           :show-index="true"
           index-text="#"
         >
-          <!-- 这里是使用的是插槽的功能 -->
+    <!-- 这里是使用的是插槽的功能 -->
           <template slot="isok" slot-scope="scope">
             <i
               class="el-icon-circle-check "
@@ -35,7 +35,7 @@
             ></i>
             <i class="el-icon-circle-close" v-else style="color:yellow"></i>
           </template>
-          <!-- 排序的魔板 -->
+    <!-- 排序的魔板 -->
           <template slot="order" slot-scope="scope">
             <el-tag type="success" size="mini" v-if="scope.row.cat_level == 0"
               >一级标签</el-tag
@@ -45,7 +45,7 @@
             >
             <el-tag type="primary" size="mini" v-else>三级标签</el-tag>
           </template>
-          <!-- 操作按钮的的显示 -->
+    <!-- 操作按钮的的显示 -->
           <template slot="opt">
             <el-button size="mini" icon="el-icon-edit" type="primary"
               >编辑</el-button
@@ -55,8 +55,8 @@
             >
           </template>
         </zk-table>
-        <!-- 是否列所用的摸板 -->
-        <!-- 这里显示的是页脚部分 -->
+    <!-- 是否列所用的摸板 -->
+    <!-- 这里显示的是页脚部分 -->
         <div class="footer">
           <el-pagination
             @size-change="handleSizeChange"
@@ -70,14 +70,14 @@
           </el-pagination>
         </div>
       </el-row>
-      <!--这里是显示的表单 -->
+    <!--这里是显示的表单 -->
       <el-dialog
         title="添加分类"
         :visible.sync="dialogVisible"
         width="30%"
         @close="clear"
       >
-        <!-- 验证表单的书写 -->
+    <!-- 验证表单的书写 -->
         <el-form
           :model="ruleForm"
           :rules="rules"
@@ -85,13 +85,13 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <!--这里的prop定义一个验证规则里面的属性 -->
+    <!--这里的prop定义一个验证规则里面的属性 -->
           <el-form-item label="分类名称" prop="cat_name">
             <el-input v-model="ruleForm.cat_name"></el-input>
           </el-form-item>
           <el-form-item label="父级分类">
-            <!-- 这里是级联选择器的使用 -->
-            <!-- 在级联选择器中指定一个prop配置单对象 -->
+    <!-- 这里是级联选择器的使用 -->
+    <!-- 在级联选择器中指定一个prop配置单对象 -->
             <el-cascader
               :props="cascader_set"
               v-model="selectkeys"
@@ -123,18 +123,18 @@ export default {
     return {
       // 这里是指定表单的参数
       ruleForm: {
-        // 选择的分类名称
+      // 选择的分类名称
         cat_name: "",
-        // 选择的父级分类id
+      // 选择的父级分类id
         cat_pid: 0,
-        // 选择的当前分类的等级
+      // 选择的当前分类的等级
         cat_level: 0,
       },
       // 这里是对表单的数据进行效验
       rules: {
         cat_name: [
           { required: true, message: "活动名称", trigger: "blur" },
-          // {min:5,max:20,message:'请输入指定地字长度',trigger:"blur"}
+      // {min:5,max:20,message:'请输入指定地字长度',trigger:"blur"}
         ],
       },
       // 这里指定地是查询参数
@@ -186,7 +186,7 @@ export default {
     };
   },
   created() {
-    // 获取商品分类数据列表
+     // 获取商品分类数据列表
     this.getCateslist();
   },
   methods: {

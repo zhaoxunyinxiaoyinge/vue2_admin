@@ -84,7 +84,32 @@ let addGoodCate=async (obj)=>{
   let url=Baseurl+"categories";
   return await axios.post(url,obj);
 }
+// 获取商品分类页下的属性参数数据
+let getAttrsData=async(id,attrId)=>{
+  let url=Baseurl+"categories/"+id;
+  return await axios.get(url+"/attributes",{params:{sel:attrId}});
+}
+// 给指定的商品添加一条动态属性，或者是静态属性
+let postAddAttribute=async(id,attr_name,attr_sel)=>{
+  let url=Baseurl+`categories/${id}`;
+  return await axios.post(url+"/attributes/",{attr_name,attr_sel})
 
+}
+//修改指定地商品的属性
+let updateAttribute=async(id,attrId,attr_name,attr_sel)=>{
+  let url=Baseurl+"categories/"+`${id}/attributes/${attrId}`;
+  return await axios.put(url,{attr_name,attr_sel});
+}
+// 删除指定地对应项目
+let deleteAttribute=async(id,attrId)=>{
+  let url=Baseurl+"categories/"+`${id}/attributes/${attrId}`;
+  return await axios.delete(url);
+}
+// 在tag下的属性标签写入数据库里面
+let postTagAttribute=async(id,attrId,obj)=>{
+  let url=Baseurl+"categories/"+`${id}/attributes/${attrId}`;
+  return await axios.put(url,obj);
+}
 export {
   getLogin,
   getMenus,
@@ -102,5 +127,11 @@ export {
   saveRole,
   getGoodcates,
   parentGoodCate,
-  addGoodCate
+  addGoodCate,
+  getAttrsData,
+  postAddAttribute,
+  updateAttribute,
+  deleteAttribute,
+  postTagAttribute,
+
 }

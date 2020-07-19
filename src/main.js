@@ -6,7 +6,7 @@ import ZkTable from 'vue-table-with-tree-grid'
 // import Store from "@/store/index.js"
 Vue.component(ZkTable.name, ZkTable)
 import{Button,Form,FormItem,Input,Icon,Message,Header,Main,Container,Aside,Menu,Submenu,MenuItem,Breadcrumb, BreadcrumbItem, Card
-,Col,Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog,MessageBox, Tag,Tree, Select, Option,Cascader} from "element-ui"
+,Col,Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog,MessageBox, Tag,Tree, Select, Option,Cascader, Alert, Tabs, TabPane} from "element-ui"
 import router from "./routes/index.js"
 import "./assets/css/reset.css"
 Vue.prototype.$Message=Message;
@@ -39,6 +39,9 @@ Vue.use(Tree);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(Cascader);
+Vue.use(Alert);
+Vue.use(Tabs);
+Vue.use(TabPane)
 Vue.prototype.$confirm=MessageBox.confirm;
 Vue.config.productionTip = false;
 // 这里主要是用vue-router-sync插件对router对象进行测试；
