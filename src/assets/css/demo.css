@@ -537,3 +537,6 @@ pre[class*="language-"] {
 .token.entity {
   cursor: help;
 }
+div.ql-editor{
+  min-height: 200px;
+}

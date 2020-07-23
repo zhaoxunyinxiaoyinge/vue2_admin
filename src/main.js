@@ -1,15 +1,33 @@
 import Vue from 'vue'
 import App from './App.vue'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import VueQuillEditor  from 'vue-quill-editor'
 //这里是将路由对象的转态放入到全局转态中去。
 //  import {sync} from "vuex-router-sync"
 import ZkTable from 'vue-table-with-tree-grid'
 // import Store from "@/store/index.js"
 Vue.component(ZkTable.name, ZkTable)
+// 在全局下注册一个时间过域器处理
+Vue.filter('fitlerTime',function(val){
+  let date=new Date(parseInt(val));
+  const year=date.getFullYear();
+  const month=(date.getMonth()+1).toString().padStart(2,"0");
+  const day=(date.getDate()).toString().padStart(2,'0');
+  const hh=(date.getHours()).toString().padStart(2,"0");
+  const mm=(date.getMinutes()).toString().padStart(2,'0');
+  const ss=(date.getSeconds()).toString().padStart(2,'0');
+  return `${year}-${month}-${day} ${hh}:${mm}:${ss}`;
+})
+
+
 import{Button,Form,FormItem,Input,Icon,Message,Header,Main,Container,Aside,Menu,Submenu,MenuItem,Breadcrumb, BreadcrumbItem, Card
-,Col,Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog,MessageBox, Tag,Tree, Select, Option,Cascader, Alert, Tabs, TabPane} from "element-ui"
+,Col,Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog,MessageBox, Tag,Tree, Select, Option,Cascader, Alert, Tabs, TabPane, Steps, Step, CheckboxGroup, Checkbox, Upload} from "element-ui"
 import router from "./routes/index.js"
 import "./assets/css/reset.css"
 Vue.prototype.$Message=Message;
+Vue.use(VueQuillEditor)
 Vue.use(Button);
 Vue.use(Form);
 Vue.use(FormItem);
@@ -41,7 +59,12 @@ Vue.use(Option);
 Vue.use(Cascader);
 Vue.use(Alert);
 Vue.use(Tabs);
-Vue.use(TabPane)
+Vue.use(TabPane);
+Vue.use(Steps);
+Vue.use(Step);
+Vue.use(CheckboxGroup);
+Vue.use(Checkbox);
+Vue.use(Upload);
 Vue.prototype.$confirm=MessageBox.confirm;
 Vue.config.productionTip = false;
 // 这里主要是用vue-router-sync插件对router对象进行测试；

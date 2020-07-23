@@ -110,6 +110,37 @@ let postTagAttribute=async(id,attrId,obj)=>{
   let url=Baseurl+"categories/"+`${id}/attributes/${attrId}`;
   return await axios.put(url,obj);
 }
+// 获取goods_list页面的表格数据源
+let goodsList=async(obj)=>{
+  let url=Baseurl+'goods';
+  return await axios.get(url,{params:obj})
+}
+// 商品列表编辑
+let goodsEdit=async(id,obj)=>{
+  let url=Baseurl+ `goods/${id}` ;
+  return await axios.put(url,obj);
+}
+// 商品删除操作
+let goodsDel=async(id)=>{
+  let url=Baseurl+`goods/${id}`;
+  return await axios.delete(url);
+}
+// 商品添加操作
+let goodsAdd=async()=>{
+  let url=Baseurl+"goods/";
+  return await axios.post(url);
+}
+// 在商品列表下参数面板的编辑页面，下发送一个网络请求
+let getGoodsListTabarg=async(id,obj)=>{
+  let url=`${Baseurl}categories/${id}/attributes`;
+  return await axios.get(url,{params:obj});
+
+}
+// 将goods添加页面中添加地商品添加到数据库
+let postGoodsForm=async(obj)=>{
+let url=Baseurl+"goods/";
+return await axios.post(url,obj)
+}
 export {
   getLogin,
   getMenus,
@@ -133,5 +164,10 @@ export {
   updateAttribute,
   deleteAttribute,
   postTagAttribute,
-
+  goodsList,
+  goodsEdit,
+  goodsDel,
+  goodsAdd,
+  getGoodsListTabarg,
+  postGoodsForm
 }

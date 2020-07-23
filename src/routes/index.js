@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router"
-import {login,Home,User,Welcome,Roles,Role,categories, Cparamas} from "components/index.js"
+import {login,Home,User,Welcome,Roles,Role,categories, Cparamas,GoodsList,GoodsAdd} from "components/index.js"
+
 // import strs from "./type.js";
 // console.log(strs)
 Vue.use(Router);
@@ -40,8 +41,16 @@ let routes=[
         },
         {
           path:"/goods",
-          component: Cparamas
-        },   
+          component: GoodsList,
+        }, 
+        {
+          path:"/goods/add",
+          meta:{
+            hidden:true,
+            edit:false
+          },
+          component:GoodsAdd
+        }  
      ]
     }
 ]

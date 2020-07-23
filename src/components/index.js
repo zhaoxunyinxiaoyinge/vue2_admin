@@ -6,6 +6,8 @@ import Roles from "./Roles/index.vue"
 import Role from "./userRole/index.vue"
 import categories from "./goods_cates/index.vue"
 import Cparamas from "./goods_params/index.vue"
+import GoodsList from "./goods_list/index.vue"
+import GoodsAdd from "./goods_list/add.vue"
 export {
     Home,
     login,
@@ -14,5 +16,7 @@ export {
     Roles,
     Role,
     categories,
-    Cparamas
+    Cparamas,
+    GoodsList,
+    GoodsAdd
 }

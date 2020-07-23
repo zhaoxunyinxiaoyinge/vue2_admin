@@ -7,3 +7,6 @@ html,body,#app {
 input:-internal-autofill-selected {
     background-color: #fff;
 }
+.ql-editor {
+    min-height: 200px;
+}
