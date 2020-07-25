@@ -8,6 +8,7 @@ import categories from "./goods_cates/index.vue"
 import Cparamas from "./goods_params/index.vue"
 import GoodsList from "./goods_list/index.vue"
 import GoodsAdd from "./goods_list/add.vue"
+import goodsOrder from "./goods_order/index.vue"
 export {
     Home,
     login,
@@ -18,5 +19,6 @@ export {
     categories,
     Cparamas,
     GoodsList,
-    GoodsAdd
+    GoodsAdd,
+    goodsOrder
 }

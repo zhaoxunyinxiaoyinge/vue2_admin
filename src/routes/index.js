@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router"
-import {login,Home,User,Welcome,Roles,Role,categories, Cparamas,GoodsList,GoodsAdd} from "components/index.js"
+import {login,Home,User,Welcome,Roles,Role,categories, Cparamas,GoodsList,GoodsAdd,goodsOrder} from "components/index.js"
 
 // import strs from "./type.js";
 // console.log(strs)
@@ -50,7 +50,11 @@ let routes=[
             edit:false
           },
           component:GoodsAdd
-        }  
+        },
+        {
+          path:"/orders",
+          component:goodsOrder
+        }
      ]
     }
 ]

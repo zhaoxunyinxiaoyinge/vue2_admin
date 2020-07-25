@@ -141,6 +141,16 @@ let postGoodsForm=async(obj)=>{
 let url=Baseurl+"goods/";
 return await axios.post(url,obj)
 }
+// 请求订单列表的数据
+let orderlist=async(obj)=>{
+  let url=Baseurl+"orders/";
+  return await axios.get(url,{params:obj});
+}
+// 快递物流信息查询
+let wuliuInfo=async()=>{
+  let url=Baseurl+"kuaidi/804909574412544580";
+  return await axios.get(url);
+}
 export {
   getLogin,
   getMenus,
@@ -169,5 +179,7 @@ export {
   goodsDel,
   goodsAdd,
   getGoodsListTabarg,
-  postGoodsForm
+  postGoodsForm,
+  orderlist,
+  wuliuInfo
 }

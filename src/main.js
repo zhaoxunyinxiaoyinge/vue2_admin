@@ -23,7 +23,7 @@ Vue.filter('fitlerTime',function(val){
 
 
 import{Button,Form,FormItem,Input,Icon,Message,Header,Main,Container,Aside,Menu,Submenu,MenuItem,Breadcrumb, BreadcrumbItem, Card
-,Col,Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog,MessageBox, Tag,Tree, Select, Option,Cascader, Alert, Tabs, TabPane, Steps, Step, CheckboxGroup, Checkbox, Upload} from "element-ui"
+,Col,Row, Table, TableColumn, Switch, Tooltip, Pagination, Dialog,MessageBox, Tag,Tree, Select, Option,Cascader, Alert, Tabs, TabPane, Steps, Step, CheckboxGroup, Checkbox, Upload, TimelineItem, Timeline} from "element-ui"
 import router from "./routes/index.js"
 import "./assets/css/reset.css"
 Vue.prototype.$Message=Message;
@@ -65,6 +65,8 @@ Vue.use(Step);
 Vue.use(CheckboxGroup);
 Vue.use(Checkbox);
 Vue.use(Upload);
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 Vue.prototype.$confirm=MessageBox.confirm;
 Vue.config.productionTip = false;
 // 这里主要是用vue-router-sync插件对router对象进行测试；
