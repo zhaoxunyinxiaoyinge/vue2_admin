@@ -133,7 +133,7 @@
       <!-- 弹出框显示级联框和表单验证 -->
       <!-- 物流快递对话框显示 -->
       <el-dialog
-      class="el-timeline"
+        class="el-timeline"
         title="物流信息提示"
         :visible.sync="infodialogVisible"
         width="30%"
@@ -161,9 +161,9 @@ export default {
       orderSearch: "",
       dialogVisible: false,
       wuliudialogVisible: false,
-      wuliuData:[],
-      infodialogVisible:false,
-      reverse:true,
+      wuliuData: [],
+      infodialogVisible: false,
+      reverse: true,
       orderData: [],
       orderForm: {
         addressOne: "",
@@ -233,12 +233,13 @@ export default {
       this.orderData = res.data.data.goods;
     },
     async getwuliuInfo() {
+      this.infodialogVisible = true;
       let res = await wuliuInfo();
+      console.log(res.data.data, "wuliuxinxi");
       if (res.data.meta.status != 200) {
         return this.$Message.error("信息查询失败!");
       }
-      this.wuliuData=res.data.data;
-      this.infodialogVisible=true;
+      this.wuliuData = res.data.data;
     },
     handleCurrentChange(num) {
       this.query.currentPage = num;

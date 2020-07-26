@@ -151,6 +151,11 @@ let wuliuInfo=async()=>{
   let url=Baseurl+"kuaidi/804909574412544580";
   return await axios.get(url);
 }
+// 直线图数据的获取
+let getReports=async()=>{
+  let url=Baseurl+"reports/type/1";
+  return await axios.get(url);
+}
 export {
   getLogin,
   getMenus,
@@ -181,5 +186,6 @@ export {
   getGoodsListTabarg,
   postGoodsForm,
   orderlist,
-  wuliuInfo
+  wuliuInfo,
+  getReports
 }
