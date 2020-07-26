@@ -36,8 +36,10 @@
     "babel-preset-es2015": "^6.24.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "husky": "^4.2.5",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "lint-staged": "^10.2.11",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -52,9 +54,14 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {
-      
-    }
+    "rules": {}
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix --ext .js",
+      "prettier --write",
+      "git add"
+    ]
   },
   "browserslist": [
     "> 1%",
