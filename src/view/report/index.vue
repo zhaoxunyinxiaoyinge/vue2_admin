@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import {getReports} from "@/API/serve.js"
+// import {getReports} from "@/API/serve.js"
 import _ from "lodash"
 import Echarts from "echarts";
 export default {
