@@ -7,3 +7,11 @@ export const getMenus = params => {
     params
   });
 };
+
+export const getUserInfo = params => {
+  return Fetch({
+    url: "/userinfo",
+    methods: "get",
+    params
+  });
+};

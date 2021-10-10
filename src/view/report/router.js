@@ -4,16 +4,17 @@ export default [
     path: "/report",
     component: Layout,
     meta: {
-      title: "报表",
+      title: "图表echarts",
       hidden: false,
-      icon: ""
+      icon: "el-icon-printer"
     },
+    redirect: "/report/index",
     children: [
       {
         path: "index",
         component: () => import("./index.vue"),
         meta: {
-          title: "报表页",
+          title: "常用图表",
           hidden: false,
           icon: ""
         }

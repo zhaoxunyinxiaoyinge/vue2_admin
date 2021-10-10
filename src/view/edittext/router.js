@@ -1,20 +1,21 @@
 import Layout from "./../../layout";
 export default [
   {
-    path: "/welcome",
+    name: "editext",
+    path: "/editext",
     component: Layout,
     meta: {
-      title: "系统主页",
+      title: "文本编辑器",
       hidden: false,
-      icon: "el-icon-monitor"
+      icon: "el-icon-edit-outline"
     },
-    redirect: "/welcome/index",
+    redirect: "/editext/index",
     children: [
       {
         path: "index",
         component: () => import("./index.vue"),
         meta: {
-          title: "系统页面",
+          title: "编辑器",
           hidden: false,
           icon: ""
         }

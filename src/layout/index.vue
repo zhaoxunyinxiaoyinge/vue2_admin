@@ -2,56 +2,90 @@
   <el-container class="el-fulled">
     <Header />
     <el-container class="el-content">
-      <el-aside :width="collapse ? '50px' : '200px'">
-        <div class="collapse" @click="oncollapse">|||</div>
-        <side-bar />
+      <el-aside class="aside">
+        <el-scrollbar style="height: 100%">
+          <div class="collapse" @click="oncollapse">
+            <span class="el-icon-s-fold"></span>
+          </div>
+
+          <Mains ref="main">
+            <SideBar
+              :datas="item"
+              v-for="(item, index) in menuList"
+              :key="index"
+              :baseRoutePath="item.path"
+            ></SideBar>
+          </Mains>
+        </el-scrollbar>
       </el-aside>
       <el-main>
-        <transition mode="out-in">
-          <router-view></router-view>
-        </transition>
+        <BreadCrumb :data="breadCrumb" />
+        <route-tag />
+
+        <div class="content">
+          <el-scrollbar style="height: 100%">
+            <back-to></back-to>
+            <transition mode="out-in">
+              <router-view></router-view>
+            </transition>
+          </el-scrollbar>
+        </div>
       </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
-import sideBar from "@/layout/components/sideItem.vue";
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+import Mains from "./components/mains.vue";
+import SideBar from "./components/sideBar.vue";
+import Header from "./components/header.vue";
+import RouteTag from "./components/routeTag.vue";
+import BreadCrumb from "./components/breaked.vue";
+import BackTo from "./components/backTo.vue";
 
 export default {
-  components: { sideBar },
+  components: { Mains, SideBar, Header, RouteTag, BreadCrumb, BackTo },
   created() {
-    // this.getMenu();
     this.$nextTick(() => {
-      // let res = window.sessionStorage.getItem("datapath");
-      // this.datapath = res;
+      console.log(this.routes, 4444);
     });
   },
   data() {
     return {
       menuList: [],
-      collapse: false,
       datapath: "",
+      baseRoutePath: "/",
+      breadCrumb: [],
     };
   },
 
   mounted() {
-
+    this.menuList = this.routes;
   },
 
   computed: {
-    ...mapState("perssion", ["name"]),
+    ...mapState("perssion", ["routes"]),
   },
   methods: {
+    ...mapMutations("app", ["ADD_ROUTE_TAG"]),
     logOut() {
       window.sessionStorage.clear();
       this.$router.push("/login");
     },
+
     oncollapse() {
-      this.collapse = !this.collapse;
+      this.$refs.main.handleClose();
     },
-    getpath(res) {},
+  },
+  watch: {
+    $route: {
+      handler: function(val, old) {
+        this["ADD_ROUTE_TAG"]({ title: val.meta.title, path: val.fullPath });
+      },
+      deep: true,
+      immediate: true,
+    },
   },
 };
 </script>
@@ -61,39 +95,27 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.el-header {
-  background: #333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  padding: 0 20px;
-  div.title {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    img {
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      margin-right: 20px;
-    }
-    h1 {
-      font-size: 18px;
-      font-weight: normal;
-    }
-  }
-}
+
 .el-content {
   flex: 1;
   display: flex;
+  overflow: hidden;
 }
+
+.aside {
+  width: auto !important;
+}
+
+.aside /deep/ .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+
 .el-aside {
-  background-color: #222;
+  background-color: #2b6447;
   height: 100%;
   .collapse {
     height: 30px;
-    background-color: #ccc;
+    background-color: #0f0808;
     text-align: center;
     cursor: pointer;
     line-height: 30px;
@@ -101,30 +123,32 @@ export default {
     color: #fff;
     letter-spacing: 2px;
   }
-  .el-menu {
-    background: #222;
-    // color:#fff;
-    border-right: 0;
-    .el-submenu {
-      span {
-        // color:#fff;
-      }
-      i.iconfont {
-        margin-right: 20px;
-        color: #fff;
-      }
-      .el-menu-item {
-        background: #333;
-        span {
-          // color:#ccc;
-        }
-      }
-    }
-  }
 }
 .el-main {
-  background-color: #f8f8f8;
+  background-color: #eee;
   height: 100%;
   flex: 1;
+  padding: 0;
+  text-align: left;
+  padding: 0 5px;
+  /deep/ .el-scrollbar__wrap {
+    overflow-x: hidden;
+  }
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.back {
+  // position: fixed;
+  // right:30px;
+  // bottom:100px;
+  // z-index: 40;
 }
 </style>

@@ -15,9 +15,9 @@ axios.interceptors.request.use(
   }
 );
 axios.interceptors.response.use(
-  function(response) {
+  function(resp) {
     NProgress.done();
-    return response;
+    return resp;
   },
   function(error) {
     return Promise.reject(error);

@@ -1,3 +1,4 @@
+import { template } from "lodash";
 import { getMenus } from "./../api";
 
 let module = require.context("./../../view", true, /router.js/);
@@ -12,11 +13,12 @@ export default {
   namespaced: true,
   state: {
     routes: [],
-    name: "xiwomeei"
+    menus: []
   },
 
   mutations: {
-    GET_FILTER_ROUTES(state, playLoad) {
+    ["GET_FILTER_ROUTES"](state, playLoad) {
+      state.menus = playLoad;
       let res = filterAsyncRoutes(asyncRoute, playLoad);
       state.routes = res;
     }
@@ -38,25 +40,23 @@ function hasPermission(roles, route) {
   if (route.meta && route.meta.roles) {
     return roles.some(role => route.meta.roles.includes(role));
   } else {
+    // 如果没有角色，也让它通过。
     return true;
   }
 }
 
 function filterAsyncRoutes(routes, roles) {
-  const res = [];
-
+  let res = [];
   routes.forEach(route => {
     const tmp = {
       ...route
     };
-
-    if (hasPermission(roles, tmp)) {
+    if (hasPermission(roles, route)) {
       if (tmp.children) {
         tmp.children = filterAsyncRoutes(tmp.children, roles);
       }
       res.push(tmp);
     }
   });
-
   return res;
 }

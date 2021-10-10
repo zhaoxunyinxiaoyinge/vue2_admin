@@ -79,7 +79,7 @@ export default {
           let token = ret.data.data.token;
           window.sessionStorage.setItem("token", token);
           this.$Message({
-            message: "请成功!",
+            message: "登录成功!",
             type: "success",
           });
           console.log(this.$router)
@@ -120,7 +120,8 @@ export default {
 </script>
 <style lang="less" scoped>
 div.from {
-  background-color: #333;
+  background:url("./img/bg.jpeg")  no-repeat;
+  background-size: cover;
   height: 100%;
   width: 100%;
   position: relative;
@@ -133,7 +134,7 @@ div.from {
     left: 0;
     right: 0;
     margin: auto;
-    background-color: #fff;
+    background-color: #ffffff;
     border-radius: 10px;
     h2 {
       font-size: 16px;

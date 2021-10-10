@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <title><%= htmlWebpackPlugin.options.isProd ? 'prodution':"dev-开发模式" %></title>
+    <title>
+      <%= htmlWebpackPlugin.options.isProd ? 'prodution':"dev-开发模式" %>
+    </title>
     <!-- 根据产品的模式，只在生产模式下，cdn加载文件，提高线上加载地速度，如果是开发模式，只需import导入即可 -->
     <% if (htmlWebpackPlugin.options.isProd) { %>
     <link
@@ -26,10 +28,19 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.snow.css"
       href="
 https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
     />
-    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/fonts/element-icons.ttf"/>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/fonts/element-icons.woff">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/index.css">
- 
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/fonts/element-icons.ttf"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/fonts/element-icons.woff"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/index.css"
+    />
+
     <script src="https://cdn.staticfile.org/vue/3.0.0-rc.4/vue.cjs.prod.min.js"></script>
     <script src="https://cdn.staticfile.org/vue-router/4.0.0-beta.3/vue-router.cjs.prod.js"></script>
     <script src="https://cdn.staticfile.org/axios/0.20.0-0/axios.min.js"></script>
@@ -37,9 +48,10 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
     <script src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
     <script src="https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.min.js"></script>
     <script src="https://cdn.staticfile.org/element-ui/2.13.2/index.js"></script>
-    <%  }%>
+    <% }%>
   </head>
-  <body>
+
+  <body style="font-size: 16px;">
     <noscript>
       <strong
         >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
@@ -50,4 +62,18 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    function setRem() {
+    // 基准大小
+      const baseSize=192;
+      let size=window.innerWidth*baseSize/1920;
+      document.documentElement.style.fontSize=size+"px"
+  }
+  // 初始化
+  setRem();
+  // 改变窗口大小时重新设置 rem
+  window.onresize = () => {
+    setRem();
+  };
+</script>
 </html>

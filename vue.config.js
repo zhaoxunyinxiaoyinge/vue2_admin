@@ -3,6 +3,10 @@ const { link } = require("fs");
 function resolve(dir){
     return path.join(__dirname,dir);
 }
+
+console.log(process.env.NODE_ENV,"55555,env")
+
+
 module.exports={
     // 这里是配置一个vue的路径
     chainWebpack:(config)=>{
@@ -31,6 +35,7 @@ module.exports={
 			})
 		})
 		config.when(process.env.NODE_ENV=="development",config=>{
+			console.log("456")
 			config.entry("app").clear().add("./src/main-dev.js");
 		// 通过区分生产模式和开发模式，在webpackHtmlPlugin上添加一个参数，用于判别当前环境是开发环境还是生产环境	
 			config.plugin("html").tap(args=>{

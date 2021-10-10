@@ -10,18 +10,21 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start();
 
   // 本地不存在，那么我从全局转态里面获取
-  // let token = store.getters["app/getToken"];
-  let token = "";
+  let token = store.getters["app/getToken"];
   if (!token) {
     token = window.sessionStorage.getItem("token");
+    let rightToken = await store.dispatch("app/getUserInfo", { token });
+    console.log(rightToken, "right");
+    if (!rightToken) {
+      store.commit("app/CLEAR_TOKEN");
+    }
   }
 
   if (token) {
     if (to.path === "/login") {
       next({
-        path: "/danbord"
+        path: "/"
       });
-
       NProgress.done();
     } else {
       let route = store.state.perssion.routes;
@@ -33,15 +36,7 @@ router.beforeEach(async (to, from, next) => {
           await store.dispatch("perssion/getMenu");
           let roles = store.getters["perssion/routeRole"];
 
-          // roles.forEach((item) => {
-          //   router.addRoutes.addRoutes(item);
-          // });
-
-          // router.addRoutes({
-          //   path: "*",
-          //   component: () => import("./components/notFound"),
-          // });
-
+          router.addRoutes(roles);
           next({
             path: to.path,
             replace: true
