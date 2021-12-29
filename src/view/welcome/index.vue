@@ -9,6 +9,9 @@
         <el-button size="mini" type="success" class="copy" ref="btn" data-clipboard-text="xiaomei">直接复制当前属性文本</el-button>
         <el-button size="mini" type="success" class="cut"  >事件委托方式使用</el-button>
       </div>
+      <div style="margin-top:20px">
+         <el-button type="primary"  @click="toggleImage" size="small">更换头像图片</el-button>
+      </div>
       <el-image
         class="img"
         :preview-src-list="imgList"
@@ -18,10 +21,12 @@
       ></el-image>
       <div slot="error">图片加载错误</div>
     </el-card>
+    <Avatar ref="avatar"  />
   </div>
 </template>
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
+import Avatar from "./avatar.vue"
 import { copyText } from "./../../utils/copy";
 
 export default {
@@ -44,7 +49,15 @@ export default {
       copyText(".cut");
     })
   },
+
+  components:{
+    Avatar
+  },
+
   methods: {
+    toggleImage(){
+      this.$refs.avatar.handleShow();
+    }
   },
 };
 </script>

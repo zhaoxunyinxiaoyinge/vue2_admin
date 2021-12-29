@@ -81,6 +81,18 @@ const getMenus = () => {
               roles: ["admin"]
             }
           ]
+        },
+        {
+          id: "1-6",
+          path: "directer",
+          roles: ["admin"],
+          children: [
+            {
+              id: "1-6-1",
+              path: "index",
+              roles: ["admin"]
+            }
+          ]
         }
       ]
     };
@@ -517,6 +529,31 @@ export const getLoadMore = params => {
   });
 };
 
+export const getDirecter = params => {
+  return Mock.mock("/getdirectdata", "get", {
+    data: {
+      message: "ok",
+      status: 200,
+      "data|10": [
+        {
+          "id|+1": 0,
+          name: Random.name(),
+          "age|+1": 26,
+          avatar: Random.image("200x100", "#FF6600"),
+          place: Random.name(),
+          "xueji|1": ["高中", "小学", "大学", "学士"],
+          idNum: 345,
+          "xueli|1": ["湖北", "湖南", "江苏", "广东"],
+          "shenfen|1": ["农民", "技术工程师"],
+          "zhuji|1": ["后瑞", "宝安", "前海", "桃园"],
+          "shouru|11160-1001111": Random.natural(11160, 1001111),
+          "sex|1": ["男", "女"]
+        }
+      ]
+    }
+  });
+};
+
 export const runMock = function() {
   login();
   getMenus();
@@ -525,6 +562,7 @@ export const runMock = function() {
   getCharts();
   getCarouseList();
   getLoadMore();
+  getDirecter();
 };
 
 function getSearchParams(val) {

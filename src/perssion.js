@@ -14,7 +14,7 @@ router.beforeEach(async (to, from, next) => {
   if (!token) {
     token = window.sessionStorage.getItem("token");
     let rightToken = await store.dispatch("app/getUserInfo", { token });
-    console.log(rightToken, "right");
+
     if (!rightToken) {
       store.commit("app/CLEAR_TOKEN");
     }

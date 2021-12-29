@@ -1,4 +1,3 @@
-import { template } from "lodash";
 import { getMenus } from "./../api";
 
 let module = require.context("./../../view", true, /router.js/);

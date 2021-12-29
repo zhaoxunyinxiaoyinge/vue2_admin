@@ -23,6 +23,8 @@ import ElFormRenderer from "@femessage/el-form-renderer";
 import { sync } from "vuex-router-sync";
 import ZkTable from "vue-table-with-tree-grid";
 
+require("./directers/index");
+
 //自动注册运行mock
 import { runMock } from "./mock";
 
@@ -57,6 +59,8 @@ Vue.filter("fitlerTime", function(val) {
     .padStart(2, "0");
   return `${year}-${month}-${day} ${hh}:${mm}:${ss}`;
 });
+
+// 自定指令
 
 import {
   Button,
