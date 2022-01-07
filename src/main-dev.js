@@ -13,6 +13,9 @@ import enLocale from "element-ui/lib/locale/lang/en";
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 import ElementLocale from "element-ui/lib/locale";
 
+import { dynamicGetEquipment } from "@/utils/equipmentType";
+dynamicGetEquipment();
+
 import store from "./store";
 
 // 支持表格的渲染
@@ -21,6 +24,7 @@ import ElFormRenderer from "@femessage/el-form-renderer";
 
 //这里是将路由对象的转态放入到全局转态中去。
 import { sync } from "vuex-router-sync";
+
 import ZkTable from "vue-table-with-tree-grid";
 
 require("./directers/index");
@@ -109,11 +113,14 @@ import {
   CarouselItem,
   Scrollbar,
   Backtop,
-  InfiniteScroll
+  InfiniteScroll,
+  ColorPicker
 } from "element-ui";
 import { router } from "./routes/index.js";
 import "./assets/css/reset.css";
-import Axios from "axios";
+// import "./assets/element-ui-css/index.css"
+// import "./../theme/index.css"
+import "@/assets/scss/index.scss";
 
 require("./perssion");
 
@@ -164,6 +171,7 @@ Vue.use(CarouselItem);
 Vue.use(Scrollbar);
 Vue.use(Backtop);
 Vue.use(InfiniteScroll);
+Vue.use(ColorPicker);
 
 Vue.use(VueI18n);
 Vue.use(Carousel);
@@ -196,6 +204,8 @@ Vue.config.productionTip = false;
 // 这里主要是用vue-router-sync插件对router对象进行测试；
 //当我们需要在vuex的action中处理路由跳转的时候,没认识vuex-router-sync的时候,我一般都是直接拿到router对象,方便获取路由对象。
 // sync(Store, router)
+Vue.prototype.$ELEMENT = { size: "small" }; //统一设置组件的尺寸大小
+
 new Vue({
   i18n,
   store,

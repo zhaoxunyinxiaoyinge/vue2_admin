@@ -53,9 +53,14 @@
       </el-table-column>
 
       <el-table-column prop="sex" label="性别" align="center"></el-table-column>
-      <div slot="append" style="width:700px">
-        <span>xiaomeyin</span>
-      </div>
+      <el-table-column  fixed="right" width='280'>
+          <template>
+              <el-button type="primary" size="small">新增</el-button>
+              <el-button type="danger"  size="small">删除</el-button>
+              <el-button type="warning"  size="small">修改</el-button>
+              <el-button type="default"  size="small">查看</el-button>
+          </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>

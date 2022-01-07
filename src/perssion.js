@@ -34,9 +34,11 @@ router.beforeEach(async (to, from, next) => {
       } else {
         try {
           await store.dispatch("perssion/getMenu");
-          let roles = store.getters["perssion/routeRole"];
 
+          let roles = store.getters["perssion/routeRole"];
+          console.log(roles, "roles");
           router.addRoutes(roles);
+
           next({
             path: to.path,
             replace: true

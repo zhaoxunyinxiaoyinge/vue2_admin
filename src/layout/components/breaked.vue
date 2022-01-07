@@ -1,13 +1,17 @@
 <template>
   <div class="bread-crumb">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item
-        v-for="(item, index) in breadCrumb"
-        :key="index"
-        :to="{ path: '/' }"
-        >{{ item.title }}</el-breadcrumb-item
+      <el-breadcrumb-item :to="'/'" >面板</el-breadcrumb-item
       >
-    </el-breadcrumb>
+      <template  v-for="(item, index) in breadCrumb">
+        <el-breadcrumb-item
+          v-if="item.title&&item.path!=='/danbord'"
+          :key="index"
+          :to="{ path: item.path }"
+          >{{ item.title }}</el-breadcrumb-item
+        >
+          </template>
+      </el-breadcrumb>
   </div>
 </template>
 <script>
@@ -35,7 +39,10 @@ export default {
 .bread-crumb {
   display: flex;
   align-items: center;
-  height: 30px;
+  width:100%;
+  height: 40px;
+  line-height: 40px;
   padding-left: 10px;
+  font-weight: bolder;
 }
 </style>

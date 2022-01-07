@@ -1,17 +1,17 @@
 <template>
-  <div class="item">
+  <div class="item" >
     <i class="icon" :class="icon"></i>
     <span class="title">{{ title }}</span>
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex"
 export default {
   name: "icon-title",
   data() {
     return {};
   },
-  inject: ["isCollapse"],
   props: {
     icon: {
       type: String,
@@ -26,6 +26,9 @@ export default {
       },
     },
   },
+  computed:{
+    ...mapState('app',['openSidebar'])
+  }
 };
 </script>
 

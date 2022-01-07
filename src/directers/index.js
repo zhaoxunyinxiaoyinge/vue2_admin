@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-12-05 10:13:52
- * @LastEditTime: 2021-12-05 20:12:22
- * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \vue-管理系统\vue2_admin\src\directers\index.js
- */
 import Vue from "vue";
 
 Vue.directive("select-blur", {

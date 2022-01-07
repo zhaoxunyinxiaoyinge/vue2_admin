@@ -18,7 +18,7 @@ export default {
   mutations: {
     ["GET_FILTER_ROUTES"](state, playLoad) {
       state.menus = playLoad;
-      let res = filterAsyncRoutes(asyncRoute, playLoad);
+      let res = filterAsyncRoutes(asyncRoute, ["admin"]);
       state.routes = res;
     }
   },
@@ -29,17 +29,17 @@ export default {
 
   actions: {
     async getMenu({ commit, dispatch }) {
-      let { data } = await getMenus();
-      commit("GET_FILTER_ROUTES", data.data);
+      // let { data } = await getMenus();权限路由和本地路由其实是一回事。
+      commit("GET_FILTER_ROUTES", orderRoute(asyncRoute));
     }
   }
 };
 
 function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role));
+  if (route.roles && route.roles) {
+    return roles.some(role => route.roles.includes(role));
   } else {
-    // 如果没有角色，也让它通过。
+    // 如果没有角色,默认是全部通过，也让它通过。
     return true;
   }
 }
@@ -50,6 +50,7 @@ function filterAsyncRoutes(routes, roles) {
     const tmp = {
       ...route
     };
+    console.log(hasPermission(roles, route, "333"));
     if (hasPermission(roles, route)) {
       if (tmp.children) {
         tmp.children = filterAsyncRoutes(tmp.children, roles);
@@ -57,5 +58,11 @@ function filterAsyncRoutes(routes, roles) {
       res.push(tmp);
     }
   });
+  return res;
+}
+
+function orderRoute(data) {
+  let res = data.sort((cur, next) => cur.order - next.order);
+  console.log(res, "order");
   return res;
 }

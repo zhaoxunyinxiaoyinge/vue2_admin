@@ -1,16 +1,11 @@
 <template>
   <div class="carousel">
-    <el-carousel  :interval="2000" arrow="always">
-      <el-carousel-item v-for="(item, index) in list" :key="index">
+    <el-carousel :interval="2000" type="card" height="500px">
+      <el-carousel-item v-for="(item, index) in carList" :key="index">
         <el-image class="img" :src="item.imgurl"></el-image>
       </el-carousel-item>
     </el-carousel>
-
-    <el-carousel :interval="2000" type="card" height="200px">
-      <el-carousel-item v-for="(item, index) in carList" :key="index">
-         <el-image class="img" :src="item.imgurl"></el-image>
-      </el-carousel-item>
-    </el-carousel>
+    <el-divider></el-divider>
   </div>
 </template>
 <script>
@@ -21,7 +16,7 @@ export default {
   data() {
     return {
       list: [],
-      carList:[]
+      carList: [],
     };
   },
 
@@ -33,7 +28,7 @@ export default {
     async getList() {
       let data = await getImageList();
       this.list = data.data.data.data;
-      this.carList=data.data.data.data;
+      this.carList = data.data.data.data;
     },
   },
 };
@@ -62,12 +57,11 @@ export default {
   text-align: center;
 }
 
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-  
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
 
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
 </style>

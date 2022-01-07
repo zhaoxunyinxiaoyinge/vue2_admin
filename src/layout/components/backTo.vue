@@ -22,13 +22,13 @@ export default {
 
 <style scoped lang="scss">
   .back {
-    // cursor: pointer;
-    // position: fixed;
-    // right:40px;
-    // bottom:50px;
-    // width: 50px;
-    // height: 50px;
-    // z-index: 20
+    cursor: pointer;
+    position: fixed;
+    right:40px;
+    bottom:50px;
+    width: 50px;
+    height: 50px;
+    z-index: 20
   }
   .icon {
     font-size: 24px;

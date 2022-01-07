@@ -3,12 +3,14 @@ export default [
   {
     path: "/user",
     component: Layout,
-    meta: {
-      title: "常用组件",
-      hidden: false,
-      icon: "el-icon-document-add"
-    },
     redirect: "/user/index",
+    order: 7,
+    meta: {
+      title: "表格组件",
+      hidden: false,
+      icon: "el-icon-s-custom"
+    },
+    roles: ["admin", "edit", "view", "delete", "update"],
     children: [
       {
         path: "index",
@@ -16,8 +18,9 @@ export default [
         meta: {
           title: "tabel组件",
           hidden: false,
-          icon: ""
-        }
+          icon: "el-icon-data-line"
+        },
+        order: 1
       },
       {
         path: "roles",
@@ -25,8 +28,10 @@ export default [
         meta: {
           title: "用户角色",
           hidden: false,
-          icon: ""
-        }
+          icon: "el-icon-s-custom"
+        },
+        roles: ["admin", "edit", "view", "delete", "update"],
+        order: 2
       }
     ]
   }

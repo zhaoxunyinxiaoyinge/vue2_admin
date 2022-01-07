@@ -4,9 +4,6 @@ function resolve(dir){
     return path.join(__dirname,dir);
 }
 
-console.log(process.env.NODE_ENV,"55555,env")
-
-
 module.exports={
     // 这里是配置一个vue的路径
     chainWebpack:(config)=>{

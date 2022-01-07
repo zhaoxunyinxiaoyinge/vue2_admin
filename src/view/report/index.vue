@@ -79,7 +79,7 @@ export default {
 <style scoped>
 .tabel {
   margin-top: 20px;
-   box-sizing: border-box;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 24% 24% 24% 24%;
   grid-template-rows: 251px 251px;
@@ -92,6 +92,21 @@ export default {
   background-color: #fff;
   border-radius: 5px; 
 
+}
+
+@media screen and (max-width: 769px) {
+  .tabel {
+  grid-template-columns:99%;
+  grid-template-rows: 251px 251px;
+ }   
+}
+
+
+@media screen and (min-width: 770px) and (max-width: 1024px) {
+  .tabel {
+  grid-template-columns:48% 48%;
+  grid-template-rows: 251px 251px;
+ }   
 }
 
 

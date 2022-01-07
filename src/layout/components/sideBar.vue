@@ -1,33 +1,35 @@
 <template>
-  <div v-if="!datas.meta.hidden" class="sideBar">
+  <div v-if="child.meta && !child.meta.hidden" class="sideBar">
     <template
       v-if="
-        hasOnyChilds(datas.children, datas) &&
+        hasOnyChild(child.children, child) &&
           (!onlyOneChild.children || onlyOneChild.noShowingChildren)
       "
     >
-      <el-menu-item
-        class="menu-item"
-        :index="resovlePath(baseRoutePath, onlyOneChild.path)"
-      >
-        <el-tooltip
-          :disabled="!isCollapse"
-          :content="datas.meta.title"
-          placement="right"
-        >
-          <Item :title="datas.meta.title" :icon="datas.meta.icon" />
-        </el-tooltip>
+      <el-menu-item class="menu-item" :index="resovlePath(onlyOneChild.path)">
+        <template slot="title">
+          <Item
+            :title="onlyOneChild.meta.title"
+            :icon="onlyOneChild.meta.icon"
+          />
+        </template>
       </el-menu-item>
     </template>
-    <el-submenu v-else :index="resovlePath(datas.path)" popper-append-to-body>
+
+    <el-submenu v-else :index="resovlePath(child.path)" >
       <template slot="title">
-        <Item class="item" :title="datas.meta.title" :icon="datas.meta.icon" />
+        <Item
+          v-if="child.meta"
+          class="item"
+          :title="child.meta.title"
+          :icon="child.meta.icon"
+        />
       </template>
 
       <side-bar
-        v-for="(item, index) in datas.children"
-        :datas="item"
-        :key="index"
+        v-for="item in child.children"
+        :child="item"
+        :key="item.path"
         :baseRoutePath="resovlePath(item.path)"
       ></side-bar>
     </el-submenu>
@@ -35,25 +37,25 @@
 </template>
 <script>
 import Item from "./item.vue";
-
 import path from "path";
+
 export default {
   name: "SideBar",
   data() {
     return {
-      onlyOneChild: "",
+      onlyOneChild: {},
     };
   },
-  components: { Item },
-  inject: ["isCollapse"],
 
+  components: { Item },
   props: {
-    datas: {
+    child: {
       type: Object,
       default() {
         return {};
       },
     },
+
     baseRoutePath: {
       type: String,
       default() {
@@ -63,12 +65,12 @@ export default {
   },
 
   methods: {
-    hasOnyChilds(children = [], parent) {
-      const onlyChild = children.filter((item) => {
+    hasOnyChild(children = [], parent) {
+      let onlyChild = children.filter((item) => {
         if (item.hidden) {
           return false;
         } else {
-          this.onlyChild = item;
+          this.onlyOneChild = item;
           return true;
         }
       });
@@ -84,6 +86,7 @@ export default {
 
       return false;
     },
+
     resovlePath(val) {
       return path.resolve(this.baseRoutePath, val);
     },
@@ -99,14 +102,14 @@ export default {
 
 .sideBar {
   width: 100%;
-  background-color: #39634d;
+  background-color: #4b0b0bef;
   &:hover .item {
-    color: #000;
+    color: #4e1818;
   }
 }
 
 .el-submenu {
-  background-color: #39634d;
+  background-color: #4b0b0bef;
   width: 100%;
 }
 

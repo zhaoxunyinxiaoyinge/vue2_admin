@@ -2,22 +2,20 @@ import Layout from "./../../layout";
 export default [
   {
     path: "/scroll",
-    meta: {
-      hidden: false,
-      title: "滚动组件使用",
-      icon: "el-icon-s-promotion"
-    },
     component: Layout,
     redirect: "/scroll/index",
+    order: 5,
     children: [
       {
         path: "index",
         meta: {
-          title: "滚动",
+          title: "无限滚动加载",
           hidden: false,
-          icon: ""
+          icon: "el-icon-aim"
         },
-        component: () => import("./index.vue")
+        component: () => import("./index.vue"),
+        roles: ["admin", "edit", "view", "delete", "update"],
+        order: 6
       }
     ]
   }

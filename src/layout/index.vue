@@ -1,61 +1,62 @@
 <template>
   <el-container class="el-fulled">
+    <!-- 头部导航栏 -->
     <Header />
-    <el-container class="el-content">
-      <el-aside class="aside">
-        <el-scrollbar style="height: 100%">
-          <div class="collapse" @click="oncollapse">
-            <span class="el-icon-s-fold"></span>
-          </div>
 
-          <Mains ref="main">
-            <SideBar
-              :datas="item"
-              v-for="(item, index) in menuList"
-              :key="index"
-              :baseRoutePath="item.path"
-            ></SideBar>
-          </Mains>
-        </el-scrollbar>
-      </el-aside>
-      <el-main>
-        <BreadCrumb :data="breadCrumb" />
-        <route-tag />
+    <!--移动场景下蒙版图 -->
+    <div
+      v-if="device === 'mobile' && openSidebar == false"
+      @click="toggelSideBar"
+      class="mobile-bg"
+    />
 
-        <div class="content">
-          <el-scrollbar style="height: 100%">
-            <back-to></back-to>
-            <transition mode="out-in">
-              <router-view></router-view>
-            </transition>
-          </el-scrollbar>
+    <back-to></back-to>
+
+    <el-aside class="aside">
+      <el-scrollbar style="height: 100%">
+        <Mains ref="main" />
+      </el-scrollbar>
+    </el-aside>
+
+    <el-main>
+      <div style="display:flex;align-items:center">
+        <div class="collapse" @click="oncollapse">
+          <span class="el-icon-s-fold"></span>
         </div>
-      </el-main>
-    </el-container>
+        <BreadCrumb :data="breadCrumb" />
+      </div>
+
+      <route-tag />
+
+      <div class="content">
+        <el-scrollbar style="height: 100%">
+          <transition mode="out-in">
+            <router-view></router-view>
+          </transition>
+        </el-scrollbar>
+      </div>
+    </el-main>
   </el-container>
 </template>
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-import Mains from "./components/mains.vue";
-import SideBar from "./components/sideBar.vue";
+import Cookies from "js-cookie";
+
 import Header from "./components/header.vue";
 import RouteTag from "./components/routeTag.vue";
 import BreadCrumb from "./components/breaked.vue";
 import BackTo from "./components/backTo.vue";
+import Mains from "./components/mains.vue"
 
 export default {
-  components: { Mains, SideBar, Header, RouteTag, BreadCrumb, BackTo },
-  created() {
-    this.$nextTick(() => {
-      console.log(this.routes, 4444);
-    });
-  },
+  components: { Mains, Header, RouteTag, BreadCrumb, BackTo },
+
   data() {
     return {
       menuList: [],
-      datapath: "",
-      baseRoutePath: "/",
+      // datapath: "",
+      // baseRoutePath: "/",
       breadCrumb: [],
     };
   },
@@ -66,9 +67,10 @@ export default {
 
   computed: {
     ...mapState("perssion", ["routes"]),
+    ...mapState("app", ["device", "openSidebar"]),
   },
   methods: {
-    ...mapMutations("app", ["ADD_ROUTE_TAG"]),
+    ...mapMutations("app", ["ADD_ROUTE_TAG", "SET_SIDEBAR"]),
     logOut() {
       window.sessionStorage.clear();
       this.$router.push("/login");
@@ -76,6 +78,11 @@ export default {
 
     oncollapse() {
       this.$refs.main.handleClose();
+    },
+
+    toggelSideBar() {
+      Cookies.set("openSidebar", true);
+      this.SET_SIDEBAR(true);
     },
   },
   watch: {
@@ -89,17 +96,22 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
+@import "./../assets/scss/index.scss";
 .el-fulled {
   height: 100%;
   display: flex;
-  flex-direction: column;
+  padding-top: 60px;
 }
 
-.el-content {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
+.mobile-bg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.1;
+  z-index: 10;
 }
 
 .aside {
@@ -111,31 +123,33 @@ export default {
 }
 
 .el-aside {
-  background-color: #2b6447;
+  background-color: $sidebar;
   height: 100%;
-  .collapse {
-    height: 30px;
-    background-color: #0f0808;
-    text-align: center;
-    cursor: pointer;
-    line-height: 30px;
-    font-size: 16px;
-    color: #fff;
-    letter-spacing: 2px;
-  }
 }
+
 .el-main {
-  background-color: #eee;
+  background-color: #fff;
   height: 100%;
   flex: 1;
   padding: 0;
   text-align: left;
-  padding: 0 5px;
-  /deep/ .el-scrollbar__wrap {
-    overflow-x: hidden;
-  }
+  // padding: 0 5px;
+  // /deep/ .el-scrollbar__wrap {
+  //   overflow-x: hidden;
+  // }
   display: flex;
   flex-direction: column;
+}
+
+.collapse {
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  color: #000;
+  letter-spacing: 2px;
+  margin:0 10px;
+  cursor: pointer;
 }
 
 .content {

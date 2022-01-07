@@ -49,6 +49,11 @@ const getMenus = () => {
               id: "1-2-1",
               path: "/user/roles",
               roles: ["admin"]
+            },
+            {
+              id: "1-2-1",
+              path: "/user/roles",
+              roles: ["admin"]
             }
           ]
         },
@@ -78,7 +83,21 @@ const getMenus = () => {
             {
               id: "1-5-1",
               path: "index",
-              roles: ["admin"]
+              roles: ["admin"],
+              children: [
+                {
+                  id: "1-5-2",
+                  path: "index",
+                  roles: ["admin"],
+                  children: [
+                    {
+                      id: "1-5-3",
+                      path: "index",
+                      roles: ["admin"]
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -507,7 +526,15 @@ export const getCarouseList = () => {
       status: 200,
       "data|5": [
         {
-          imgurl: () => Random.image("1280x400", "#fb0a2c")
+          "imgurl|+1": [
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.soumeitu.com%2Fwp-content%2Fuploads%2F2020%2F07%2F573bc808867ec.jpg&refer=http%3A%2F%2Fwww.soumeitu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643689490&t=cb9651bf3923b0b07e7e025567b490e6",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2Fe8%2Ff3%2Fcd%2Fe8f3cdbe20f21361d6221ba4215e64d6.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643689490&t=148bd59cc775d7c58adabe0987a80a03",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F77%2Fd4%2F97%2F77d497be2006d6eb9c4af1975de26f50.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643689490&t=9c0c96c0349ff27f4eef8ae644879ee8",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F51%2F27%2F83%2F512783480411092723575ff78f0c5e99.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643689490&t=9765a1710055a7d7bc9be2fe99b9205a",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg10.51tietu.net%2Fpic%2F20191029%2F0yw1zrc5ygu0yw1zrc5ygu.jpg&refer=http%3A%2F%2Fimg10.51tietu.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643689490&t=4df72655aeb4b6f146a6d1f410bfff41",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F3f%2Fc5%2F04%2F3fc50458f791c19aba193146f52025a5.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643689490&t=c196eaa429d61c5ca7a337c6104cbe5a",
+            "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic125.nipic.com%2Ffile%2F20170325%2F19152711_133212465000_2.jpg&refer=http%3A%2F%2Fpic125.nipic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1643689490&t=fc59c965adfb6ccd05e6f5af99e93fad"
+          ]
         }
       ]
     }
@@ -554,6 +581,36 @@ export const getDirecter = params => {
   });
 };
 
+const getUseList = params => {
+  return Mock.mock("/getUserList", "get", {
+    data: {
+      message: "ok",
+      status: 200,
+      "data|10": [
+        {
+          "id|+1": 0,
+          "roles|1": ["admin", "orderyungong"],
+          username: Random.name(),
+          "workName|1": [
+            "董事长",
+            "普通员工",
+            "研发管理员",
+            "总监",
+            "组长",
+            "产品经理",
+            "人事经理"
+          ],
+          phone: Random.natural(17603016347, 155571472205),
+          createTime: new Date()
+        }
+      ],
+      total: 10,
+      page: 1,
+      pageSize: 10
+    }
+  });
+};
+
 export const runMock = function() {
   login();
   getMenus();
@@ -563,6 +620,7 @@ export const runMock = function() {
   getCarouseList();
   getLoadMore();
   getDirecter();
+  getUseList();
 };
 
 function getSearchParams(val) {

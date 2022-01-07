@@ -5,21 +5,19 @@ export default [
     name: "danbord",
     path: "/",
     component: Layout,
-    meta: {
-      title: "首页",
-      hidden: true,
-      icon: "el-icon-monitor"
-    },
+    order: 1,
     redirect: "/danbord",
     children: [
       {
         path: "/danbord",
         component: () => import("./index.vue"),
         meta: {
-          title: "面板页面",
+          title: "仪表盘",
           hidden: false,
-          icon: ""
-        }
+          icon: "el-icon-s-platform"
+        },
+        roles: ["admin", "edit", "view", "delete", "update"],
+        order: 1
       }
     ]
   }

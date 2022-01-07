@@ -1,75 +1,126 @@
 <template>
   <el-menu
-    :class="isCollapse?'collapse-width':'not-collapse-width'"
+    :class="getDeviceType()"
     class="menu"
     text-color="#fff"
-    active-text-color="#000"
-    :unique-opened="false"
-    :collapse="isCollapse"
-    :collapse-transition="false"
+    :active-text-color="Style.activeColor"
+    :unique-opened="true"
+    :collapse="openSidebar"
+    :collapse-transition="openSidebar && device == 'mobile' ? true : false"
     :router="true"
-    :default-active="'/'"
+    :default-active="activeRoute"
   >
-    <slot></slot>
+    <!-- 设置管理系统的导航栏 -->
+    <side-bar
+      :child="item"
+      v-for="(item,index) in routes"
+      :key="index"
+      :baseRoutePath="item.path"
+    ></side-bar>
   </el-menu>
+
 </template>
+
 <script>
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+import Cookies from "js-cookie";
+import Style from "./../../assets/scss/index.scss";
+
+import SideBar from "./sideBar.vue";
+
 export default {
   name: "mains",
-  props: {
-    datas: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-  },
-
-// 2.2,再vue2中使用provide和inject特性
-  provide(){
-    return this.$data
-  },
+  components: { SideBar },
 
   data() {
     return {
-      menus: [],
-      isCollapse: false,
-      activeRoute:""
+      menuList: [],
+      activeRoute: "/",
+      Style,
     };
   },
+
+  mounted() {
+    console.log("执行了")
+      this.menuList = this.routes;
+      console.log(this.menuList);
+      console.log(this.routes)
+  },
+
+  computed: {
+    ...mapState("app", ["openSidebar", "device", "defaultOpen"]),
+    ...mapState("perssion", ["routes"]),
+  },
+
   methods: {
+    ...mapMutations("app", ["SET_SIDEBAR", "SET_DEFAULT_OPEN"]),
+
+    getDeviceType() {
+      if (!this.openSidebar) {
+        return "not-collapse-width";
+      }
+      if (this.device == "mobile" && this.openSidebar) {
+        return "none-width";
+      }
+      if (this.openSidebar && this.device == "desktop") {
+        return "collapse-width";
+      }
+
+      return "not-collapse-width";
+    },
+
     handleClose() {
-      this.isCollapse = !this.isCollapse;
+      if (this.openSidebar) {
+        Cookies.set("openSidebar", false);
+        this.SET_SIDEBAR(false);
+      } else {
+        Cookies.set("openSidebar", true);
+        this.SET_SIDEBAR(true);
+      }
     },
   },
 
-  watch:{
-      "$route":{
-        deep:true,
-        handler:function(val,old){
-           if(val){
-             this.activeRoute=val.fullPath;
-           }
-        },
-        immediate:true
-      }
-  }
+  watch: {
+    "route": {
+      deep: true,
+      handler: function(val, old) {
+        if (val) {
+          let arr = val.matched.map((item) => ({
+            path: item.path,
+            meta: item.meta,
+          }));
+
+          if (Object.keys(arr[0].meta).length > 0) {
+            this.activeRoute = arr[1].path;
+          } else {
+            this.activeRoute = arr[0].path ? arr[0].path : "/";
+          }
+        }
+      },
+      immediate: true,
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
-  .menu {
-    color:#fff;
-    border-right: 0;
-    background-color: #2b6447;
-    width: 100%;
-  }
+@import "~./../../assets/scss/index.scss";
+.menu {
+  width: 100%;
+  color: #fff;
+  border-right: 0;
+}
 
-  .collapse-width{
-    width:64px
-  }
+.collapse-width {
+  width: 64px;
+}
 
-  .not-collapse-width {
-    width:200px
-  }
+.not-collapse-width {
+  width: 200px;
+}
+
+.none-width {
+  width: 0;
+  overflow: hidden;
+}
 </style>

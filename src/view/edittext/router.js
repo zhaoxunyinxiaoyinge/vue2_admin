@@ -4,21 +4,18 @@ export default [
     name: "editext",
     path: "/editext",
     component: Layout,
-    meta: {
-      title: "文本编辑器",
-      hidden: false,
-      icon: "el-icon-edit-outline"
-    },
     redirect: "/editext/index",
+    order: 3,
     children: [
       {
         path: "index",
         component: () => import("./index.vue"),
         meta: {
-          title: "编辑器",
+          title: "富文本编辑器",
           hidden: false,
-          icon: ""
-        }
+          icon: "el-icon-edit"
+        },
+        order: 1
       }
     ]
   }

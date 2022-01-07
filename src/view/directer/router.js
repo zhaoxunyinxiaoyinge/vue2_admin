@@ -3,12 +3,8 @@ export default [
   {
     path: "/directer",
     component: Layout,
-    meta: {
-      title: "指令使用",
-      hidden: false,
-      icon: "el-icon-document-add"
-    },
     redirect: "/directer/index",
+    order: 2,
     children: [
       {
         path: "index",
@@ -16,8 +12,10 @@ export default [
         meta: {
           title: "自定义指令",
           hidden: false,
-          icon: ""
-        }
+          icon: "el-icon-menu"
+        },
+        roles: ["admin", "edit"],
+        order: 1
       }
     ]
   }

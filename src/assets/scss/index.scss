@@ -1,0 +1,13 @@
+$bg:#fff;
+$sidebar:#300606d8;
+$activeColor:rgba(245, 18, 18, 0.678);
+
+.header {
+    background-color: $bg;
+}
+
+:export {
+    bg:$bg;
+    sideBar:$sidebar;
+    activeColor:$activeColor;
+}

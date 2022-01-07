@@ -3,12 +3,8 @@ export default [
   {
     path: "/report",
     component: Layout,
-    meta: {
-      title: "图表echarts",
-      hidden: false,
-      icon: "el-icon-printer"
-    },
     redirect: "/report/index",
+    order: 4,
     children: [
       {
         path: "index",
@@ -16,8 +12,10 @@ export default [
         meta: {
           title: "常用图表",
           hidden: false,
-          icon: ""
-        }
+          icon: "el-icon-document"
+        },
+        roles: ["edit", "view", "delete"],
+        order: 1
       }
     ]
   }
