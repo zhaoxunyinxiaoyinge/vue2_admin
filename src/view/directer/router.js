@@ -12,7 +12,8 @@ export default [
         meta: {
           title: "自定义指令",
           hidden: false,
-          icon: "el-icon-menu"
+          icon: "el-icon-menu",
+          noCancle: true
         },
         roles: ["admin", "edit"],
         order: 1

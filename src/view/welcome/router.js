@@ -12,7 +12,8 @@ export default [
         meta: {
           title: "系统页面",
           hidden: false,
-          icon: "el-icon-setting"
+          icon: "el-icon-setting",
+          noCancle: false
         },
         roles: ["admin", "edit", "view", "delete", "update"],
         order: 1

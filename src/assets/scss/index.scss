@@ -2,8 +2,21 @@ $bg:#fff;
 $sidebar:#300606d8;
 $activeColor:rgba(245, 18, 18, 0.678);
 
-.header {
+.nav{
+    width: 100%;
     background-color: $bg;
+    top:50px;
+    left:0;
+}
+
+.item i.icon {
+    color:#fff;
+}
+
+.menu-item.is-active {
+    i.icon {
+        color:red
+    }  
 }
 
 :export {

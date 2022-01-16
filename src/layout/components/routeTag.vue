@@ -1,7 +1,7 @@
 <template>
   <div class="tag">
     <el-scrollbar    ref="scroll"   @wheel.native.prevent="handleWheel">
-      <el-button class="tag-item"  size="small" @click="jumpTo(tag.path)" v-for="tag in getRouteTag" :key="tag.path" closable  
+      <el-button :icon="tag.icon" class="tag-item"  size="small" @click="jumpTo(tag.path)" v-for="tag in getRouteTag" :key="tag.path" closable  
       :type="cur===tag.path?'primary':'default'">
           {{tag.title}}
           <span class="el-icon-close" @click="removeTag(tag.path)"></span>
@@ -72,6 +72,12 @@ export default {
         height: 30px;
         padding: 5px 0;
         background-color: #fff;
+        border-bottom: 1px solid #f1eaea;
+        border-top: 1px solid #f1eaea;
+        position:sticky;
+        left:0;
+        top:110px;
+        z-index: 30;
     }
 
     .tag-item {

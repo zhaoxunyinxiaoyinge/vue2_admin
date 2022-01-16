@@ -1,13 +1,15 @@
 <template>
-  <el-header class="header" :style="{background:Style.bg}">
-    <div class="title">
-      <el-image class="user-avatar" :src="avatar"></el-image>
-      <span class="name" v-if="device=='desktop'">vue2后台管理系统</span>
-    </div>
+  <el-header class="header">
+    <div class="right">
+        <el-input style="width:220px;margin-right:20px" prefix-icon="el-icon-search"></el-input>
+      <el-color-picker v-model="bg" @change="changeTheme"></el-color-picker>
+      <span
+        v-if="device == 'desktop'"
+        class="el-icon-full-screen iconFont"
+        @click="fullScreen"
+      ></span>
+    
 
-    <div class="right" >
-<el-color-picker v-model="bg" @change="changeTheme"></el-color-picker>
-      <span v-if="device=='desktop'" class="el-icon-full-screen iconFont" @click="fullScreen"></span>
       <el-button-group class="button-group">
         <el-button type="primary" size="mini" @click="setLangText('zh')"
           >中文</el-button
@@ -17,9 +19,22 @@
         >
       </el-button-group>
 
-      <span v-if="device=='desktop'" class="el-icon-bell message"></span>
+      <span v-if="device == 'desktop'" class="el-icon-bell message"></span>
 
-      <el-button type="danger" size="mini" @click="logOut">退出</el-button>
+      <el-dropdown>
+      <span class="el-dropdown-link">
+        管理员<i class="el-icon-arrow-down el-icon--right"></i>
+      </span>
+      <el-dropdown-menu  trigger="click">
+        <el-dropdown-item >超级管理员</el-dropdown-item>
+        <el-dropdown-item>普通会员</el-dropdown-item>
+        <el-dropdown-item  @click="logOut">退出</el-dropdown-item>
+      </el-dropdown-menu>
+      </el-dropdown>
+      <el-image
+        :src="avatar"
+        style="height:30px;border-radius:5px;margin:0 5px"
+      ></el-image>
     </div>
   </el-header>
 </template>
@@ -33,28 +48,28 @@ export default {
     return {
       isFullScreen: false,
       lang: "zh",
-      bg:Style.bg,
+      bg: Style.bg,
       Style,
     };
   },
 
   computed: {
-    ...mapState("app", ["avatar", "device", "openSidebar","btncolor"]),
+    ...mapState("app", ["avatar", "device", "openSidebar", "btncolor"]),
   },
 
   methods: {
-    ...mapMutations('app',['SET_THEME_COLOR']),
+    ...mapMutations("app", ["SET_THEME_COLOR"]),
     logOut() {
       window.sessionStorage.clear("token");
       location.reload();
     },
 
-    changeTheme(val){
-      if(!val){val="#000"}
-      this.bg=val;
-      Style.bg=val;
-      console.log(Style.bg);
-      // this.SET_THEME_COLOR(val);
+    changeTheme(val) {
+      if (!val) {
+        val = "#000";
+      }
+      this.bg = val;
+      Style.bg = val;
     },
 
     fullScreen() {
@@ -92,19 +107,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.el-header {
+  background-color: inherit;
+}
+
 .header {
   display: flex;
   box-sizing: border-box;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  width: 100%; 
+  width: 80%;
+  background-color: inherit;
   height: 60px !important;
-  position: fixed;
-  top:0;
   color: #fff;
-  border-bottom: 1px solid hsl(0, 0%, 93%);
-  // background:#fff;
-
   .user-avatar {
     height: 40px;
     width: 80px;
@@ -143,5 +158,9 @@ export default {
     color: #000;
     margin-right: 10px;
   }
+
+.el-dropdown-link {
+  margin-right: 10px;
+}
 }
 </style>

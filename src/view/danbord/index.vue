@@ -4,8 +4,13 @@
       <el-carousel-item v-for="(item, index) in carList" :key="index">
         <el-image class="img" :src="item.imgurl"></el-image>
       </el-carousel-item>
-    </el-carousel>
-    <el-divider></el-divider>
+    </el-carousel> 
+    <el-dialog :visible.sync="dialogVisible" class="video-wrap" >
+          <video @ended="handleEnDed()"  width="100%" height="350" controls="controls"  autoplay>
+             <source   src="@/assets/video/预览视频.mp4" type="video/mp4" />
+          </video>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -17,11 +22,13 @@ export default {
     return {
       list: [],
       carList: [],
+      dialogVisible:false
     };
   },
 
   mounted() {
     this.getList();
+    this.getVido();
   },
 
   methods: {
@@ -30,6 +37,15 @@ export default {
       this.list = data.data.data.data;
       this.carList = data.data.data.data;
     },
+
+    getVido(){
+      setTimeout(()=>{
+        this.dialogVisible=true;
+      },2000)
+    },
+    handleEnDed(){
+      this.dialogVisible=false
+    }
   },
 };
 </script>
@@ -40,13 +56,12 @@ export default {
   height: 100%;
 }
 
+
 .carousel {
   width: 100%;
 }
 
-.el-carousel__item {
-  // width: 100%;
-}
+
 
 .el-carousel__item h3 {
   color: #475669;

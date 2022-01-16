@@ -1,8 +1,5 @@
 <template>
   <el-container class="el-fulled">
-    <!-- 头部导航栏 -->
-    <Header />
-
     <!--移动场景下蒙版图 -->
     <div
       v-if="device === 'mobile' && openSidebar == false"
@@ -10,7 +7,7 @@
       class="mobile-bg"
     />
 
-    <back-to></back-to>
+    <up-down></up-down>
 
     <el-aside class="aside">
       <el-scrollbar style="height: 100%">
@@ -19,21 +16,29 @@
     </el-aside>
 
     <el-main>
-      <div style="display:flex;align-items:center">
+      <Top/>
+      
+      <div class="nav" :style="{background:Style.bg}">
         <div class="collapse" @click="oncollapse">
           <span class="el-icon-s-fold"></span>
         </div>
         <BreadCrumb :data="breadCrumb" />
+        <Header/>
       </div>
 
       <route-tag />
 
       <div class="content">
-        <el-scrollbar style="height: 100%">
+        <!-- <el-scrollbar > -->
           <transition mode="out-in">
-            <router-view></router-view>
+            
+            <keep-alive>
+              <!-- 阻止动态路由加载时复用，created和mount无法使用 -->
+             <router-view :key="$route.path"></router-view>
+            </keep-alive>
+
           </transition>
-        </el-scrollbar>
+        <!-- </el-scrollbar> -->
       </div>
     </el-main>
   </el-container>
@@ -43,21 +48,22 @@
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 import Cookies from "js-cookie";
 
-import Header from "./components/header.vue";
 import RouteTag from "./components/routeTag.vue";
 import BreadCrumb from "./components/breaked.vue";
-import BackTo from "./components/backTo.vue";
-import Mains from "./components/mains.vue"
+import UpDown from "./components/backTo.vue";
+import Mains from "./components/mains.vue";
+import Header from "./components/header.vue"
+import Top from "./components/navBar.vue"
+import Style from "./../assets/scss/index.scss";
 
 export default {
-  components: { Mains, Header, RouteTag, BreadCrumb, BackTo },
+  components: { Mains,  RouteTag, BreadCrumb, UpDown,Header,Top},
 
   data() {
     return {
       menuList: [],
-      // datapath: "",
-      // baseRoutePath: "/",
       breadCrumb: [],
+         Style
     };
   },
 
@@ -88,7 +94,7 @@ export default {
   watch: {
     $route: {
       handler: function(val, old) {
-        this["ADD_ROUTE_TAG"]({ title: val.meta.title, path: val.fullPath });
+        this["ADD_ROUTE_TAG"]({ title: val.meta.title, path: val.fullPath,icon:val.meta.icon });
       },
       deep: true,
       immediate: true,
@@ -97,11 +103,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "./../assets/scss/index.scss";
+@import "~./../assets/scss/index.scss";
 .el-fulled {
   height: 100%;
   display: flex;
-  padding-top: 60px;
 }
 
 .mobile-bg {
@@ -112,6 +117,7 @@ export default {
   background-color: #000;
   opacity: 0.1;
   z-index: 10;
+
 }
 
 .aside {
@@ -128,17 +134,23 @@ export default {
 }
 
 .el-main {
-  background-color: #fff;
+  background-color:transparent(0.3);
   height: 100%;
   flex: 1;
   padding: 0;
   text-align: left;
-  // padding: 0 5px;
-  // /deep/ .el-scrollbar__wrap {
-  //   overflow-x: hidden;
-  // }
   display: flex;
   flex-direction: column;
+}
+
+.nav {
+  display: flex;
+  height: 60px;
+  background-color: hsla(80, 52%, 28%, 0.055);
+  align-items: center;
+  position:sticky;
+  z-index: 30
+
 }
 
 .collapse {
@@ -153,16 +165,15 @@ export default {
 }
 
 .content {
-  flex: 1;
+  // flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: auto;
 }
 
 .back {
-  // position: fixed;
-  // right:30px;
-  // bottom:100px;
-  // z-index: 40;
+  position: fixed;
+  right:30px;
+  bottom:100px;
+  z-index: 40;
 }
 </style>

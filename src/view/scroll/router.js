@@ -11,7 +11,8 @@ export default [
         meta: {
           title: "无限滚动加载",
           hidden: false,
-          icon: "el-icon-aim"
+          icon: "el-icon-aim",
+          noCancle: false
         },
         component: () => import("./index.vue"),
         roles: ["admin", "edit", "view", "delete", "update"],

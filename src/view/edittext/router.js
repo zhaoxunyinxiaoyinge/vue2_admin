@@ -13,7 +13,8 @@ export default [
         meta: {
           title: "富文本编辑器",
           hidden: false,
-          icon: "el-icon-edit"
+          icon: "el-icon-edit",
+          noCancle: false
         },
         order: 1
       }

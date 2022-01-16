@@ -11,6 +11,10 @@ let routes = [
   {
     path: "/404",
     component: () => import("./../components/notFound")
+  },
+  {
+    path: "*",
+    component: () => import("./../components/notFound")
   }
 ];
 

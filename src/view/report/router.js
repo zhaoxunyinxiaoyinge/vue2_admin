@@ -12,9 +12,10 @@ export default [
         meta: {
           title: "常用图表",
           hidden: false,
-          icon: "el-icon-document"
+          icon: "el-icon-document",
+          noCancle: false
         },
-        roles: ["edit", "view", "delete"],
+        roles: ["edit", "view", "delete", "admin"],
         order: 1
       }
     ]

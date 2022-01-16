@@ -49,6 +49,8 @@ export default {
   .title {
     flex: 1;
     text-align: left;
+    letter-spacing: 1px;
+    font-weight:thin;
   }
 }
 </style>

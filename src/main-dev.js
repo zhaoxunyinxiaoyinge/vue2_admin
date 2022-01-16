@@ -18,6 +18,16 @@ dynamicGetEquipment();
 
 import store from "./store";
 
+// 支持svg
+
+const requireAll = requireContext => requireContext.keys().map(requireContext);
+const req = require.context("./assets/svgIcon", true, /\.svg$/); //自动引入
+requireAll(req);
+
+import SvgIcon from "./components/svg/svg.vue";
+
+Vue.component("svg-icon", SvgIcon);
+
 // 支持表格的渲染
 import ElDataTable from "@femessage/el-data-table";
 import ElFormRenderer from "@femessage/el-form-renderer";
@@ -114,7 +124,10 @@ import {
   Scrollbar,
   Backtop,
   InfiniteScroll,
-  ColorPicker
+  ColorPicker,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu
 } from "element-ui";
 import { router } from "./routes/index.js";
 import "./assets/css/reset.css";
@@ -175,6 +188,9 @@ Vue.use(ColorPicker);
 
 Vue.use(VueI18n);
 Vue.use(Carousel);
+Vue.use(Dropdown);
+Vue.use(DropdownItem);
+Vue.use(DropdownMenu);
 
 // 注册所有的语言配置文件
 const messages = {

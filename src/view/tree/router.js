@@ -11,7 +11,8 @@ export default [
         meta: {
           title: "递归树形控件",
           hidden: false,
-          icon: "el-icon-s-promotion"
+          icon: "el-icon-s-promotion",
+          noCancle: false
         },
         component: () => import("./index.vue"),
         roles: ["admin", "edit", "view", "delete", "update"],

@@ -9,6 +9,7 @@
               "styleLibraryName": "theme-chalk"
             }
           ],
+          "@babel/plugin-transform-runtime",
           // "transform-remove-console",
           "syntax-dynamic-import"
         ]

@@ -11,14 +11,18 @@
     :default-active="activeRoute"
   >
     <!-- 设置管理系统的导航栏 -->
+    <div class="title" v-if="device == 'desktop'">
+      <el-image :src="src" style="height:40px"></el-image>
+      <span class="name">五福临门</span>
+    </div>
+
     <side-bar
       :child="item"
-      v-for="(item,index) in routes"
+      v-for="(item, index) in routes"
       :key="index"
       :baseRoutePath="item.path"
     ></side-bar>
   </el-menu>
-
 </template>
 
 <script>
@@ -37,18 +41,16 @@ export default {
       menuList: [],
       activeRoute: "/",
       Style,
+      src:'https://demosc.chinaz.net/Files/pic/iconsico/8321/f5.ico',
     };
   },
 
   mounted() {
-    console.log("执行了")
-      this.menuList = this.routes;
-      console.log(this.menuList);
-      console.log(this.routes)
+    this.menuList = this.routes;
   },
 
   computed: {
-    ...mapState("app", ["openSidebar", "device", "defaultOpen"]),
+    ...mapState("app", ["openSidebar", "device", "defaultOpen",'avatar','btncolor']),
     ...mapState("perssion", ["routes"]),
   },
 
@@ -81,21 +83,10 @@ export default {
   },
 
   watch: {
-    "route": {
+    $route: {
       deep: true,
       handler: function(val, old) {
-        if (val) {
-          let arr = val.matched.map((item) => ({
-            path: item.path,
-            meta: item.meta,
-          }));
-
-          if (Object.keys(arr[0].meta).length > 0) {
-            this.activeRoute = arr[1].path;
-          } else {
-            this.activeRoute = arr[0].path ? arr[0].path : "/";
-          }
-        }
+        this.activeRoute = val.fullPath;
       },
       immediate: true,
     },
@@ -107,7 +98,6 @@ export default {
 @import "~./../../assets/scss/index.scss";
 .menu {
   width: 100%;
-  color: #fff;
   border-right: 0;
 }
 
@@ -122,5 +112,14 @@ export default {
 .none-width {
   width: 0;
   overflow: hidden;
+}
+
+.title {
+  color:#fff;
+  height: 60px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

@@ -14,7 +14,8 @@ export default [
         meta: {
           title: "仪表盘",
           hidden: false,
-          icon: "el-icon-s-platform"
+          icon: "el-icon-s-platform",
+          noCancle: false
         },
         roles: ["admin", "edit", "view", "delete", "update"],
         order: 1

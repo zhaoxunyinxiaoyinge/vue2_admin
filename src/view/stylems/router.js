@@ -14,9 +14,10 @@ export default [
       {
         path: "index",
         meta: {
-          title: "用户权限管理",
+          title: "用户管理",
           hidden: false,
-          icon: "el-icon-s-promotion"
+          icon: "el-icon-user-solid",
+          noCancle: false
         },
         component: () => import("./index.vue"),
         roles: ["admin", "edit", "view", "delete", "update"],
@@ -25,11 +26,24 @@ export default [
       {
         path: "user_roles",
         meta: {
-          title: "用户权限分配",
+          title: "角色管理",
           hidden: false,
-          icon: "el-icon-s-promotion"
+          icon: "el-icon-s-custom",
+          noCancle: false
         },
         component: () => import("./userRoles.vue"),
+        roles: ["admin", "edit", "view", "delete", "update"],
+        order: 2
+      },
+      {
+        path: "user_menu",
+        meta: {
+          title: "菜单管理",
+          hidden: false,
+          icon: "el-icon-menu",
+          noCancle: false
+        },
+        component: () => import("./userMenu.vue"),
         roles: ["admin", "edit", "view", "delete", "update"],
         order: 2
       },
@@ -38,7 +52,8 @@ export default [
         meta: {
           title: "用户字典配置",
           hidden: false,
-          icon: "el-icon-s-promotion"
+          icon: "el-icon-s-release",
+          noCancle: false
         },
         component: () => import("./dictionariesSetting.vue"),
         roles: ["admin", "edit", "view", "delete", "update"],

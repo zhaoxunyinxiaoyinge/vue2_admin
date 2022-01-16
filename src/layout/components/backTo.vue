@@ -1,8 +1,9 @@
 <template>
   <div class="back">
     <el-backtop
-      target=".el-scrollbar__view"
+      target=".el-main"
       :bottom="100"
+      :visibility-height="300"
       :right="60"
       >
       <span class="el-icon-caret-top icon"></span>
@@ -19,25 +20,15 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-  .back {
-    cursor: pointer;
-    position: fixed;
-    right:40px;
-    bottom:50px;
-    width: 50px;
-    height: 50px;
-    z-index: 20
-  }
-  .icon {
-    font-size: 24px;
-    vertical-align: middle;
-  }
-
-  .back-txt{
-    color:blue;
-    font-size: 16px;
+<style lang="scss" scoped>
+  @import "~@/assets/scss/backTo.scss";
+  .back-txt {
+    font-size: $hrefTextSize;
+    color:$hrefTextColor;
+    &:hover {
+      color:$hrefTextColorHover;
+    }
   }
 
 </style>
+

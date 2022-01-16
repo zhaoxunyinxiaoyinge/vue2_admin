@@ -1,8 +1,9 @@
 @import  "./iconfont.css";
-html,body,#app {
+html,body,#app,.loading {
     margin: 0;
     padding:0;
     height: 100%;
+  
 }
 input:-internal-autofill-selected {
     background-color: #fff;

@@ -8,7 +8,8 @@ export default [
     meta: {
       title: "表格组件",
       hidden: false,
-      icon: "el-icon-s-custom"
+      icon: "el-icon-s-custom",
+      noCancle: false
     },
     roles: ["admin", "edit", "view", "delete", "update"],
     children: [
@@ -18,20 +19,10 @@ export default [
         meta: {
           title: "tabel组件",
           hidden: false,
-          icon: "el-icon-data-line"
+          icon: "el-icon-data-line",
+          noCancle: false
         },
         order: 1
-      },
-      {
-        path: "roles",
-        component: () => import("./roles.vue"),
-        meta: {
-          title: "用户角色",
-          hidden: false,
-          icon: "el-icon-s-custom"
-        },
-        roles: ["admin", "edit", "view", "delete", "update"],
-        order: 2
       }
     ]
   }

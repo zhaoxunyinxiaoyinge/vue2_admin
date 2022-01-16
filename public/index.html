@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/default.min.css">
     <title>
       <%= htmlWebpackPlugin.options.isProd ? 'prodution':"dev-开发模式" %>
     </title>
@@ -49,8 +50,61 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
     <script src="https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.min.js"></script>
     <script src="https://cdn.staticfile.org/element-ui/2.13.2/index.js"></script>
     <% }%>
+
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js"></script>
+
+  <script>
+  </script>
   </head>
 
+  <style>
+
+.loading {
+	margin:100px auto;
+	width:100px;
+	height:100px;
+	border:10px solid #333333;
+	border-bottom:#aaa 10px solid;
+	border-radius:50%;
+	animation:load 1.1s infinite linear;
+	-webkit-animation:load 1.1s infinite linear;
+	-moz-animation:load 1.1s infinite linear;
+	-o-animation:load 1.1s infinite linear;
+}
+@keyframes load {
+	from {
+	transform:rotate(0deg);
+	-ms-transform:rotate(0deg);
+}
+to {
+	transform:rotate(360deg);
+	-ms-transform:rotate(360deg);
+}
+}@-webkit-keyframes load {
+	from {
+	-webkit-transform:rotate(0deg);
+}
+to {
+	-webkit-transform:rotate(360deg);
+}
+}@-moz-keyframes load {
+	from {
+	-moz-transform:rotate(0deg);
+}
+to {
+	-moz-transform:rotate(360deg);
+}
+}@-o-keyframes load {
+	from {
+	-o-transform:rotate(0deg);
+}
+to {
+	-o-transform:rotate(360deg);
+}
+}
+  </style>
+
+  
   <body style="font-size: 16px;">
     <noscript>
       <strong
@@ -59,7 +113,10 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
         continue.</strong
       >
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <!-- 这里写入加载动画 -->
+      <div class="loading" ></div>
+    </div>
     <!-- built files will be auto injected -->
   </body>
   <script>
@@ -68,8 +125,8 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
       const baseSize=16;
       let size=window.innerWidth*baseSize/1920;
       document.documentElement.style.fontSize=size+"px"
+
   }
- 
   // 初始化
   // setRem();
   // 改变窗口大小时重新设置 rem

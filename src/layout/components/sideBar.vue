@@ -1,29 +1,32 @@
 <template>
-  <div v-if="child.meta && !child.meta.hidden" class="sideBar">
+  <div class="sideBar">
     <template
       v-if="
         hasOnyChild(child.children, child) &&
           (!onlyOneChild.children || onlyOneChild.noShowingChildren)
       "
     >
-      <el-menu-item class="menu-item" :index="resovlePath(onlyOneChild.path)">
-        <template slot="title">
+      <Links v-if="onlyOneChild.meta" :to="resovlePath(onlyOneChild.path)">
+        <el-menu-item class="menu-item" :index="resovlePath(onlyOneChild.path)">
           <Item
+            :icon="
+              onlyOneChild.meta.icon ||
+                (onlyOneChild.meta && onlyOneChild.meta.icon)
+            "
             :title="onlyOneChild.meta.title"
-            :icon="onlyOneChild.meta.icon"
-          />
-        </template>
-      </el-menu-item>
+          ></Item>
+        </el-menu-item>
+      </Links>
     </template>
 
-    <el-submenu v-else :index="resovlePath(child.path)" >
+    <el-submenu v-else :index="resovlePath(child.path)" popper-append-to-body>
       <template slot="title">
-        <Item
+        <item
           v-if="child.meta"
           class="item"
           :title="child.meta.title"
           :icon="child.meta.icon"
-        />
+        ></item>
       </template>
 
       <side-bar
@@ -38,6 +41,8 @@
 <script>
 import Item from "./item.vue";
 import path from "path";
+import Links from "./link.vue";
+import SideBar from "./sideBar.vue";
 
 export default {
   name: "SideBar",
@@ -47,7 +52,7 @@ export default {
     };
   },
 
-  components: { Item },
+  components: { Item, SideBar, Links },
   props: {
     child: {
       type: Object,
@@ -100,12 +105,17 @@ export default {
   padding: 0px 10px;
 }
 
+
+
 .sideBar {
   width: 100%;
   background-color: #4b0b0bef;
   &:hover .item {
-    color: #4e1818;
+    // color: #4e1818;
   }
+
+
+  
 }
 
 .el-submenu {
@@ -113,12 +123,21 @@ export default {
   width: 100%;
 }
 
+a.router-link-exact-active {
+  text-decoration: none;
+}
+
 .item {
   width: 100%;
 }
 </style>
 
-<style>
+<style lang="scss">
+
+.el-menu {
+  background:none;
+}
+
 .el-menu--collapse .sideBar .el-submenu {
   overflow: hidden;
 }
@@ -128,7 +147,7 @@ export default {
 }
 
 .el-menu--collapse .sideBar .is-active .item .icon {
-  color: #000;
+  /* color: #000; */
 }
 
 .el-menu--collapse
@@ -140,5 +159,12 @@ export default {
 }
 .el-menu--collapse .el-submenu .item span.title {
   visibility: hidden;
+}
+
+.el-submenu__title:hover,
+.el-submenu__title:focus,
+.el-menu-item:focus,
+.el-menu-item:hover {
+  background-color: hsl(0, 90%, 12%) !important
 }
 </style>
