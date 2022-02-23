@@ -5,12 +5,13 @@
 </template>
 
 <script id="share-vs">  
+// 顶点设置
     attributte 
 </script>
 
 
 <script id="share-fs">
-
+// 对填充的路经进行填色
 </script>
 
 <script>
@@ -29,7 +30,7 @@ export default {
       let canvas = document.getElementById("canvas");
       let webgl = canvas.getContext("webgl");
       webgl.viewport(0, 0, webgl.canvas.width, webgl.canvas.height);
-      webgl.clearColor(0, 0, 0, 1);
+      webgl.clearColor(255, 0, 0, 1);
       webgl.clear(webgl.COLOR_BUFFER_BIT);
     },
   },

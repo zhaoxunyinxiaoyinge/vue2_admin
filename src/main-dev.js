@@ -1,5 +1,5 @@
 import Vue from "vue";
-import App from "./App.vue";
+import App from "./app.vue";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
@@ -19,11 +19,9 @@ dynamicGetEquipment();
 import store from "./store";
 
 // 支持svg
-
 const requireAll = requireContext => requireContext.keys().map(requireContext);
 const req = require.context("./assets/svgIcon", true, /\.svg$/); //自动引入
 requireAll(req);
-
 import SvgIcon from "./components/svg/svg.vue";
 
 Vue.component("svg-icon", SvgIcon);
@@ -49,6 +47,12 @@ Vue.component("el-data-table", ElDataTable);
 
 // import Store from "@/store/index.js"
 Vue.component(ZkTable.name, ZkTable);
+
+// 设置全局键盘码的事件
+
+Vue.config.keyCodes = {
+  f2: 113
+};
 
 // 在全局下注册一个时间过域器处理
 Vue.filter("fitlerTime", function(val) {

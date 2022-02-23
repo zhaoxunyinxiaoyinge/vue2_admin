@@ -1,6 +1,7 @@
 import { getMenus } from "./../api";
 
 let module = require.context("./../../view", true, /router.js/);
+
 let asyncRoute = [];
 
 //暂时这样处理
@@ -18,6 +19,7 @@ export default {
   mutations: {
     ["GET_FILTER_ROUTES"](state, playLoad) {
       state.menus = playLoad;
+      // 这里默认的时所有权限，超级管理员。
       let res = filterAsyncRoutes(asyncRoute, ["admin"]);
       state.routes = res;
     }
@@ -50,7 +52,7 @@ function filterAsyncRoutes(routes, roles) {
     const tmp = {
       ...route
     };
-    console.log(hasPermission(roles, route, "333"));
+
     if (hasPermission(roles, route)) {
       if (tmp.children) {
         tmp.children = filterAsyncRoutes(tmp.children, roles);

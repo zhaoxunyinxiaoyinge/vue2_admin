@@ -1,17 +1,10 @@
-<template>
-  <div class="item" >
-    <i class="icon" :class="icon"></i>
-    <span class="title">{{ title }}</span>
-  </div>
-</template>
-
 <script>
-import {mapState} from "vuex"
 export default {
   name: "icon-title",
   data() {
     return {};
   },
+  functional: true,
   props: {
     icon: {
       type: String,
@@ -26,31 +19,22 @@ export default {
       },
     },
   },
-  computed:{
-    ...mapState('app',['openSidebar'])
-  }
+  render(h, context) {
+    const { icon, title } = context.props;
+    const vnodes = [];
+
+    if (icon.includes("el-icon")) {
+      vnodes.push(<i class={[icon, "sub-el-icon"]} />);
+    }
+
+    if (title) {
+      vnodes.push(<span class="item" slot="title">{title}</span>);
+    }
+    return vnodes;
+  },
 };
 </script>
 
 <style scoped lang="scss">
-.item {
-  width: 100%;
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  box-sizing: border-box;
-  overflow: hidden;
 
-  i.icon {
-    width: 30px;
-    font-size: 16px;
-  }
-
-  .title {
-    flex: 1;
-    text-align: left;
-    letter-spacing: 1px;
-    font-weight:thin;
-  }
-}
 </style>

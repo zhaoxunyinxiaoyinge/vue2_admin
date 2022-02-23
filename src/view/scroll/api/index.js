@@ -1,4 +1,4 @@
-import { Fetch } from "@/API/http";
+import { Fetch } from "@/api/http";
 
 export const getLoadMore = params => {
   return Fetch({

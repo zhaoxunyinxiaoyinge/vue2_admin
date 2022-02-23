@@ -1,6 +1,6 @@
 
 <template>
-    <svg :class="getSvgClass">
+    <svg :class="getSvgClass" v-on="$listeners">
         <use :xlink:href="getclassName"/>
     </svg>
 </template>

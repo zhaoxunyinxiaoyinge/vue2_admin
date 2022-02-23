@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-import JsonEdit from "@/components/jsonEdit"
+import JsonEdit from "@/components/jsonedit"
 export default {
     name:"jsonEdit",
     data(){

@@ -1,5 +1,5 @@
 <template>
-  <div class="bread-crumb">
+  <div class="bread-crumb"   >
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="'/'" >面板</el-breadcrumb-item
       >

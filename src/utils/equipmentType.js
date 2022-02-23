@@ -18,8 +18,8 @@ function getCurrentEquipment() {
 }
 
 function dynamicGetEquipment() {
-  getCurrentEquipment();
-  window.addEventListener("resize", getCurrentEquipment, false);
+  // getCurrentEquipment();
+  // window.addEventListener("resize", getCurrentEquipment, false);
 }
 
 export { dynamicGetEquipment };

@@ -91,6 +91,8 @@ export default {
 .item {
   background-color: #fff;
   border-radius: 5px; 
+  offset: 1px solid  #eee;
+  
 
 }
 

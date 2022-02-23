@@ -25,7 +25,7 @@
 <script>
 import { getDownload } from "./../../utils/export";
 import { getList } from "./api";
-import Dialog from "./components/tabel-import.vue";
+import Dialog from "./components/tabelImport.vue";
 
 export default {
   name: "tabel",

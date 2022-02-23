@@ -7,26 +7,26 @@
       "
     >
       <Links v-if="onlyOneChild.meta" :to="resovlePath(onlyOneChild.path)">
-        <el-menu-item class="menu-item" :index="resovlePath(onlyOneChild.path)">
-          <Item
-            :icon="
-              onlyOneChild.meta.icon ||
-                (onlyOneChild.meta && onlyOneChild.meta.icon)
-            "
-            :title="onlyOneChild.meta.title"
-          ></Item>
+        <el-menu-item class="menu-item items" :index="resovlePath(onlyOneChild.path)">
+            <Item
+              :icon="
+                onlyOneChild.meta.icon ||
+                  (onlyOneChild.meta && onlyOneChild.meta.icon)
+              "
+              :title="onlyOneChild.meta.title"
+            ></Item> 
         </el-menu-item>
       </Links>
     </template>
 
     <el-submenu v-else :index="resovlePath(child.path)" popper-append-to-body>
       <template slot="title">
-        <item
+        <Item
           v-if="child.meta"
           class="item"
           :title="child.meta.title"
           :icon="child.meta.icon"
-        ></item>
+        ></Item>
       </template>
 
       <side-bar
@@ -105,17 +105,12 @@ export default {
   padding: 0px 10px;
 }
 
-
-
 .sideBar {
   width: 100%;
   background-color: #4b0b0bef;
   &:hover .item {
     // color: #4e1818;
   }
-
-
-  
 }
 
 .el-submenu {
@@ -127,15 +122,37 @@ a.router-link-exact-active {
   text-decoration: none;
 }
 
+
+
 .item {
   width: 100%;
 }
+
+.items {
+  width: 100%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+  i.icon {
+    width: 30px;
+    font-size: 16px;
+  }
+
+  .title {
+    flex: 1;
+    text-align: left;
+    letter-spacing: 1px;
+    font-weight: thin;
+  }
+
 </style>
 
 <style lang="scss">
-
 .el-menu {
-  background:none;
+  background: none;
 }
 
 .el-menu--collapse .sideBar .el-submenu {
@@ -150,21 +167,34 @@ a.router-link-exact-active {
   /* color: #000; */
 }
 
-.el-menu--collapse
-  .sideBar
-  .el-submenu
-  .el-submenu__title
-  .el-icon-arrow-right {
-  display: none;
-}
-.el-menu--collapse .el-submenu .item span.title {
-  visibility: hidden;
-}
+
+
+
 
 .el-submenu__title:hover,
 .el-submenu__title:focus,
 .el-menu-item:focus,
 .el-menu-item:hover {
-  background-color: hsl(0, 90%, 12%) !important
+  background-color: hsl(0, 90%, 12%) !important;
 }
+
+.el-submenu__title  {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.el-menu--collapse .el-submenu__title  span.item {
+  display: none;
+}
+
+
+.el-menu--collapse
+  .sideBar
+  .el-submenu
+  .el-submenu__title
+  .el-icon-arrow-right {
+   display: none;
+}
+
 </style>

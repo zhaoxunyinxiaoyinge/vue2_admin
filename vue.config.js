@@ -25,6 +25,14 @@ module.exports = {
          "^/list": "",
         },
       },
+
+      '/api/upload':{
+        target:"http://localhost:7001/api/upload",
+        changeOrigin:true,
+        pathRewrite: {
+          "^/api/upload": "",
+         },
+      }
     },
   },
   // 这里是配置一个vue的路径
@@ -45,8 +53,9 @@ module.exports = {
       .set("@", resolve("src"))
       .set("components", resolve("src/components"))
       .set("common", resolve("src/common"))
-      .set("API", resolve("src/API"))
-      .set("assets", resolve("src/assets"));
+      .set("API", resolve("src/api"))
+      .set("assets", resolve("src/assets"))
+      .set("store", resolve("src/store"));
     // 更据不同地环境加载不同地文件
     config.when(process.env.NODE_ENV == "production", (config) => {
       config

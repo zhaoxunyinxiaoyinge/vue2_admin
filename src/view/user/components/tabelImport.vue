@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import { getDownload } from "./../../../utils/export";
-import { readBook, readData } from "./../../../utils/readData";
+import { getDownload } from "../../../utils/export";
+import { readBook, readData } from "../../../utils/readData";
 export default {
   props: {
     templateData: {

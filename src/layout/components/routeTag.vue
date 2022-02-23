@@ -74,10 +74,6 @@ export default {
         background-color: #fff;
         border-bottom: 1px solid #f1eaea;
         border-top: 1px solid #f1eaea;
-        position:sticky;
-        left:0;
-        top:110px;
-        z-index: 30;
     }
 
     .tag-item {

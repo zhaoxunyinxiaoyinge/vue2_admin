@@ -16,22 +16,20 @@
     </el-aside>
 
     <el-main>
-      <Top/>
-      
-      <div class="nav" :style="{background:Style.bg}">
-        <div class="collapse" @click="oncollapse">
-          <span class="el-icon-s-fold"></span>
+      <div class="nav-box">
+        <!-- <Top/> -->
+        <div  class="nav" :style="{background:Style.bg}">
+          <div class="collapse hamburger-container" id="hamburger-container" @click="oncollapse">
+            <span class="el-icon-s-fold"></span>
+          </div>
+            <BreadCrumb id="breacrubm-container"  class="breacrubm-container" :data="breadCrumb" v-if="device =='deskTop'" />
+          <Header/>
         </div>
-        <BreadCrumb :data="breadCrumb" />
-        <Header/>
+         <route-tag />
       </div>
-
-      <route-tag />
-
       <div class="content">
-        <!-- <el-scrollbar > -->
+        <!-- <el-scrollbar> -->
           <transition mode="out-in">
-            
             <keep-alive>
               <!-- 阻止动态路由加载时复用，created和mount无法使用 -->
              <router-view :key="$route.path"></router-view>
@@ -55,6 +53,7 @@ import Mains from "./components/mains.vue";
 import Header from "./components/header.vue"
 import Top from "./components/navBar.vue"
 import Style from "./../assets/scss/index.scss";
+import resizeHandle from "./mixins/resizeHandler"
 
 export default {
   components: { Mains,  RouteTag, BreadCrumb, UpDown,Header,Top},
@@ -63,12 +62,15 @@ export default {
     return {
       menuList: [],
       breadCrumb: [],
-         Style
+         Style,
     };
   },
 
+  mixins:[resizeHandle],
+
   mounted() {
     this.menuList = this.routes;
+
   },
 
   computed: {
@@ -90,6 +92,7 @@ export default {
       Cookies.set("openSidebar", true);
       this.SET_SIDEBAR(true);
     },
+
   },
   watch: {
     $route: {
@@ -133,6 +136,15 @@ export default {
   height: 100%;
 }
 
+.nav-box {
+  display: flex;
+  flex-direction: column;
+  position:relative;
+  top:0;
+  left:0;
+  z-index: 30;
+}
+
 .el-main {
   background-color:transparent(0.3);
   height: 100%;
@@ -148,9 +160,7 @@ export default {
   height: 60px;
   background-color: hsla(80, 52%, 28%, 0.055);
   align-items: center;
-  position:sticky;
-  z-index: 30
-
+  color:#000;
 }
 
 .collapse {

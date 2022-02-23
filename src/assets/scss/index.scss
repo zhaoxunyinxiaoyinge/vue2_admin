@@ -5,8 +5,6 @@ $activeColor:rgba(245, 18, 18, 0.678);
 .nav{
     width: 100%;
     background-color: $bg;
-    top:50px;
-    left:0;
 }
 
 .item i.icon {
@@ -17,6 +15,14 @@ $activeColor:rgba(245, 18, 18, 0.678);
     i.icon {
         color:red
     }  
+}
+
+.el-submenu__title  .el-submenu__title  {
+    padding-left: 0px !important;
+}
+
+.el-menu-item i,.el-submenu i {
+    color:inherit
 }
 
 :export {

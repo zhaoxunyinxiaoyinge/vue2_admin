@@ -12,6 +12,7 @@ export default {
   },
 
   created() {
+    console.log(this,"this")
     this.$nextTick(() => {
       let str = this.setSvg();
       document.getElementById("apps").style.backgroundImage =

@@ -1,12 +1,12 @@
 <template>
   <div class="tops">
     <RowBar />
-    <div>
+    <div v-if="device=='deskTop'">
       <span>{{ wehterData.city }}</span
       >&nbsp;
       <span>{{ wehterData.date_y }}</span>
       <span>{{ wehterData.temperature }}</span>
-      <span class="time">{{ time }}</span>
+      <!-- <span class="time">{{ time }}</span> -->
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@ import { weather } from "./../api/";
 import moment from "moment";
 
 import RowBar from "./rowBar";
+import {mapState} from "vuex"
 export default {
   data() {
     return {
@@ -34,6 +35,10 @@ export default {
       dtype: "json",
       format: 1,
     });
+  },
+
+  computed:{
+     ...mapState("app", ["device", "openSidebar"]),
   },
 
   methods: {
@@ -57,10 +62,6 @@ export default {
 
 <style lang="scss" scoped>
 .tops {
-  position: sticky;
-  top: 0px;
-  left: 0;
-  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;

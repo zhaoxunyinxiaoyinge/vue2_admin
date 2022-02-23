@@ -1,19 +1,21 @@
 <template>
   <el-menu
+     width="initial"
     :class="getDeviceType()"
     class="menu"
     text-color="#fff"
     :active-text-color="Style.activeColor"
     :unique-opened="true"
     :collapse="openSidebar"
-    :collapse-transition="openSidebar && device == 'mobile' ? true : false"
+    :collapse-transition="false"
     :router="true"
     :default-active="activeRoute"
+     mode="vertical"
   >
     <!-- 设置管理系统的导航栏 -->
-    <div class="title" v-if="device == 'desktop'">
+    <div class="title" v-if="device == 'deskTop'">
       <el-image :src="src" style="height:40px"></el-image>
-      <span class="name">五福临门</span>
+      <span class="name" v-if="!openSidebar">五福临门</span>
     </div>
 
     <side-bar
@@ -64,7 +66,7 @@ export default {
       if (this.device == "mobile" && this.openSidebar) {
         return "none-width";
       }
-      if (this.openSidebar && this.device == "desktop") {
+      if (this.openSidebar && this.device == "deskTop") {
         return "collapse-width";
       }
 
@@ -103,10 +105,15 @@ export default {
 
 .collapse-width {
   width: 64px;
+  &:not(.el-menu--collapse){
+    width: 180px;
+  }
 }
 
+
+
 .not-collapse-width {
-  width: 200px;
+  width:220px;
 }
 
 .none-width {

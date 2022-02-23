@@ -1,6 +1,6 @@
 <template>
-  <component :is="type" v-bind="linkProps(to)">
-    <slot />
+  <component  :is="type" v-bind="linkProps(to)">
+    <slot  />
   </component>
 </template>
 
@@ -30,7 +30,9 @@ export default {
 </script>
 
 <style scoped lang="css">
-    a:link{
+
+
+a:link{
       text-decoration: none;
-    }
+   }
 </style>
