@@ -1,6 +1,7 @@
 import Layout from "./../../layout";
 export default [
   {
+    name: "tree",
     path: "/tree",
     component: Layout,
     redirect: "/tree/index",
@@ -14,6 +15,7 @@ export default [
     },
     children: [
       {
+        name: "list",
         path: "list",
         meta: {
           title: "递归树形控件",
@@ -24,6 +26,7 @@ export default [
         order: 1,
         children: [
           {
+            name: "sonTree",
             component: () => import("./index.vue"),
             path: "index",
             meta: {
@@ -35,6 +38,7 @@ export default [
             roles: ["admin", "edit", "view", "delete", "update"]
           },
           {
+            name: "treeIndex",
             component: () => import("./index.vue"),
             path: "indexs",
             meta: {

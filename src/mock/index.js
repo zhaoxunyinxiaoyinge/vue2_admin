@@ -34,7 +34,6 @@ const getMenus = () => {
           path: "/danbord",
           roles: ["admin"]
         },
-
         {
           id: "1-1",
           path: "/welcome",

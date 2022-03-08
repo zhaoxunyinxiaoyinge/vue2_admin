@@ -58,12 +58,20 @@
       ></el-table-column>
 
       <el-table-column draggable="true" label="操作">
-        <template>
-          <el-button type="primary">修改</el-button>
+        <template slot-scope="scope">
+          <el-button type="primary" @click="handleEdit(scope.row)"
+            >修改</el-button
+          >
           <el-button type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <Add
+      :title="title"
+      @close="dialogVisible = false"
+      :dialogVisible="dialogVisible"
+      :userData="userData"
+    ></Add>
 
     <Pageion
       :page="queryParams.page"
@@ -76,10 +84,12 @@
 import Pageion from "@/components/pagination";
 import { getUserList } from "./api/index";
 
+import Add from "./components/usermanger/index.vue";
+
 export default {
   name: "user",
 
-  components: { Pageion },
+  components: { Pageion, Add },
 
   data() {
     return {
@@ -91,6 +101,9 @@ export default {
       },
       total: 0,
       userList: [],
+      dialogVisible: false,
+      title: "新增用户管理",
+      userData: {},
     };
   },
   created() {
@@ -108,44 +121,22 @@ export default {
             this.total = res.data.data.total;
             this.queryParams.page = res.data.data.page;
             this.queryParams.pageSize = res.data.data.pageSize;
-            this.$nextTick(() => {
-              let tr = document.querySelectorAll("table tr");
-              let table=document.querySelector(table);
-              tr.forEach((item,index)=>{
-                item.setAttribute('draggable',true);
-                item.setAttribute('id',this.userList[index].id);
-                item.ondragstart=this.dropStart;
-                item.ondrop=this.drop;
-                item.ondragover=this.dropOver
-              })  
-     
-            });
           }
         })
         .catch((err) => {
           this.$message.error(err);
         });
     },
-    dropStart(event){
-      event.dataTransfer.setData("text", event.target.id)
-    },
-
-    drop(event){
-      event.preventDefault();
-     let data= event.dataTransfer.getData("text");
-      let table=document.querySelector("table");
-      table.appendChild(document.getElementById(data));
-
-    },
-    dropOver(event){
-      event.preventDefault()
-    },
-
 
     handleQuery() {
       this.getList();
     },
 
+    handleEdit(val) {
+      this.title = "新增用户";
+      this.dialogVisible = true;
+      this.userData = val;
+    },
   },
 };
 </script>

@@ -1,6 +1,7 @@
 import Layout from "./../../layout";
 export default [
   {
+    name: "users",
     path: "/user",
     component: Layout,
     redirect: "/user/index",
@@ -14,6 +15,7 @@ export default [
     roles: ["admin", "edit", "view", "delete", "update"],
     children: [
       {
+        name: "tabel",
         path: "index",
         component: () => import("./index.vue"),
         meta: {

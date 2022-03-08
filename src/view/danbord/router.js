@@ -2,11 +2,14 @@ import Layout from "./../../layout";
 
 export default [
   {
-    name: "danbord",
+    name: "welcome",
     path: "/",
     component: Layout,
     order: 1,
     redirect: "/danbord",
+    meta: {
+      title: "主页"
+    },
     children: [
       {
         path: "/danbord",

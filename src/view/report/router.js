@@ -1,12 +1,17 @@
 import Layout from "./../../layout";
 export default [
   {
+    name: "report",
     path: "/report",
     component: Layout,
     redirect: "/report/index",
     order: 4,
+    meta: {
+      title: "图表"
+    },
     children: [
       {
+        name: "reportIndex",
         path: "index",
         component: () => import("./index.vue"),
         meta: {

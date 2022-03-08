@@ -1,12 +1,17 @@
 import Layout from "./../../layout";
 export default [
   {
+    name: "welcomes",
     path: "/welcome",
     component: Layout,
     redirect: "/welcome/index",
     order: 8,
+    meta: {
+      title: "系统"
+    },
     children: [
       {
+        name: "welcomeIndex",
         path: "index",
         component: () => import("./index.vue"),
         meta: {

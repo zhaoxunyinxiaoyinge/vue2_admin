@@ -1,12 +1,17 @@
 import Layout from "./../../layout";
 export default [
   {
+    name: "json",
     path: "/jsonEdit",
     component: Layout,
     redirect: "/jsonEdit/index",
     order: 4,
+    meta: {
+      title: "json"
+    },
     children: [
       {
+        name: "jsonIndex",
         path: "index",
         component: () => import("./index.vue"),
         meta: {

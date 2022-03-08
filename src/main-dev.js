@@ -46,7 +46,7 @@ Vue.component("el-form-renderer", ElFormRenderer);
 Vue.component("el-data-table", ElDataTable);
 
 // import Store from "@/store/index.js"
-Vue.component(ZkTable.name, ZkTable);
+Vue.component("tree-table", ZkTable);
 
 // 设置全局键盘码的事件
 
@@ -131,7 +131,9 @@ import {
   ColorPicker,
   Dropdown,
   DropdownItem,
-  DropdownMenu
+  DropdownMenu,
+  Radio,
+  Link
 } from "element-ui";
 import { router } from "./routes/index.js";
 import "./assets/css/reset.css";
@@ -189,6 +191,8 @@ Vue.use(Scrollbar);
 Vue.use(Backtop);
 Vue.use(InfiniteScroll);
 Vue.use(ColorPicker);
+Vue.use(Radio);
+Vue.use(Link);
 
 Vue.use(VueI18n);
 Vue.use(Carousel);

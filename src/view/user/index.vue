@@ -16,7 +16,7 @@
       :pageKey="page"
       :pageSizeKey="size"
       :firstPage="1"
-      :id="id"
+      :id="'id'"
       ref="elDataTabel"
     ></el-data-table>
     <Dialog ref="showModal" :templateData="templateData" />
@@ -35,6 +35,9 @@ export default {
   data() {
     return {
       data: [],
+
+      page:"1",
+      size:"10",
 
       templateData: [{ id: "", name: "", address: "", creadit: "" }],
 

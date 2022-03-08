@@ -14,7 +14,9 @@
 import { getEcharts } from "./api";
 import _ from "lodash";
 import Echarts from "echarts";
+
 export default {
+  name:"charts",
   data() {
     return {
       setData: {
@@ -41,6 +43,7 @@ export default {
   },
   methods: {
     init() {
+      this.$nextTick(()=>{
       let myCharts = Echarts.init(this.$refs.one);
       let myChartst = Echarts.init(this.$refs.two);
       let myChartstree = Echarts.init(this.$refs.three);
@@ -57,6 +60,8 @@ export default {
       myChartstsix.setOption(this.setData[4]);
       myChartstseven.setOption(this.setData[2]);
       myChartsteight.setOption(this.setData[1]);
+      })
+     
     },
     async getReportss() {
       let res = await getEcharts();
@@ -66,12 +71,6 @@ export default {
   },
   created() {
     this.getReportss();
-  },
-  mounted() {
-    this.$nextTick(()=>{
-      this.init();
-    })
-  
   },
 };
 </script>

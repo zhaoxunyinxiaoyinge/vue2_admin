@@ -1,6 +1,7 @@
 import Layout from "./../../layout";
 export default [
   {
+    name: "webGl",
     path: "/webGl",
     component: Layout,
     redirect: "/webGl/index",
@@ -14,6 +15,7 @@ export default [
     roles: ["admin", "edit", "view", "delete", "update"],
     children: [
       {
+        name: "webGlIndex",
         path: "index",
         component: () => import("./index.vue"),
         meta: {

@@ -11,9 +11,10 @@ export default {
     avatar:
       "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
     device: Cookies.get("device") ? Cookies.get("device") : "desktop", //默认是桌面端的
-    openSidebar: Cookies.get("openSidebar")
-      ? Cookies.get("openSidebar")
-      : false, //默认是关闭的
+    openSidebar:
+      Cookies.get("openSidebar") && JSON.parse(Cookies.get("openSidebar"))
+        ? Cookies.get("openSidebar")
+        : false, //默认是关闭的
     defaultOpen: ["/"],
 
     btncolor: "#1989fa"

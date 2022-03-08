@@ -5,9 +5,13 @@ export default [
     path: "/editext",
     component: Layout,
     redirect: "/editext/index",
+    meta: {
+      title: "富文本"
+    },
     order: 3,
     children: [
       {
+        name: "edit",
         path: "index",
         component: () => import("./index.vue"),
         meta: {

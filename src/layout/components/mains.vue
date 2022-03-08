@@ -15,7 +15,7 @@
     <!-- 设置管理系统的导航栏 -->
     <div class="title" v-if="device == 'deskTop'">
       <el-image :src="src" style="height:40px"></el-image>
-      <span class="name" v-if="!openSidebar">五福临门</span>
+      <span class="name" v-if="!openSidebar">vue2后台系统</span>
     </div>
 
     <side-bar
@@ -43,7 +43,7 @@ export default {
       menuList: [],
       activeRoute: "/",
       Style,
-      src:'https://demosc.chinaz.net/Files/pic/iconsico/8321/f5.ico',
+      src:require("./../../assets/1.jpg"),
     };
   },
 

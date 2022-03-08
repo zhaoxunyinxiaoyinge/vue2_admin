@@ -65,6 +65,5 @@ function filterAsyncRoutes(routes, roles) {
 
 function orderRoute(data) {
   let res = data.sort((cur, next) => cur.order - next.order);
-  console.log(res, "order");
   return res;
 }

@@ -32,7 +32,14 @@ module.exports = {
         pathRewrite: {
           "^/api/upload": "",
          },
-      }
+      },
+      '/api/json':{
+        target:"https://github.com",
+        changeOrigin:true,
+        pathRewrite: {
+          "^/api/json": "",
+         },
+      },
     },
   },
   // 这里是配置一个vue的路径

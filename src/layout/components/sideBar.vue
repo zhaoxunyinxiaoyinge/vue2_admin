@@ -6,15 +6,18 @@
           (!onlyOneChild.children || onlyOneChild.noShowingChildren)
       "
     >
-      <Links v-if="onlyOneChild.meta" :to="resovlePath(onlyOneChild.path)">
-        <el-menu-item class="menu-item items" :index="resovlePath(onlyOneChild.path)">
-            <Item
-              :icon="
-                onlyOneChild.meta.icon ||
-                  (onlyOneChild.meta && onlyOneChild.meta.icon)
-              "
-              :title="onlyOneChild.meta.title"
-            ></Item> 
+      <Links v-if="!onlyOneChild.meta.hidden" :to="resovlePath(onlyOneChild.path)">
+        <el-menu-item
+          class="menu-item items"
+          :index="resovlePath(onlyOneChild.path)"
+        >
+          <Item
+            :icon="
+              onlyOneChild.meta.icon ||
+                (onlyOneChild.meta && onlyOneChild.meta.icon)
+            "
+            :title="onlyOneChild.meta.title"
+          ></Item>
         </el-menu-item>
       </Links>
     </template>
@@ -122,8 +125,6 @@ a.router-link-exact-active {
   text-decoration: none;
 }
 
-
-
 .item {
   width: 100%;
 }
@@ -136,18 +137,17 @@ a.router-link-exact-active {
   box-sizing: border-box;
   overflow: hidden;
 }
-  i.icon {
-    width: 30px;
-    font-size: 16px;
-  }
+i.icon {
+  width: 30px;
+  font-size: 16px;
+}
 
-  .title {
-    flex: 1;
-    text-align: left;
-    letter-spacing: 1px;
-    font-weight: thin;
-  }
-
+.title {
+  flex: 1;
+  text-align: left;
+  letter-spacing: 1px;
+  font-weight: thin;
+}
 </style>
 
 <style lang="scss">
@@ -167,10 +167,6 @@ a.router-link-exact-active {
   /* color: #000; */
 }
 
-
-
-
-
 .el-submenu__title:hover,
 .el-submenu__title:focus,
 .el-menu-item:focus,
@@ -178,23 +174,21 @@ a.router-link-exact-active {
   background-color: hsl(0, 90%, 12%) !important;
 }
 
-.el-submenu__title  {
+.el-submenu__title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.el-menu--collapse .el-submenu__title  span.item {
+.el-menu--collapse .el-submenu__title span.item {
   display: none;
 }
-
 
 .el-menu--collapse
   .sideBar
   .el-submenu
   .el-submenu__title
   .el-icon-arrow-right {
-   display: none;
+  display: none;
 }
-
 </style>

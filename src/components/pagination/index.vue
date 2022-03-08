@@ -45,7 +45,7 @@ export default {
       },
 
       pages:{
-          set(){
+          get(){
               return this.page;
           },
 
