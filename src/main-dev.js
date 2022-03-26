@@ -19,9 +19,21 @@ dynamicGetEquipment();
 import store from "./store";
 
 // 支持svg
-const requireAll = requireContext => requireContext.keys().map(requireContext);
+const requireAll = requireContext => {
+  let arr = requireContext.keys().map(item => {
+    let reg = /\.\/([\w-]+)\.svg/gi;
+    return reg.exec(item)[1];
+  });
+  store.state.app.iconList = arr;
+
+  return requireContext.keys().map(requireContext);
+};
+
 const req = require.context("./assets/svgIcon", true, /\.svg$/); //自动引入
 requireAll(req);
+
+// 自动引入注册svg目录下的其他svgIcon;
+
 import SvgIcon from "./components/svg/svg.vue";
 
 Vue.component("svg-icon", SvgIcon);
@@ -140,6 +152,7 @@ import "./assets/css/reset.css";
 // import "./assets/element-ui-css/index.css"
 // import "./../theme/index.css"
 import "@/assets/scss/index.scss";
+import Cookies from "js-cookie";
 
 require("./perssion");
 
@@ -228,7 +241,7 @@ Vue.config.productionTip = false;
 // 这里主要是用vue-router-sync插件对router对象进行测试；
 //当我们需要在vuex的action中处理路由跳转的时候,没认识vuex-router-sync的时候,我一般都是直接拿到router对象,方便获取路由对象。
 // sync(Store, router)
-Vue.prototype.$ELEMENT = { size: "small" }; //统一设置组件的尺寸大小
+Vue.prototype.$ELEMENT = { size: store.state.app.size }; //统一设置组件的尺寸大小
 
 new Vue({
   i18n,

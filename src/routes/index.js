@@ -2,7 +2,20 @@ import Vue from "vue";
 import Router from "vue-router";
 Vue.use(Router);
 
+import Layout from "@/layout/index.vue";
+
 let routes = [
+  {
+    path: "/redirect",
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: "/redirect/:path(.*)",
+        component: () => import("@/view/redirect/index")
+      }
+    ]
+  },
   {
     path: "/login",
     component: () => import("./../components/login")

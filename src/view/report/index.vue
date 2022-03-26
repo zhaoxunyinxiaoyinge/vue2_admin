@@ -60,7 +60,19 @@ export default {
       myChartstsix.setOption(this.setData[4]);
       myChartstseven.setOption(this.setData[2]);
       myChartsteight.setOption(this.setData[1]);
-      })
+ 
+
+      window.onresize=function(){
+        myCharts.resize();
+        myChartst.resize();
+        myChartstree.resize();
+        myChartsfo.resize();
+        myChartstfive.resize();
+        myChartstsix.resize();
+        myChartstseven.resize();
+        myChartsteight.resize();
+         }
+           })
      
     },
     async getReportss() {
@@ -71,7 +83,9 @@ export default {
   },
   created() {
     this.getReportss();
+
   },
+
 };
 </script>
 
@@ -79,37 +93,35 @@ export default {
 .tabel {
   margin-top: 20px;
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: 24% 24% 24% 24%;
-  grid-template-rows: 251px 251px;
-  justify-content:space-between;
-  align-content: space-around;
-  height: 530px;
+  display: flex;
+  background-color: #ccc;
+  padding: 10px 0;
+  flex-wrap: wrap;
+  height: 100%;
+  padding: 0px;
+  justify-content:flex-start;
 }
 
 .item {
   background-color: #fff;
   border-radius: 5px; 
   offset: 1px solid  #eee;
-  
+  min-height: 200px;
+  height: 251px;
+  width:32%;
+  margin:5px;
 
 }
 
-@media screen and (max-width: 769px) {
-  .tabel {
-  grid-template-columns:99%;
-  grid-template-rows: 251px 251px;
- }   
+@media screen and (max-width:760px){
+  .item {
+    width: 100%;
+  }
 }
 
-
-@media screen and (min-width: 770px) and (max-width: 1024px) {
-  .tabel {
-  grid-template-columns:48% 48%;
-  grid-template-rows: 251px 251px;
- }   
+@media screen and (min-width:760px) and (max-width:992px){
+  .item {
+    width: 48%;
+  }
 }
-
-
-
 </style>

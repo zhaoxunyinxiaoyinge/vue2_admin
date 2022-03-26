@@ -44,6 +44,8 @@
         </el-table-column>
       </template>
     </el-table>
+
+    <Pagetion></Pagetion>
     <Add
       :title="title"
       :dialogVisible="dialogVisible"
@@ -57,11 +59,12 @@
 <script>
 import Form from "./components/search/form.vue";
 import Add from "./components/add/index.vue";
+import Pagetion from "components/pagination/index";
 
 import { mapState } from "vuex";
 
 export default {
-  components: { Form, Add },
+  components: { Form, Add,Pagetion},
   data() {
     return {
       dialogVisible: false,

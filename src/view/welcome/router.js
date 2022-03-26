@@ -15,7 +15,7 @@ export default [
         path: "index",
         component: () => import("./index.vue"),
         meta: {
-          title: "系统页面",
+          title: "个人中心",
           hidden: false,
           icon: "el-icon-setting",
           noCancle: false

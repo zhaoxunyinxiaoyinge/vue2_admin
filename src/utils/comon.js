@@ -35,3 +35,23 @@ function jsonToTree(lists) {
   }
   return treeList;
 }
+
+// 深拷贝函数
+function DeepObj(obj) {
+  let newObj;
+  if (typeof obj == "object") {
+    newObj = Array.isArray(obj) ? [] : {};
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (typeof key == "object") {
+          DeepObj(obj[key]);
+        } else {
+          newObj[key] = obj[key];
+        }
+      }
+    }
+  } else {
+    newObj = obj;
+  }
+  return newObj;
+}

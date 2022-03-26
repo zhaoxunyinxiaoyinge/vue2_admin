@@ -31,84 +31,155 @@ const getMenus = () => {
       data: [
         {
           id: "1",
-          path: "/danbord",
-          roles: ["admin"]
-        },
-        {
-          id: "1-1",
-          path: "/welcome",
-          roles: ["admin"]
-        },
-        {
-          id: "1-2",
-          path: "/user",
-          roles: ["admin"],
+          path: "/",
+          name: "welcome",
+          order: 1,
+          redirect: "/danbord",
+          meta: {
+            title: "主页"
+          },
           children: [
             {
-              id: "1-2-1",
-              path: "/user/roles",
-              roles: ["admin"]
+              id: "1-1",
+              path: "/danbord",
+              order: 1,
+              name: "danbord",
+              component: "view/danboard/index",
+              meta: {
+                title: "首页",
+                icon: "el-icon-s-platform",
+                hidden: false,
+                noCancle: false
+              }
+            }
+          ]
+        },
+        {
+          id: "2",
+          name: "report",
+          order: 4,
+          path: "/report",
+          redirect: "/report/index",
+          meta: {
+            title: "图表"
+          },
+          children: [
+            {
+              id: "2-1",
+              name: "reportIndex",
+              order: 1,
+              path: "index",
+              component: "view/report/index",
+              meta: {
+                hidden: false,
+                icon: "el-icon-document",
+                noCancle: false,
+                title: "常用图表"
+              }
+            }
+          ]
+        },
+        {
+          id: "3",
+          name: "welcomes",
+          order: 8,
+          path: "/welcome",
+          redirect: "/welcome/index",
+          meta: {
+            title: "系统"
+          },
+          children: [
+            {
+              id: "3-1",
+              name: "welcomeIndex",
+              order: 1,
+              path: "index",
+              component: "view/welcome/index",
+              meta: {
+                hidden: false,
+                icon: "el-icon-setting",
+                noCancle: false,
+                title: "个人中心"
+              }
+            }
+          ]
+        },
+        {
+          id: "4",
+          name: "stylems",
+          order: 9,
+          path: "/stylems",
+          redirect: "/stylems/index",
+          meta: {
+            hidden: false,
+            icon: "el-icon-s-promotion",
+            title: "系统设置"
+          },
+          children: [
+            {
+              id: "4-1",
+              name: "user",
+              order: 1,
+              path: "index",
+              component: "view/stylems/index",
+              meta: {
+                hidden: false,
+                icon: "el-icon-user-solid",
+                noCancle: false,
+                title: "用户管理"
+              }
             },
             {
-              id: "1-2-1",
-              path: "/user/roles",
-              roles: ["admin"]
-            }
-          ]
-        },
-
-        {
-          id: "1-3",
-          path: "/reports",
-          roles: ["admin"]
-        },
-        {
-          id: "1-4",
-          path: "/editext",
-          roles: ["admin"],
-          children: [
+              id: "4-2",
+              name: "roles",
+              order: 2,
+              path: "user_roles",
+              component: "view/stylems/userRoles",
+              meta: {
+                hidden: false,
+                icon: "el-icon-s-custom",
+                noCancle: false,
+                title: "角色管理"
+              }
+            },
             {
-              id: "1-4-1",
-              path: "index",
-              roles: ["admin"]
-            }
-          ]
-        },
-        {
-          id: "1-5",
-          path: "/scroll",
-          roles: ["admin"],
-          children: [
+              id: "4-3",
+              name: "menu",
+              order: 2,
+              path: "user_menu",
+              component: "view/stylems/userMenu",
+              meta: {
+                hidden: false,
+                icon: "el-icon-menu",
+                noCancle: false,
+                title: "菜单管理"
+              }
+            },
             {
-              id: "1-5-1",
-              path: "index",
-              roles: ["admin"],
-              children: [
-                {
-                  id: "1-5-2",
-                  path: "index",
-                  roles: ["admin"],
-                  children: [
-                    {
-                      id: "1-5-3",
-                      path: "index",
-                      roles: ["admin"]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: "1-6",
-          path: "directer",
-          roles: ["admin"],
-          children: [
+              id: "4-4",
+              name: "dictionaries",
+              order: 3,
+              path: "dictionaries_setting",
+              component: "view/stylems/dictionariesSetting",
+              meta: {
+                hidden: false,
+                icon: "el-icon-s-release",
+                noCancle: false,
+                title: "用户字典配置"
+              }
+            },
             {
-              id: "1-6-1",
-              path: "index",
-              roles: ["admin"]
+              id: "4-5",
+              name: "dictionariesDetail",
+              order: 3,
+              path: "dictionaries_setting/:id",
+              component: "view/stylems/dictionriesdetail",
+              meta: {
+                hidden: true,
+                icon: "el-icon-s-release",
+                noCancle: false,
+                title: "字典详情"
+              }
             }
           ]
         }

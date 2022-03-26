@@ -1,19 +1,6 @@
 <template>
   <div>
-    <el-form :v-model="queryParams" :inline="true" label-width="150px">
-      <el-form-item>
-        <span slot="label">用户角色</span>
-        <el-input v-model="queryParams.roles"></el-input>
-      </el-form-item>
-      <el-form-item label="用户名称">
-        <el-input v-model="queryParams.username"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="handleQuery">查询</el-button>
-        <el-button type="reset">重置</el-button>
-      </el-form-item>
-    </el-form>
-
+    <Form></Form>
     <el-table ref="table" :data="userList">
       <el-table-column
         draggable="true"
@@ -85,11 +72,12 @@ import Pageion from "@/components/pagination";
 import { getUserList } from "./api/index";
 
 import Add from "./components/usermanger/index.vue";
+import Form from "./components/search/form.vue";
 
 export default {
   name: "user",
 
-  components: { Pageion, Add },
+  components: { Pageion, Add, Form },
 
   data() {
     return {

@@ -2,6 +2,7 @@ import store from "./store";
 import { router } from "./routes";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import Cookies from "js-cookie";
 
 // 白名单
 const whiteList = ["/login", "/404"];
@@ -11,13 +12,10 @@ router.beforeEach(async (to, from, next) => {
 
   // 本地不存在，那么我从全局转态里面获取
   let token = store.getters["app/getToken"];
-  if (!token) {
-    token = window.sessionStorage.getItem("token");
+  if (token) {
     let rightToken = await store.dispatch("app/getUserInfo", { token });
-
-    if (!rightToken) {
-      store.commit("app/CLEAR_TOKEN");
-    }
+  } else {
+    store.commit("app/CLEAR_TOKEN");
   }
 
   if (token) {

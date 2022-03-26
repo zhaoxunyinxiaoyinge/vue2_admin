@@ -18,24 +18,32 @@
     <el-main>
       <div class="nav-box">
         <!-- <Top/> -->
-        <div  class="nav" :style="{background:Style.bg}">
-          <div class="collapse hamburger-container" id="hamburger-container" @click="oncollapse">
+        <div class="nav" :style="{ background: Style.bg }">
+          <div
+            class="collapse hamburger-container"
+            id="hamburger-container"
+            @click="oncollapse"
+          >
             <span class="el-icon-s-fold"></span>
           </div>
-            <BreadCrumb id="breacrubm-container"  class="breacrubm-container" :data="breadCrumb" v-if="device =='deskTop'" />
-          <Header/>
+          <BreadCrumb
+            id="breacrubm-container"
+            class="breacrubm-container"
+            :data="breadCrumb"
+            v-if="device == 'deskTop'"
+          />
+          <Header />
         </div>
-         <route-tag />
+        <route-tag />
       </div>
       <div class="content">
         <!-- <el-scrollbar> -->
-          <transition mode="out-in">
-            <keep-alive>
-              <!-- 阻止动态路由加载时复用，created和mount无法使用 -->
-             <router-view :key="$route.path"></router-view>
-            </keep-alive>
-
-          </transition>
+        <transition mode="out-in">
+          <!-- <keep-alive> -->
+            <!-- 阻止动态路由加载时复用，created和mount无法使用 -->
+            <router-view :key="$route.path"></router-view>
+          <!-- </keep-alive> -->
+        </transition>
         <!-- </el-scrollbar> -->
       </div>
     </el-main>
@@ -50,27 +58,26 @@ import RouteTag from "./components/routeTag.vue";
 import BreadCrumb from "./components/breaked.vue";
 import UpDown from "./components/backTo.vue";
 import Mains from "./components/mains.vue";
-import Header from "./components/header.vue"
-import Top from "./components/navBar.vue"
+import Header from "./components/header.vue";
+import Top from "./components/navBar.vue";
 import Style from "./../assets/scss/index.scss";
-import resizeHandle from "./mixins/resizeHandler"
+import resizeHandle from "./mixins/resizeHandler";
 
 export default {
-  components: { Mains,  RouteTag, BreadCrumb, UpDown,Header,Top},
+  components: { Mains, RouteTag, BreadCrumb, UpDown, Header, Top },
 
   data() {
     return {
       menuList: [],
       breadCrumb: [],
-         Style,
+      Style,
     };
   },
 
-  mixins:[resizeHandle],
+  mixins: [resizeHandle],
 
   mounted() {
     this.menuList = this.routes;
-
   },
 
   computed: {
@@ -92,12 +99,17 @@ export default {
       Cookies.set("openSidebar", true);
       this.SET_SIDEBAR(true);
     },
-
   },
   watch: {
     $route: {
       handler: function(val, old) {
-        this["ADD_ROUTE_TAG"]({ title: val.meta.title, path: val.fullPath,icon:val.meta.icon });
+        if (!val.fullPath.startsWith("/redirect")) {
+          this["ADD_ROUTE_TAG"]({
+            title: val.meta.title,
+            path: val.fullPath,
+            icon: val.meta.icon,
+          });
+        }
       },
       deep: true,
       immediate: true,
@@ -120,7 +132,6 @@ export default {
   background-color: #000;
   opacity: 0.1;
   z-index: 10;
-
 }
 
 .aside {
@@ -139,14 +150,14 @@ export default {
 .nav-box {
   display: flex;
   flex-direction: column;
-  position:relative;
-  top:0;
-  left:0;
+  position: relative;
+  top: 0;
+  left: 0;
   z-index: 30;
 }
 
 .el-main {
-  background-color:transparent(0.3);
+  background-color: transparent(0.3);
   height: 100%;
   flex: 1;
   padding: 0;
@@ -160,7 +171,7 @@ export default {
   height: 60px;
   background-color: hsla(80, 52%, 28%, 0.055);
   align-items: center;
-  color:#000;
+  color: #000;
 }
 
 .collapse {
@@ -170,7 +181,7 @@ export default {
   font-size: 20px;
   color: #000;
   letter-spacing: 2px;
-  margin:0 10px;
+  margin: 0 10px;
   cursor: pointer;
 }
 
@@ -182,8 +193,8 @@ export default {
 
 .back {
   position: fixed;
-  right:30px;
-  bottom:100px;
+  right: 30px;
+  bottom: 100px;
   z-index: 40;
 }
 </style>

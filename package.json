@@ -25,6 +25,7 @@
     "driver.js": "^0.9.8",
     "echarts": "^4.8.0",
     "element-ui": "^2.13.0",
+    "fuse.js": "^6.5.3",
     "jest-diff": "^27.5.1",
     "js-cookie": "^3.0.1",
     "jsonlint": "^1.6.3",

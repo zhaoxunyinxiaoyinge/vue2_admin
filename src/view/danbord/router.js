@@ -15,7 +15,7 @@ export default [
         path: "/danbord",
         component: () => import("./index.vue"),
         meta: {
-          title: "仪表盘",
+          title: "首页",
           hidden: false,
           icon: "el-icon-s-platform",
           noCancle: false

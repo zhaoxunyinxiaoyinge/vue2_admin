@@ -32,6 +32,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from 'vuex';
 import { getLogin } from "./../api";
 
 export default {
@@ -65,6 +66,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations('app',['SET_TOKEN']),
     form_reset() {
       this.$refs.formRef.resetFields();
     },
@@ -77,7 +79,7 @@ export default {
         let ret = await getLogin({ username: userName, password: password });
         if (ret.data.status === 200) {
           let token = ret.data.data.token;
-          window.sessionStorage.setItem("token", token);
+          this.SET_TOKEN(token);
           this.$Message({
             message: "登录成功!",
             type: "success",

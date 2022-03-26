@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Form></Form>
     <el-table :data="tableData">
       <el-table-column
         :label="item.label"
@@ -17,10 +18,17 @@
         </template>
       </el-table-column>
     </el-table>
+    <Pagetion></Pagetion>  
   </div>
 </template>
 <script>
+
+import Form from "@/view/stylems/components/search/form.vue";
+import Pagetion from "components/pagination/index";
+
 export default {
+  components:{Form,Pagetion},
+
   data() {
     return {
       tableData: [

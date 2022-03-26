@@ -13,6 +13,7 @@ function readBook(workbook) {
   let sheetsName = workbook.SheetNames;
   let sheetFirst = workbook.Sheets[sheetsName[0]];
   let json = XLSX.utils.sheet_to_json(sheetFirst);
+  console.log(json, 3333);
   return json;
 }
 

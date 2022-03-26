@@ -33,14 +33,16 @@
       :dialogVisible="dialogVisible"
       :dictionData="dictionData"
     ></Adddition>
+    <Pagetion></Pagetion>
   </div>
 </template>
 <script>
 import Adddition from "./components/add/adddictionaries.vue";
 import Form from "./components/search/form.vue";
+import Pagetion from "components/pagination/index";
 
 export default {
-  components: { Adddition, Form },
+  components: { Adddition, Form,Pagetion},
   data() {
     return {
       title: "新增字典",

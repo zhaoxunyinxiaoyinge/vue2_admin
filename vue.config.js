@@ -59,6 +59,7 @@ module.exports = {
       //这里是将一个路径设置为觉对路径!
       .set("@", resolve("src"))
       .set("components", resolve("src/components"))
+      .set("view", resolve("src/view"))
       .set("common", resolve("src/common"))
       .set("API", resolve("src/api"))
       .set("assets", resolve("src/assets"))

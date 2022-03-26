@@ -4,10 +4,11 @@ import Cookies from "js-cookie";
 export default {
   namespaced: true,
   state: {
-    token: "",
+    token: Cookies.get("token") || "",
     username: "",
     routeTag: [],
-
+    iconList: [],
+    size: Cookies.get("size") || "Default",
     avatar:
       "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
     device: Cookies.get("device") ? Cookies.get("device") : "desktop", //默认是桌面端的
@@ -16,7 +17,6 @@ export default {
         ? Cookies.get("openSidebar")
         : false, //默认是关闭的
     defaultOpen: ["/"],
-
     btncolor: "#1989fa"
   },
 
@@ -31,10 +31,12 @@ export default {
 
     SET_TOKEN(state, playLoad) {
       state.token = playLoad;
+      Cookies.set("token", playLoad);
     },
 
     CLEAR_TOKEN(state) {
       state.token = "";
+      Cookies.remove("token");
     },
 
     SET_DEFAULT_OPEN(state, playLoad) {
@@ -49,9 +51,6 @@ export default {
       if (!pathObject) {
         return;
       }
-      // if (state.routeTag.length > 6) {
-      //   state.routeTag.pop();
-      // }
       let index = state.routeTag.findIndex(
         item => item.path == pathObject.path
       );
@@ -65,8 +64,17 @@ export default {
       state.routeTag.splice(index, 1);
     },
 
+    CLEAR_ROUTE_TAG(state) {
+      state.routeTag = [];
+    },
+
     SET_THEME_COLOR(state, playLoad) {
       state.btncolor = playLoad;
+    },
+
+    SET_ELEMENT_SIZE(state, size) {
+      state.size = size;
+      Cookies.set("size", size);
     }
   },
 
