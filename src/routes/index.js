@@ -20,7 +20,6 @@ let routes = [
     path: "/login",
     component: () => import("./../components/login")
   },
-
   {
     path: "/404",
     component: () => import("./../components/notfound")
@@ -28,6 +27,31 @@ let routes = [
   {
     path: "*",
     component: () => import("./../components/notfound")
+  },
+
+  {
+    name: "welcomes",
+    path: "/welcome",
+    component: Layout,
+    redirect: "/welcome/index",
+    order: 8,
+    meta: {
+      title: "用户中心"
+    },
+    children: [
+      {
+        name: "welcomeIndex",
+        path: "index",
+        component: () => import("@/view/welcome/index.vue"),
+        meta: {
+          title: "个人中心",
+          hidden: false,
+          icon: "el-icon-setting",
+          noCancle: false
+        },
+        order: 1
+      }
+    ]
   }
 ];
 

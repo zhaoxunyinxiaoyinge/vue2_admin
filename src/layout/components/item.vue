@@ -23,18 +23,20 @@ export default {
     const { icon, title } = context.props;
     const vnodes = [];
 
-    if (icon.includes("el-icon")) {
+    if (icon && icon.includes("el-icon")) {
       vnodes.push(<i class={[icon, "sub-el-icon"]} />);
     }
 
     if (title) {
-      vnodes.push(<span class="item" slot="title">{title}</span>);
+      vnodes.push(
+        <span class="item" slot="title">
+          {title}
+        </span>
+      );
     }
     return vnodes;
   },
 };
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

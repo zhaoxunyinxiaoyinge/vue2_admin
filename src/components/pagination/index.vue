@@ -4,7 +4,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="pages"
-      :page-sizes="[100, 200, 300, 400]"
+      :page-sizes="[10,20,40,50,100]"
       :page-size="pageSizes"
       layout="total, sizes, prev, pager, next, jumper"  
       :total="total"
@@ -67,8 +67,5 @@ export default {
           this.$emit("update",{page:this.page,pageSize:this.pageSize});
   }
   }
-
-
-
 };
 </script>

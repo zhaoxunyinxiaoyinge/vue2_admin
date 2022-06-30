@@ -1,4 +1,5 @@
 import Vue from "vue";
+import store from "@/store";
 
 Vue.directive("select-blur", {
   bind(el, bind, { context }) {
@@ -28,5 +29,19 @@ Vue.directive("img-preview", {
     el.addEventListener("mouseout", function() {
       el.removeChild(img);
     });
+  }
+});
+
+Vue.directive("hasPromession", {
+  bind(el, { value }, { context }) {
+    let allPromisstion = "**:**:**";
+    let promisseItem = value;
+    let promission = store.state.user.promission;
+    let hasPromise = promission.some(item => {
+      return item === allPromisstion || item.includes(promisseItem);
+    });
+    if (!hasPromise) {
+      el.parentNode && el.parentNode.removeChild(el);
+    }
   }
 });

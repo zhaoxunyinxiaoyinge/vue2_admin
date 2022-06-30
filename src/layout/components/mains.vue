@@ -1,6 +1,6 @@
 <template>
   <el-menu
-     width="initial"
+    width="initial"
     :class="getDeviceType()"
     class="menu"
     text-color="#fff"
@@ -10,18 +10,18 @@
     :collapse-transition="false"
     :router="true"
     :default-active="activeRoute"
-     mode="vertical"
+    mode="vertical"
   >
     <!-- 设置管理系统的导航栏 -->
     <div class="title" v-if="device == 'deskTop'">
-      <el-image :src="src" style="height:40px"></el-image>
-      <span class="name" v-if="!openSidebar">vue2后台系统</span>
+      <el-image :src="src" style="height:40px;margin-right:20px"></el-image>
+      <span class="name" v-if="!openSidebar">乐享购</span>
     </div>
 
     <side-bar
       :child="item"
-      v-for="(item, index) in routes"
-      :key="index"
+      v-for="(item, index) in menus"
+      :key="item.id"
       :baseRoutePath="item.path"
     ></side-bar>
   </el-menu>
@@ -43,17 +43,21 @@ export default {
       menuList: [],
       activeRoute: "/",
       Style,
-      src:require("./../../assets/1.jpg"),
+      src: require("./../../assets/1.jpg"),
     };
   },
 
-  mounted() {
-    this.menuList = this.routes;
-  },
+  mounted() {},
 
   computed: {
-    ...mapState("app", ["openSidebar", "device", "defaultOpen",'avatar','btncolor']),
-    ...mapState("perssion", ["routes"]),
+    ...mapState("app", [
+      "openSidebar",
+      "device",
+      "defaultOpen",
+      "avatar",
+      "btncolor",
+    ]),
+    ...mapState("perssion", ["menus"]),
   },
 
   methods: {
@@ -105,15 +109,13 @@ export default {
 
 .collapse-width {
   width: 64px;
-  &:not(.el-menu--collapse){
+  &:not(.el-menu--collapse) {
     width: 180px;
   }
 }
 
-
-
 .not-collapse-width {
-  width:220px;
+  width: 220px;
 }
 
 .none-width {
@@ -122,11 +124,12 @@ export default {
 }
 
 .title {
-  color:#fff;
+  color: #fff;
   height: 60px;
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 30px;
 }
 </style>

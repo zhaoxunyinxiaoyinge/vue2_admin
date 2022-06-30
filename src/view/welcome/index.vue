@@ -5,10 +5,11 @@
       <div slot="header" class="clearfix">
         <span class="bold">用户个人信息</span>
       </div>
-      <div>
-        <span>用户名</span>:<span>{{ username }}</span>&nbsp;
-        <el-button size="mini" type="success" class="copy" ref="btn" data-clipboard-text="xiaomei">直接复制当前属性文本</el-button>
-        <el-button size="mini" type="success" class="cut"  >事件委托方式使用</el-button>
+      <div style="margin-bottom:20px">
+        <span>用户名</span>:<span>{{userInfo.user_name }}</span>&nbsp;
+      </div>
+      <div style="margin-bottom:20px">
+        <span>手机号码: {{userInfo.tel_phone}}</span>
       </div>
       <div style="margin-top:20px">
          <el-button type="primary"  @click="toggleImage" size="small">更换头像图片</el-button>
@@ -19,7 +20,7 @@
         :preview-src-list="imgList"
         :lazy="true"
         :alt="'图像'"
-        src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage.cnhnb.com%2Fimage%2Fpng%2Fhead%2F2020%2F02%2F25%2Ff8f3abeeaa8441d8a7cca6d1079beb9c.png&refer=http%3A%2F%2Fimage.cnhnb.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1635646516&t=f265bcd4255efbea16bf3f17e0e92ce2"
+        :src="userInfo.avatar"
       ></el-image>
       <div slot="error">图片加载错误</div>
     </el-card>
@@ -45,7 +46,7 @@ export default {
   },
 
   computed: {
-    ...mapState("app", ["username"]),
+    ...mapState("user", ["userInfo"]),
   },
 
   mounted(){

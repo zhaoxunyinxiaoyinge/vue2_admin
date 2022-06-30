@@ -1,55 +1,75 @@
 <template>
   <div>
-    <Form></Form>
-    <div class="add"><el-button type="primary">新增</el-button></div>
-    <el-table :data="list" border>
-      <template v-for="item in tableConfig">
-        <el-table-column
-          v-if="item.label == '启用'"
-          :key="item.id"
-          :label="item.label"
-          :prop="item.prop"
-          :align="item.align"
+    <el-card>
+      <Form></Form>
+      <div class="add">
+        <el-button type="primary" @click="handleAdd" icon="el-icon-plus"
+          >新增</el-button
         >
-          <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.flag"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-            ></el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column
-          v-else-if="item.label == '操作'"
-          :key="item.id"
-          :label="item.label"
-          :prop="item.prop"
-          :align="item.align"
-        >
-          <template slot-scope="scope">
-            <el-button type="primary" @click="handleEdit(scope.row)"
-              >编辑</el-button
-            >
-            <el-button type="danger">删除</el-button>
-          </template>
-        </el-table-column>
+      </div>
+    </el-card>
+    <el-card>
+      <el-table :data="list">
+        <template v-for="item in tableConfig">
+          <el-table-column
+            v-if="item.label == '启用'"
+            :key="item.id"
+            :label="item.label"
+            :prop="item.prop"
+            :align="item.align"
+          >
+            <template slot-scope="{ row }">
+              <span>{{ row.role_status == 1 ? "启用" : "失效" }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            v-else-if="item.label == '操作'"
+            :key="item.id"
+            :label="item.label"
+            :prop="item.prop"
+            :align="item.align"
+          >
+            <template slot-scope="scope">
+              <el-button
+                icon="el-icon-edit"
+                type="primary"
+                @click="handleEdit(scope.row)"
+                >编辑</el-button
+              >
+              <el-button
+                icon="el-icon-delete"
+                type="danger"
+                @click="handleDelete(scope.row.id)"
+                >删除</el-button
+              >
+            </template>
+          </el-table-column>
 
-        <el-table-column
-          v-else
-          :key="item.id"
-          :label="item.label"
-          :prop="item.prop"
-          :align="item.align"
-        >
-        </el-table-column>
-      </template>
-    </el-table>
+          <el-table-column
+            v-else
+            :key="item.id"
+            :label="item.label"
+            :prop="item.prop"
+            :align="item.align"
+            :formatter="formatter"
+          >
+          </el-table-column>
+        </template>
+      </el-table>
 
-    <Pagetion></Pagetion>
+
+    <Pagetion
+      :page="listQuery.page"
+      :pageSize="listQuery.pageSize"
+      :total="total"
+    ></Pagetion>    
+    </el-card>
     <Add
       :title="title"
+      :type="type"
+      @update:list="getList()"
       :dialogVisible="dialogVisible"
-      :menuData="routes"
+      :menuData="treeMenu"
       :outData="outData"
       @close="handClose"
     ></Add>
@@ -60,25 +80,41 @@
 import Form from "./components/search/form.vue";
 import Add from "./components/add/index.vue";
 import Pagetion from "components/pagination/index";
-
+import {
+  getMenuList,
+  getUserRoleList,
+  deleteUserRoleItem,
+} from "./api/index.js";
+import { jsonToTree } from "./../../utils/comon.js";
 import { mapState } from "vuex";
+import moment from "moment";
+
+import _ from "lodash";
 
 export default {
-  components: { Form, Add,Pagetion},
+  components: { Form, Add, Pagetion },
+  created() {
+    this.getList();
+    this.getMenuList();
+    this.getMenus();
+  },
   data() {
     return {
       dialogVisible: false,
       title: "新增角色",
-      outData:{},
-      list: [
-        {
-          id: 1,
-          roles_username: "总裁",
-          password: "zxy123456.com",
-          createdTime: new Date().toString(),
-          flag: true,
-        },
-      ],
+      type: "add",
+      outData: {},
+      listQuery: {
+        page: 1,
+        pageSize: 10,
+      },
+      total: 0,
+      list: [],
+
+      menu: [],
+
+      treeMenu: [],
+
       tableConfig: [
         {
           label: "角色id",
@@ -87,18 +123,23 @@ export default {
         },
         {
           label: "用户角色名",
-          prop: "roles_username",
+          prop: "role_name",
           align: "left",
         },
 
         {
           label: "启用",
-          prop: "flag",
+          prop: "role_status",
         },
 
         {
           label: "创建时间",
-          prop: "createdTime",
+          prop: "createdAt",
+          align: "left",
+        },
+        {
+          label: "更新时间",
+          prop: "updatedAt",
           align: "left",
         },
         {
@@ -114,15 +155,93 @@ export default {
   },
 
   methods: {
-    handleEdit(val) {
-      this.title="编辑用户角色";
-      this.dialogVisible=true;
-      this.outData=val;
+    async getList() {
+      getUserRoleList({ all: "all", ...this.listQuery })
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.list = res.data.data.rows;
+            this.listQuery.page = res.page;
+            this.listQuery.pageSize = res.pageSize;
+            this.listQuery.total = res.data.total;
+          }
+        })
+        .catch((e) => {
+          this.$Message.error(e);
+        });
     },
 
-    handClose(){
-      this.dialogVisible=false;
-    }
+    async getMenuList() {
+      try {
+        let res = await getMenuList({ all: "all", page: 1, pageSize: 100000 });
+        this.menu = this.createMenu(res.data.data.rows);
+      } catch (e) {
+        this.$Message.error(e);
+      }
+    },
+
+    async getMenus() {
+      try {
+        let res = await getMenuList({ isMenu: 1, page: 1, pageSize: 100000 });
+        this.treeMenu = this.createMenu(res.data.data);
+      } catch (err) {
+        this.$Message.error(err);
+      }
+    },
+
+    createMenu(list) {
+      return jsonToTree(list);
+    },
+
+    handleAdd() {
+      this.title = "新增角色";
+      this.type = "add";
+      this.dialogVisible = true;
+      this.outData = {};
+      this.outData.menu_id = [];
+    },
+
+    handleEdit(val) {
+      this.title = "编辑用户角色";
+      this.type = "edit";
+      this.dialogVisible = true;
+      this.outData = _.cloneDeep(val);
+      this.outData.menu_id = this.outData.menu_id.split(",");
+    },
+
+    handClose() {
+      this.dialogVisible = false;
+    },
+
+    formatter(row, column) {
+      if (column.label == "创建时间" || column.label == "更新时间") {
+        return (
+          moment(row.createdAt).format("YYYY-MM-DD HH:mm:ss") ||
+          moment(row.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+        );
+      } else {
+        return row[column.property];
+      }
+    },
+
+    handleDelete(id) {
+      this.$confirm("确定是否删除", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          return deleteUserRoleItem(id);
+        })
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.getList();
+            this.$Message.success("删除成功");
+          }
+        })
+        .catch((e) => {
+          this.$Message.error("删除失败");
+        });
+    },
   },
 };
 </script>

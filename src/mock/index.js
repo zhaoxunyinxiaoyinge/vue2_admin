@@ -1,26 +1,26 @@
 import { Random } from "mockjs";
-
 const Mock = require("mockjs");
+
 Mock.setup({
   timeout: 400
 });
 
 //用户登录接口
-const login = () => {
-  return Mock.mock(/\/login\?.*/, "get", function(options) {
-    let username = getSearchParams(options.url).get("username");
-    let passworld = getSearchParams(options.url).get("password");
-    return {
-      message: "ok",
-      status: 200,
-      data: {
-        token: "zxy123456.com",
-        username,
-        passworld
-      }
-    };
-  });
-};
+// const login = () => {
+//   return Mock.mock(/\/login\?.*/, "get", function(options) {
+//     let username = getSearchParams(options.url).get("username");
+//     let passworld = getSearchParams(options.url).get("password");
+//     return {
+//       message: "ok",
+//       status: 200,
+//       data: {
+//         token: "zxy123456.com",
+//         username,
+//         passworld
+//       }
+//     };
+//   });
+// };
 
 //  获取菜单权限
 const getMenus = () => {
@@ -682,7 +682,7 @@ const getUseList = params => {
 };
 
 export const runMock = function() {
-  login();
+  // login();
   getMenus();
   person();
   userInfo();

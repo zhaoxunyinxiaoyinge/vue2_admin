@@ -1,91 +1,94 @@
 <template>
   <div class="tabel">
-    <div class="item" ref="one"></div>
-    <div class="item" ref="two"></div>
-    <div class="item" ref="three"></div>
-    <div class="item" ref="four"></div>
-    <div class="item" ref="five"></div>
-    <div class="item" ref="six"></div>
-    <div class="item" ref="seven"></div>
-    <div class="item" ref="eight"></div>
+    <el-card style="width:100%">
+      <div id="container" style="width:100%;height:800px;background-color:#fff"></div>
+    </el-card>
   </div>
 </template>
 <script>
-import { getEcharts } from "./api";
 import _ from "lodash";
-import Echarts from "echarts";
+import * as  echarts from "echarts";
 
 export default {
-  name:"charts",
+  name: "charts",
   data() {
     return {
-      setData: {
-        title: {
-          text: "ECharts 入门示例",
-        },
-        tooltip: {},
-        legend: {
-          data: ["销量"],
-        },
-        xAxis: {
-          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            data: [5, 20, 36, 10, 10, 20],
-          },
-        ],
-      },
-    };
+    }
   },
   methods: {
     init() {
-      this.$nextTick(()=>{
-      let myCharts = Echarts.init(this.$refs.one);
-      let myChartst = Echarts.init(this.$refs.two);
-      let myChartstree = Echarts.init(this.$refs.three);
-      let myChartsfo = Echarts.init(this.$refs.four);
-      let myChartstfive = Echarts.init(this.$refs.five);
-      let myChartstsix = Echarts.init(this.$refs.six);
-      let myChartstseven = Echarts.init(this.$refs.seven);
-      let myChartsteight = Echarts.init(this.$refs.eight);
-      myCharts.setOption(this.setData[0]);
-      myChartst.setOption(this.setData[1]);
-      myChartstree.setOption(this.setData[2]);
-      myChartsfo.setOption(this.setData[3]);
-      myChartstfive.setOption(this.setData[4]);
-      myChartstsix.setOption(this.setData[4]);
-      myChartstseven.setOption(this.setData[2]);
-      myChartsteight.setOption(this.setData[1]);
- 
-
-      window.onresize=function(){
-        myCharts.resize();
-        myChartst.resize();
-        myChartstree.resize();
-        myChartsfo.resize();
-        myChartstfive.resize();
-        myChartstsix.resize();
-        myChartstseven.resize();
-        myChartsteight.resize();
-         }
-           })
-     
-    },
-    async getReportss() {
-      let res = await getEcharts();
-      this.setData = res.data;
-      this.init();
+      this.$nextTick(() => {
+        let option = {
+          legend: {},
+          tooltip: {
+            trigger: 'axis',
+            showContent: true
+          },
+          dataset: {
+            source: [
+              ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+              ['Milk Tea', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
+              ['Matcha Latte', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
+              ['Cheese Cocoa', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
+              ['Walnut Brownie', 25.2, 37.1, 41.2, 18, 33.9, 49.1]
+            ]
+          },
+          xAxis: { type: 'category' },
+          yAxis: { gridIndex: 0 },
+          grid: { top: '55%' },
+          series: [
+            {
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row',
+              emphasis: { focus: 'series' }
+            },
+            {
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row',
+              emphasis: { focus: 'series' }
+            },
+            {
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row',
+              emphasis: { focus: 'series' }
+            },
+            {
+              type: 'line',
+              smooth: true,
+              seriesLayoutBy: 'row',
+              emphasis: { focus: 'series' }
+            },
+            {
+              type: 'pie',
+              id: 'pie',
+              radius: '30%',
+              center: ['25%', '25%'],
+              emphasis: {
+                focus: 'self'
+              },
+              label: {
+                formatter: '{b}: {@2012} ({d}%)'
+              },
+              encode: {
+                itemName: 'product',
+                value: '2012',
+                tooltip: '2012'
+              }
+            }
+          ]
+        }
+      let myEacther=echarts.init(document.querySelector('#container'));
+          myEacther.setOption(option)
+      });
     },
   },
-  created() {
-    this.getReportss();
 
+  mounted() {
+    this.init();
   },
-
 };
 </script>
 
@@ -99,27 +102,26 @@ export default {
   flex-wrap: wrap;
   height: 100%;
   padding: 0px;
-  justify-content:flex-start;
+  justify-content: flex-start;
 }
 
 .item {
   background-color: #fff;
-  border-radius: 5px; 
-  offset: 1px solid  #eee;
+  border-radius: 5px;
+  offset: 1px solid #eee;
   min-height: 200px;
   height: 251px;
-  width:32%;
-  margin:5px;
-
+  width: 32%;
+  margin: 5px;
 }
 
-@media screen and (max-width:760px){
+@media screen and (max-width: 760px) {
   .item {
     width: 100%;
   }
 }
 
-@media screen and (min-width:760px) and (max-width:992px){
+@media screen and (min-width: 760px) and (max-width: 992px) {
   .item {
     width: 48%;
   }

@@ -6,20 +6,41 @@
         >个人gitHub地址:https://github.com/zhaoxunyinxiaoyingge</a
       >
     </p>
+    <VueQuildEdit :content="content" :editorOption="editorOption"   />
   </div>
 </template>
 <script>
+import VueQuildEdit from "components/quiledit";
+import {getBananer} from "./api"
 export default {
   name: "danbord",
 
-  mounted() {},
+ async mounted() {
 
-  methods: {},
+ },
+  data() {
+    return {
+      content:"",
+      editorOption:{
+
+      }
+    }
+  },
+  components: { VueQuildEdit },
+  methods: {
+
+  },
 };
 </script>
 
 <style scoped lang="scss">
 p {
   text-align: center;
+}
+
+.block {
+  display: inline-flex;
+  margin: auto;
+  text-align: left;
 }
 </style>

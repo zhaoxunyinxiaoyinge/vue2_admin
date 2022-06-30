@@ -12,7 +12,7 @@ export default [
     },
     children: [
       {
-        path: "/danbord",
+        path: "danbord",
         component: () => import("./index.vue"),
         meta: {
           title: "首页",
@@ -20,7 +20,6 @@ export default [
           icon: "el-icon-s-platform",
           noCancle: false
         },
-        roles: ["admin", "edit", "view", "delete", "update"],
         order: 1
       }
     ]

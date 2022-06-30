@@ -27,6 +27,7 @@
           <el-button type="primary" @click="login">登陆</el-button>
           <el-button @click="form_reset">重置</el-button>
         </el-form-item>
+        <div class="tips">请输入默认管理员账号:admin,密码:zxy123456.com</div>
       </el-form>
     </div>
   </div>
@@ -41,8 +42,8 @@ export default {
   data() {
     return {
       datas: {
-        userName: "小明",
-        password: "zxy123456",
+        userName: "",
+        password: "",
         redirect: "",
         otherQuery: "",
       },
@@ -77,14 +78,13 @@ export default {
         if (!res) return "无法通过验证";
         let { userName, password } = this.datas;
         let ret = await getLogin({ username: userName, password: password });
-        if (ret.data.status === 200) {
-          let token = ret.data.data.token;
+        if (ret.data.code === 0) {
+          let token = ret.data.data[0].token;
           this.SET_TOKEN(token);
           this.$Message({
             message: "登录成功!",
             type: "success",
           });
-          console.log(this.$router)
           this.$router.push("/");    
         } else {
           this.$Message({
@@ -160,6 +160,11 @@ div.from {
         align-self: flex-start;
       }
     }
+  }
+
+  .tips {
+    font-size: 14px;
+    color:rgb(177, 169, 169)
   }
 }
 </style>

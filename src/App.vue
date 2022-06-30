@@ -1,7 +1,7 @@
 <template>
   <div id="app" ref="app">
     <div id="apps"></div>
-    <router-view ></router-view>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -12,7 +12,6 @@ export default {
   },
 
   created() {
-    console.log(this,"this")
     this.$nextTick(() => {
       let str = this.setSvg();
       document.getElementById("apps").style.backgroundImage =
@@ -41,11 +40,13 @@ export default {
       )}`;
     },
   },
+
   beforedestroy() {
     window.onresize = null;
   },
 };
 </script>
+
 <style lange="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

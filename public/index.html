@@ -41,15 +41,15 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
       rel="stylesheet"
       href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/index.css"
     />
-
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
     <script src="https://cdn.staticfile.org/vue/3.0.0-rc.4/vue.cjs.prod.min.js"></script>
-    <script src="https://cdn.staticfile.org/vue-router/4.0.0-beta.3/vue-router.cjs.prod.js"></script>
     <script src="https://cdn.staticfile.org/axios/0.20.0-0/axios.min.js"></script>
     <script src="https://cdn.staticfile.org/echarts/4.8.0/echarts.min.js"></script>
     <script src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
     <script src="https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.min.js"></script>
     <script src="https://cdn.staticfile.org/element-ui/2.13.2/index.js"></script>
-   
+    
     <% }%>
 
     <!-- <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js"></script> -->
@@ -61,7 +61,7 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
   </head>
 </script>
 
-  <style>
+<style>
 
 .loading {
 	margin:100px auto;
@@ -117,7 +117,7 @@ to {
         continue.</strong
       >
     </noscript>
-    <div id="app">
+    <div id="app" >
       <!-- 这里写入加载动画 -->
       <div class="loading" ></div>
     </div>
@@ -128,7 +128,7 @@ to {
     function setRem() {
     // 基准大小
       const baseSize=16;
-      let size=window.innerWidth*baseSize/1920;
+      let size=1920*baseSize/window.innerWidth;
       document.documentElement.style.fontSize=size+"px"
   }
   // 初始化
@@ -152,9 +152,9 @@ to {
         //  });   
         // },2000)
  
-  window.onresize = () => {
-    // setRem();
-  };
+  // window.onresize = () => {
+  //   setRem();
+  // };
 </script>
 
 

@@ -1,11 +1,8 @@
 import Vue from "vue";
 import App from "./app.vue";
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
-import VueQuillEditor from "vue-quill-editor";
-
 import axios from "axios";
+
+import moment from "moment";
 
 // 支持国际化
 import VueI18n from "vue-i18n";
@@ -24,6 +21,7 @@ const requireAll = requireContext => {
     let reg = /\.\/([\w-]+)\.svg/gi;
     return reg.exec(item)[1];
   });
+
   store.state.app.iconList = arr;
 
   return requireContext.keys().map(requireContext);
@@ -33,7 +31,6 @@ const req = require.context("./assets/svgIcon", true, /\.svg$/); //自动引入
 requireAll(req);
 
 // 自动引入注册svg目录下的其他svgIcon;
-
 import SvgIcon from "./components/svg/svg.vue";
 
 Vue.component("svg-icon", SvgIcon);
@@ -51,9 +48,9 @@ require("./directers/index");
 
 //自动注册运行mock
 import { runMock } from "./mock";
-
-runMock();
-
+if (process.env.NODE_ENV === "development") {
+  runMock();
+}
 Vue.component("el-form-renderer", ElFormRenderer);
 Vue.component("el-data-table", ElDataTable);
 
@@ -68,26 +65,9 @@ Vue.config.keyCodes = {
 
 // 在全局下注册一个时间过域器处理
 Vue.filter("fitlerTime", function(val) {
-  let date = new Date(parseInt(val));
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date
-    .getDate()
-    .toString()
-    .padStart(2, "0");
-  const hh = date
-    .getHours()
-    .toString()
-    .padStart(2, "0");
-  const mm = date
-    .getMinutes()
-    .toString()
-    .padStart(2, "0");
-  const ss = date
-    .getSeconds()
-    .toString()
-    .padStart(2, "0");
-  return `${year}-${month}-${day} ${hh}:${mm}:${ss}`;
+  if (!val) return "暂无";
+  let date = moment(val).format("YYYY-MM-DD HH:mm:ss");
+  return date;
 });
 
 // 自定指令
@@ -145,7 +125,8 @@ import {
   DropdownItem,
   DropdownMenu,
   Radio,
-  Link
+  Link,
+  DatePicker
 } from "element-ui";
 import { router } from "./routes/index.js";
 import "./assets/css/reset.css";
@@ -156,9 +137,14 @@ import Cookies from "js-cookie";
 
 require("./perssion");
 
+import { Loading } from "element-ui";
+Vue.use(Loading.directive);
+
 Vue.prototype.$Message = Message;
-Vue.use(VueQuillEditor);
+Vue.prototype.$prompt = MessageBox.prompt;
+// Vue.use(VueQuillEditor);
 Vue.use(Button);
+Vue.use(DatePicker);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);

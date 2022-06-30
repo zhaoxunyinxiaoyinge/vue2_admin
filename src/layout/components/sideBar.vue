@@ -6,7 +6,10 @@
           (!onlyOneChild.children || onlyOneChild.noShowingChildren)
       "
     >
-      <Links v-if="!onlyOneChild.meta.hidden" :to="resovlePath(onlyOneChild.path)">
+      <Links
+        v-if="!onlyOneChild.meta.hidden"
+        :to="resovlePath(onlyOneChild.path)"
+      >
         <el-menu-item
           class="menu-item items"
           :index="resovlePath(onlyOneChild.path)"
@@ -46,12 +49,12 @@ import Item from "./item.vue";
 import path from "path";
 import Links from "./link.vue";
 import SideBar from "./sideBar.vue";
-
 export default {
   name: "SideBar",
   data() {
+    this.onlyOneChild=null
     return {
-      onlyOneChild: {},
+      // onlyOneChild: {},
     };
   },
 
@@ -74,6 +77,7 @@ export default {
 
   methods: {
     hasOnyChild(children = [], parent) {
+      children = children ? children : [];
       let onlyChild = children.filter((item) => {
         if (item.hidden) {
           return false;
@@ -91,7 +95,6 @@ export default {
         this.onlyOneChild = { ...parent, path: "", noShowingChildren: true };
         return true;
       }
-
       return false;
     },
 
@@ -110,14 +113,14 @@ export default {
 
 .sideBar {
   width: 100%;
-  background-color: #4b0b0bef;
+  background-color: rgba(15, 16, 16, 0.824);
   &:hover .item {
     // color: #4e1818;
   }
 }
 
 .el-submenu {
-  background-color: #4b0b0bef;
+  background-color: rgba(15, 16, 16, 0.824);
   width: 100%;
 }
 
@@ -137,8 +140,11 @@ a.router-link-exact-active {
   box-sizing: border-box;
   overflow: hidden;
 }
+
 i.icon {
-  width: 30px;
+  display: inline-block;
+  font-size: 0;
+  width: 24px;
   font-size: 16px;
 }
 
@@ -171,7 +177,7 @@ i.icon {
 .el-submenu__title:focus,
 .el-menu-item:focus,
 .el-menu-item:hover {
-  background-color: hsl(0, 90%, 12%) !important;
+  background-color: rgb(5, 43, 43) !important;
 }
 
 .el-submenu__title {

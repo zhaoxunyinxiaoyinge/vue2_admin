@@ -1,5 +1,6 @@
 const path = require("path");
 const { link } = require("fs");
+const mockjs = require("mockjs");
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
@@ -15,32 +16,40 @@ module.exports = {
 
   devServer: {
     host: "0.0.0.0",
-    port: 8080,
+    port:port,
     open: true,
     proxy: {
-      '/list': {
+      "/list": {
         target: "http://v.juhe.cn",
-         changeOrigin: true,
-         pathRewrite: {
-         "^/list": "",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/list": "",
         },
       },
 
-      '/api/upload':{
-        target:"http://localhost:7001/api/upload",
-        changeOrigin:true,
+      "/api/upload": {
+        target: "https://localhost:7001/api/upload",
+        changeOrigin: true,
         pathRewrite: {
           "^/api/upload": "",
-         },
+        },
       },
-      '/api/json':{
-        target:"https://github.com",
-        changeOrigin:true,
+      "/api/json": {
+        target: "https://github.com",
+        changeOrigin: true,
         pathRewrite: {
           "^/api/json": "",
-         },
+        },
+      },
+     "/egg": {
+        target: "https://127.0.0.1:7001",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/egg": "",
+        },
       },
     },
+    https: true,
   },
   // 这里是配置一个vue的路径
   chainWebpack: (config) => {
@@ -73,11 +82,10 @@ module.exports = {
       //配置文件实现cdn静态加载。
       config.set("externals", {
         vue: "Vue",
-        "vue-router": "vueRouter",
+        "vue-router": "VueRouter",
         axios: "axios",
         echarts: "echarts",
         nprogress: "NProgress",
-        "vue-quill-editor": "VueQuillEditor",
       });
       // 通过区分生产模式和开发模式，在webpackHtmlPlugin上添加一个参数，用于判别当前环境是开发环境还是生产环境
       config.plugin("html").tap((args) => {

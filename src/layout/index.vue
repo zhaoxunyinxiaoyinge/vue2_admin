@@ -46,6 +46,10 @@
         </transition>
         <!-- </el-scrollbar> -->
       </div>
+      <div class="beian">
+        <span><a style="color:rgba(40, 34, 34, 0.834)" href="https://beian.miit.gov.cn"  target="_blank">鄂ICP备2022006963号-1</a></span>
+        <span>&nbsp;development by zhaoxunyin</span>
+        </div>
     </el-main>
   </el-container>
 </template>
@@ -59,12 +63,12 @@ import BreadCrumb from "./components/breaked.vue";
 import UpDown from "./components/backTo.vue";
 import Mains from "./components/mains.vue";
 import Header from "./components/header.vue";
-import Top from "./components/navBar.vue";
+// import Top from "./components/navBar.vue";
 import Style from "./../assets/scss/index.scss";
 import resizeHandle from "./mixins/resizeHandler";
 
 export default {
-  components: { Mains, RouteTag, BreadCrumb, UpDown, Header, Top },
+  components: { Mains, RouteTag, BreadCrumb, UpDown, Header},
 
   data() {
     return {
@@ -81,7 +85,7 @@ export default {
   },
 
   computed: {
-    ...mapState("perssion", ["routes"]),
+    ...mapState("perssion", ["menus"]),
     ...mapState("app", ["device", "openSidebar"]),
   },
   methods: {
@@ -164,6 +168,8 @@ export default {
   text-align: left;
   display: flex;
   flex-direction: column;
+  padding-bottom: 40px;
+  box-sizing: border-box;
 }
 
 .nav {
@@ -196,5 +202,17 @@ export default {
   right: 30px;
   bottom: 100px;
   z-index: 40;
+}
+
+.beian {
+  position: fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+  color:rgba(40, 34, 34, 0.834);
 }
 </style>

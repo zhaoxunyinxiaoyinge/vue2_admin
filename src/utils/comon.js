@@ -21,9 +21,15 @@ function jsonToTree(lists) {
   }
   for (let j = 0, len1 = lists.length; j < len1; j++) {
     var aVal = lists[j];
-    var aValParent = idList[aVal["parentId"]];
+    aVal.meta = {
+      title: aVal.title,
+      hidden: aVal.hidden == 1 ? true : false,
+      icon: aVal.icon,
+      noCancle: aVal.noCancle == 1 ? true : false
+    };
+    var aValParent = idList[aVal["parentId"] == 0 ? -1 : aVal["parentId"]];
     if (aValParent) {
-      if ("chidren" in aValParent) {
+      if ("children" in aValParent) {
         aValParent["children"].push(aVal);
       } else {
         aValParent["children"] = [];
@@ -33,7 +39,7 @@ function jsonToTree(lists) {
       treeList.push(aVal);
     }
   }
-  return treeList;
+  return sortOrder(treeList);
 }
 
 // 深拷贝函数
@@ -54,4 +60,24 @@ function DeepObj(obj) {
     newObj = obj;
   }
   return newObj;
+}
+
+function getBase64(url, callback) {
+  let img = new Image();
+  img.setAttribute("crossOrigin", "anonymous");
+  img.onload = function() {
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    let base64 = canvas.toDataURL("image/jpeg");
+    callback ? callback(base64) : null;
+  };
+  img.src = url;
+}
+
+export { jsonToTree, getBase64 };
+
+function sortOrder(data) {
+  let res = data.sort((cur, next) => cur.order - next.order);
+  return res;
 }
