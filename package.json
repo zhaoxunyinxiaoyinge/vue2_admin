@@ -31,7 +31,7 @@
     "js-cookie": "^3.0.1",
     "jsonlint": "^1.6.3",
     "jspdf": "^2.5.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "minimist": "^1.2.5",
     "mock": "^0.1.1",
     "mockjs": "^1.1.0",
