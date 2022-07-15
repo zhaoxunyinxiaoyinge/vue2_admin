@@ -39,6 +39,7 @@
     "nprogress": "^0.2.0",
     "path": "^0.12.7",
     "postcss-pxtorem": "^5.0.0",
+    "qrcodejs2": "0.0.2",
     "sass-loader": "^10.0.4",
     "screenfull": "^5.1.0",
     "sortablejs": "^1.15.0",

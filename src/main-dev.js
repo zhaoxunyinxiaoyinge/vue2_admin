@@ -73,6 +73,7 @@ Vue.filter("fitlerTime", function(val) {
 // 自定指令
 
 import {
+  popover,
   Button,
   Form,
   FormItem,
@@ -145,6 +146,7 @@ Vue.prototype.$prompt = MessageBox.prompt;
 // Vue.use(VueQuillEditor);
 Vue.use(Button);
 Vue.use(DatePicker);
+Vue.use(popover);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.use(Input);

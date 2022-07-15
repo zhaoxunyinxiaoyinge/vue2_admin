@@ -36,7 +36,7 @@ module.exports = {
       },
       "/api/json": {
         target: "https://github.com",
-        changeOrigin: true,
+        changeOrigin: true, 
         pathRewrite: {
           "^/api/json": "",
         },
