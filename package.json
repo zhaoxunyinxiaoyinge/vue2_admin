@@ -14,7 +14,7 @@
     "@femessage/el-data-table": "^1.23.0",
     "@femessage/el-form-renderer": "^1.23.0",
     "autoprefixer": "^10.3.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "blob": "^0.1.0",
     "bootstrap": "^5.1.3",
