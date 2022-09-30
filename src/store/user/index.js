@@ -1,0 +1,31 @@
+import { getUserInfos } from "./../api";
+
+let state = {
+  userInfo: {},
+  roles: [],
+  persssion: []
+};
+
+let mutations = {
+  GET_USER_INFO(state, playLoad) {
+    state.userInfo = playLoad;
+    state.roles.push(playLoad);
+  }
+};
+
+let getters = {};
+
+let actions = {
+  // 根据用户的id获取role列表
+  async getUserRoles({ commit, dispatch }) {
+    return await getUserInfos();
+  }
+};
+
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  getters,
+  actions
+};

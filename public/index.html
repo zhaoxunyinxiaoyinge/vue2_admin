@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/default.min.css"> -->
+    <title>
+      <%= htmlWebpackPlugin.options.isProd ? 'prodution':"dev-开发模式" %>
+    </title>
+    <!-- 根据产品的模式，只在生产模式下，cdn加载文件，提高线上加载地速度，如果是开发模式，只需import导入即可 -->
+    <% if (htmlWebpackPlugin.options.isProd) { %>
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.core.css"
+    />
+    <link
+      rel="stylesheet"
+      href="
+https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.snow.css"
+    />
+    <link
+      rel="stylesheet"
+      href="
+https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/fonts/element-icons.ttf"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/fonts/element-icons.woff"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/element-ui/2.13.2/theme-chalk/index.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/3.0.0-rc.4/vue.cjs.prod.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.20.0-0/axios.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.8.0/echarts.min.js"></script>
+    <script src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
+    <script src="https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.min.js"></script>
+    <script src="https://cdn.staticfile.org/element-ui/2.13.2/index.js"></script>
+    
+    <% }%>
+
+  <script>
+  </script>
+  </head>
+</script>
+
+<style>
+
+.loading {
+	margin:100px auto;
+	width:100px;
+	height:100px;
+	border:10px solid #333333;
+	border-bottom:#aaa 10px solid;
+	border-radius:50%;
+	animation:load 1.1s infinite linear;
+	-webkit-animation:load 1.1s infinite linear;
+	-moz-animation:load 1.1s infinite linear;
+	-o-animation:load 1.1s infinite linear;
+}
+@keyframes load {
+	from {
+	transform:rotate(0deg);
+	-ms-transform:rotate(0deg);
+}
+to {
+	transform:rotate(360deg);
+	-ms-transform:rotate(360deg);
+}
+}@-webkit-keyframes load {
+	from {
+	-webkit-transform:rotate(0deg);
+}
+to {
+	-webkit-transform:rotate(360deg);
+}
+}@-moz-keyframes load {
+	from {
+	-moz-transform:rotate(0deg);
+}
+to {
+	-moz-transform:rotate(360deg);
+}
+}@-o-keyframes load {
+	from {
+	-o-transform:rotate(0deg);
+}
+to {
+	-o-transform:rotate(360deg);
+}
+}
+  </style>
+
+  
+  <body style="font-size: 16px;">
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
+    </noscript>
+    <div id="app" >
+      <!-- 这里写入加载动画 -->
+      <div class="loading" ></div>
+    </div>
+
+    <!-- built files will be auto injected -->
+  </body>
+  <script>
+    function setRem() {
+    // 基准大小
+      const baseSize=16;
+      let size=1920*baseSize/window.innerWidth;
+      document.documentElement.style.fontSize=size+"px"
+  }
+  // 初始化
+  setRem();
+  window.onresize = () => {
+    setRem();
+  };
+</script>
+
+
+</html>
