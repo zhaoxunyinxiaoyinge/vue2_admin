@@ -54,7 +54,9 @@ router.beforeEach(async (to, from, next) => {
                 next();
               }
             });
-        } catch (err) {}
+        } catch (err) {
+          console.log(err,"err")
+        }
       }
     }
   } else {

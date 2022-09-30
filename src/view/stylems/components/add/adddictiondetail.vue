@@ -3,6 +3,7 @@
     :title="title"
     :visible.sync="getDialogVisible"
     width="60%"
+
     :before-close="handleClose"
   >
     <el-form :model="dictDetailItem" label-width="100px">

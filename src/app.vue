@@ -21,7 +21,7 @@ export default {
 
   methods: {
     setSvg() {
-      let str = `<svg   width="400px" height="400px">
+      let str = `<svg xmlns="http://www.w3.org/2000/svg" width="400px" height="400px">
         <text x="0px" y="100px" dy="16px"
         text-anchor="start"
         stroke="#000"

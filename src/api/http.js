@@ -1,26 +1,19 @@
 import axios from "axios";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
-import Cookies from "js-cookie";
-import { Message } from "element-ui";
-import { router } from "./../routes/index";
-
-// 设置拦截器里的token;
-let Fetch = axios.create({
-  baseURL: baseURL,
-  timeout: 5000
-});
 
 const baseURL =
   process.env.NODE_ENV == "development"
     ? process.env.VUE_APP_BASE_API
     : process.env.VUE_APP_BASE_API;
+console.log(baseURL);
 
-Fetch.interceptors.request.use(
+axios.interceptors.request.use(
   function(config) {
-    let token = Cookies.get("token") || "";
-    config.headers.authorization = "Bearer " + token;
     NProgress.start();
+    let token = window.sessionStorage.getItem("token") || null;
+    // 设置拦截器里的token;
+    config.headers.Authorization = token;
     return config;
   },
 
@@ -29,20 +22,20 @@ Fetch.interceptors.request.use(
   }
 );
 
-Fetch.interceptors.response.use(
+axios.interceptors.response.use(
   function(resp) {
     NProgress.done();
-    if (resp.data.code == -1) {
-      Message.error("token失效");
-      Cookies.set("token", null);
-      store.commit("app/CLEAR_TOKEN");
-      router.push({ path: "/login" });
-    }
-    return Promise.resolve(resp);
+    console.log(resp, "respone");
+    return Promise.resolve(resp.data);
   },
   function(error) {
     return Promise.reject(error);
   }
 );
+
+let Fetch = axios.create({
+  baseURL: baseURL,
+  timeout: 1000
+});
 
 export { Fetch };

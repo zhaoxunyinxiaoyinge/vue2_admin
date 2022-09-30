@@ -13,7 +13,6 @@
             <el-image style="width:50px;height:50px" :fit="'contain'" :src="scope.row.pic"></el-image>
           </template>
         </el-table-column>
-
         <el-table-column v-else-if="item.label == '操作'" :fixed="'right'" :label="item.label" :width="item.width" :align="item.align"
           :prop="item.prop" :key="index">
           <template slot-scope="scope">

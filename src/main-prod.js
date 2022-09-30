@@ -1,5 +1,5 @@
 import Vue from "vue";
-import App from "./app.vue";
+import App from "./App.vue";
 import axios from "axios";
 
 // 支持国际化

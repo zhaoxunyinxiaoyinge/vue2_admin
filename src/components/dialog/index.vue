@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :title="title" width="70%" :visible.sync="visible" :before-close="handleClose">
+    <el-dialog :title="title" width="50%" :visible.sync="visible" :before-close="handleClose">
       <slot name="form" :formField="formField" :inline="false" :show="visible" :formData="getFormData"></slot>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClose">取 消</el-button>

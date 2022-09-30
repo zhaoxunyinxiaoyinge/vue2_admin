@@ -19,6 +19,7 @@
             <el-radio :label="0" v-model="menuItem.isMenu">目录</el-radio>
             <el-radio :label="1" v-model="menuItem.isMenu" :disabled="onlyMu">菜单</el-radio>
             <el-radio :label="2" v-model="menuItem.isMenu" :disabled="onlyMu">按钮</el-radio>
+
           </el-form-item>
 
           <el-form-item
@@ -142,6 +143,7 @@ export default {
       type:Boolean,
       deafault:false
     }
+
   },
 
   data() {

@@ -95,8 +95,10 @@ export default {
         let ret = await getLogin({ username: userName, password: password });
         if (ret.data.code === 0) {
           let token = ret.data.data[0].token;
+          console.log(token,"token");
           this.SET_TOKEN(token);
           Cookies.set('token',token);
+          Cookies.set("fdkfjd",259)
           this.$Message({
             message: "登录成功!",
             type: "success",

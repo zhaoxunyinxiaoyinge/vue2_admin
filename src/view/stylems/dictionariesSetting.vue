@@ -38,6 +38,7 @@
               {{scope.row[item.prop]==1?'是':'否'}}
           </div>
 
+
           <div v-else>
             <el-link  v-if="item.prop == 'dict_type'" type="primary">{{
               scope.row[item.prop]
@@ -76,6 +77,7 @@ import _ from "lodash"
 
 export default {
   components: { Adddition, Pagetion,Form },
+
   mounted() {
     this.getList();
   },
@@ -150,6 +152,7 @@ export default {
           type:'btn'
         }
       ]
+
     };
   },
 

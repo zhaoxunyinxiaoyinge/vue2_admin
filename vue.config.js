@@ -1,6 +1,4 @@
 const path = require("path");
-const { link } = require("fs");
-const mockjs = require("mockjs");
 function resolve(dir) {
   return path.join(__dirname, dir);
 }

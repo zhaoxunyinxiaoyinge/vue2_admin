@@ -1,5 +1,5 @@
 import Vue from "vue";
-import App from "./app.vue";
+import App from "./App.vue";
 import axios from "axios";
 
 import moment from "moment";
@@ -47,7 +47,7 @@ import ZkTable from "vue-table-with-tree-grid";
 require("./directers/index");
 
 //自动注册运行mock
-import { runMock } from "./mock";
+// import { runMock } from "./mock";
 // if (process.env.NODE_ENV === "development") {
 //   runMock();
 // }
