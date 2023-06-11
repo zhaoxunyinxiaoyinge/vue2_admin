@@ -12,21 +12,21 @@ let routes = [
     children: [
       {
         path: "/redirect/:path(.*)",
-        component: () => import("@/view/redirect/index")
-      }
-    ]
+        component: () => import("@/view/redirect/index"),
+      },
+    ],
   },
   {
     path: "/login",
-    component: () => import("./../components/login")
+    component: () => import("@/components/login/index.vue"),
   },
   {
     path: "/404",
-    component: () => import("./../components/notfound")
+    component: () => import("@/components/notFound/index.vue"),
   },
   {
     path: "*",
-    component: () => import("./../components/notfound")
+    component: () => import("@/components/notFound/index.vue"),
   },
 
   {
@@ -36,7 +36,7 @@ let routes = [
     redirect: "/welcome/index",
     order: 8,
     meta: {
-      title: "用户中心"
+      title: "用户中心",
     },
     children: [
       {
@@ -47,19 +47,19 @@ let routes = [
           title: "个人中心",
           hidden: false,
           icon: "el-icon-setting",
-          noCancle: false
+          noCancle: false,
         },
-        order: 1
-      }
-    ]
-  }
+        order: 1,
+      },
+    ],
+  },
 ];
 
 const createRouter = () => {
   return new Router({
     routes,
     mode: "history",
-    scrollBehavior
+    scrollBehavior,
   });
 };
 

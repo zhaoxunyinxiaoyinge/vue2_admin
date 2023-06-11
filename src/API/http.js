@@ -1,41 +1,40 @@
 import axios from "axios";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import Cookies from "js-cookie";
 
 const baseURL =
   process.env.NODE_ENV == "development"
     ? process.env.VUE_APP_BASE_API
     : process.env.VUE_APP_BASE_API;
-console.log(baseURL);
 
-axios.interceptors.request.use(
-  function(config) {
+let Fetch = axios.create({
+  baseURL: baseURL,
+  timeout: 5000,
+});
+Fetch.interceptors.request.use(
+  function (config) {
     NProgress.start();
-    let token = window.sessionStorage.getItem("token") || null;
+    let token = Cookies.get("token") || null;
     // 设置拦截器里的token;
     config.headers.Authorization = token;
     return config;
   },
 
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
 
-axios.interceptors.response.use(
-  function(resp) {
+Fetch.interceptors.response.use(
+  function (resp) {
     NProgress.done();
     console.log(resp, "respone");
-    return Promise.resolve(resp.data);
+    return Promise.resolve(resp);
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
-
-let Fetch = axios.create({
-  baseURL: baseURL,
-  timeout: 1000
-});
 
 export { Fetch };

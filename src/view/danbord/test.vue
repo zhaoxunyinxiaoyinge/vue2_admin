@@ -61,7 +61,7 @@ import {
 } from "./api/index";
 import Sortable from "sortablejs";
 import FormFields from "components/formFeild/index.vue";
-import Dialog from "components/dialog/index.vue";
+import Dialog from "components/Dialog/index.vue";
 import pageTion from "components/pagination/index.vue";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";

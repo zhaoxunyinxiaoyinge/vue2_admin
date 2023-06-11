@@ -13,7 +13,7 @@ export default {
         redirect: "/welcome/index",
         order: 8,
         meta: {
-          title: "用户中心"
+          title: "用户中心",
         },
         children: [
           {
@@ -24,13 +24,13 @@ export default {
               title: "个人中心",
               hidden: false,
               icon: "el-icon-setting",
-              noCancle: false
+              noCancle: false,
             },
-            order: 1
-          }
-        ]
-      }
-    ]
+            order: 1,
+          },
+        ],
+      },
+    ],
   },
 
   mutations: {
@@ -40,24 +40,24 @@ export default {
       // 这里默认的时所有权限，超级管理员。
       let res = filterAsyncRoutes(playLoad, ["admin"]);
       state.routes = res;
-    }
+    },
   },
 
   getters: {
-    routeRole: state => state.routes
+    routeRole: (state) => state.routes,
   },
 
   actions: {
-    // 从服务器获取路由菜单到本地
+    //从服务器获取路由菜单到本地
     async getDyicnRoute({ commit, dispatch }, playLoad) {
       return getRoleRoute({ ids: playLoad.role_name });
-    }
+    },
     // 本地对路由的权限过誉
     // async getMenu({ commit, dispatch }) {
     //   // let { data } = await getMenus();权限路由和本地路由其实是一回事。
     //   commit("GET_FILTER_ROUTES", orderRoute(asyncRoute));
     // },
-  }
+  },
 };
 
 // function hasPermission(roles, route) {
@@ -71,9 +71,9 @@ export default {
 
 function filterAsyncRoutes(routes) {
   let res = [];
-  routes.forEach(route => {
+  routes.forEach((route) => {
     const tmp = {
-      ...route
+      ...route,
     };
     if (tmp.parentId == 0) {
       tmp.component = Layout;
@@ -90,5 +90,5 @@ function filterAsyncRoutes(routes) {
 }
 
 function loadView(viewPath) {
-  return resolve => require([`@/${viewPath}`], resolve);
+  return (resolve) => require([`@/${viewPath}`], resolve);
 }

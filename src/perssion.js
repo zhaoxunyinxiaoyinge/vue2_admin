@@ -20,7 +20,7 @@ router.beforeEach(async (to, from, next) => {
   if (token) {
     if (to.path === "/login") {
       next({
-        path: "/"
+        path: "/",
       });
       NProgress.done();
     } else {
@@ -33,10 +33,8 @@ router.beforeEach(async (to, from, next) => {
           // 根据token 获取用户个人角色列表。
           store
             .dispatch("user/getUserRoles", token)
-            .then(res => {
-              console.log(res, "res");
+            .then((res) => {
               if (res.data.code == 0) {
-                console.log(res, "res[0]");
                 store.commit("user/GET_USER_INFO", res.data.data.rows[0]);
                 return store.dispatch(
                   "perssion/getDyicnRoute",
@@ -44,7 +42,7 @@ router.beforeEach(async (to, from, next) => {
                 );
               }
             })
-            .then(res => {
+            .then((res) => {
               if (res.data.code == 0) {
                 let data = res.data.data;
                 console.log(res, "length");
@@ -54,10 +52,11 @@ router.beforeEach(async (to, from, next) => {
                 router.addRoutes(routes);
                 next({
                   path: to.path,
-                  replace: true
+                  replace: true,
                 });
                 NProgress.done();
               }
+              next("/welcome/index");
             });
 
           // 根据角色再获取当前用户对应的路由
@@ -74,8 +73,8 @@ router.beforeEach(async (to, from, next) => {
       next({
         path: "/login",
         query: {
-          redirect: to.path
-        }
+          redirect: to.path,
+        },
       });
       next();
     }

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import App from "./app.vue";
+import App from "./App.vue";
 import axios from "axios";
 
 import moment from "moment";
@@ -16,8 +16,8 @@ dynamicGetEquipment();
 import store from "./store";
 
 // 支持svg
-const requireAll = requireContext => {
-  let arr = requireContext.keys().map(item => {
+const requireAll = (requireContext) => {
+  let arr = requireContext.keys().map((item) => {
     let reg = /\.\/([\w-]+)\.svg/gi;
     return reg.exec(item)[1];
   });
@@ -47,10 +47,10 @@ import ZkTable from "vue-table-with-tree-grid";
 require("./directers/index");
 
 //自动注册运行mock
-import { runMock } from "./mock";
-if (process.env.NODE_ENV === "development") {
-  runMock();
-}
+// import { runMock } from "./mock";
+// if (process.env.NODE_ENV === "development") {
+//   runMock();
+// }
 Vue.component("el-form-renderer", ElFormRenderer);
 Vue.component("el-data-table", ElDataTable);
 
@@ -60,11 +60,11 @@ Vue.component("tree-table", ZkTable);
 // 设置全局键盘码的事件
 
 Vue.config.keyCodes = {
-  f2: 113
+  f2: 113,
 };
 
 // 在全局下注册一个时间过域器处理
-Vue.filter("fitlerTime", function(val) {
+Vue.filter("fitlerTime", function (val) {
   if (!val) return "暂无";
   let date = moment(val).format("YYYY-MM-DD HH:mm:ss");
   return date;
@@ -127,9 +127,11 @@ import {
   DropdownMenu,
   Radio,
   Link,
-  DatePicker
+  DatePicker,
 } from "element-ui";
+
 import { router } from "./routes/index.js";
+
 import "./assets/css/reset.css";
 // import "./assets/element-ui-css/index.css"
 // import "./../theme/index.css"
@@ -205,17 +207,17 @@ Vue.use(DropdownMenu);
 const messages = {
   en: {
     message: "hello",
-    ...enLocale
+    ...enLocale,
   },
   zh: {
     message: "你好",
-    ...zhLocale
-  }
+    ...zhLocale,
+  },
 };
 
 const i18n = new VueI18n({
   locale: window.localStorage.getItem("lang") || "zh",
-  messages // set locale messages
+  messages, // set locale messages
 });
 
 ElementLocale.i18n((key, value) => i18n.t(key, value));
@@ -230,10 +232,9 @@ Vue.config.productionTip = false;
 //当我们需要在vuex的action中处理路由跳转的时候,没认识vuex-router-sync的时候,我一般都是直接拿到router对象,方便获取路由对象。
 // sync(Store, router)
 Vue.prototype.$ELEMENT = { size: store.state.app.size }; //统一设置组件的尺寸大小
-
 new Vue({
   i18n,
   store,
   router,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

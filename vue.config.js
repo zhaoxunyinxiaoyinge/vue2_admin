@@ -1,6 +1,4 @@
 const path = require("path");
-const { link } = require("fs");
-const mockjs = require("mockjs");
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
@@ -28,7 +26,7 @@ module.exports = {
       },
 
       "/api/upload": {
-        target: "https://localhost:7001/api/upload",
+        target: "http://localhost:7001/api/upload",
         changeOrigin: true,
         pathRewrite: {
           "^/api/upload": "",
@@ -42,14 +40,14 @@ module.exports = {
         },
       },
      "/egg": {
-        target: "https://127.0.0.1:7001",
+        target: "http://127.0.0.1:7001",
         changeOrigin: true,
         pathRewrite: {
           "^/egg": "",
         },
       },
     },
-    https: true,
+    https: false,
   },
   // 这里是配置一个vue的路径
   chainWebpack: (config) => {

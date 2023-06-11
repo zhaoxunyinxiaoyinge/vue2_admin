@@ -78,6 +78,7 @@ export default {
         if (!res) return "无法通过验证";
         let { userName, password } = this.datas;
         let ret = await getLogin({ username: userName, password: password });
+        console.log(ret)
         if (ret.data.code === 0) {
           let token = ret.data.data[0].token;
           this.SET_TOKEN(token);

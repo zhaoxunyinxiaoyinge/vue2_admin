@@ -1,5 +1,5 @@
 import Vue from "vue";
-import App from "./app.vue";
+import App from "./App.vue";
 import axios from "axios";
 
 // 支持国际化
@@ -66,12 +66,12 @@ import {
   DropdownItem,
   DropdownMenu,
   Radio,
-  Link
+  Link,
 } from "element-ui";
 
 // 支持svg
-const requireAll = requireContext => {
-  let arr = requireContext.keys().map(item => {
+const requireAll = (requireContext) => {
+  let arr = requireContext.keys().map((item) => {
     let reg = /\.\/([\w-]+)\.svg/gi;
     return reg.exec(item)[1];
   });
@@ -117,30 +117,18 @@ Vue.component("tree-table", ZkTable);
 // 设置全局键盘码的事件
 
 Vue.config.keyCodes = {
-  f2: 113
+  f2: 113,
 };
 
 // 在全局下注册一个时间过域器处理
-Vue.filter("fitlerTime", function(val) {
+Vue.filter("fitlerTime", function (val) {
   let date = new Date(parseInt(val));
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date
-    .getDate()
-    .toString()
-    .padStart(2, "0");
-  const hh = date
-    .getHours()
-    .toString()
-    .padStart(2, "0");
-  const mm = date
-    .getMinutes()
-    .toString()
-    .padStart(2, "0");
-  const ss = date
-    .getSeconds()
-    .toString()
-    .padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hh = date.getHours().toString().padStart(2, "0");
+  const mm = date.getMinutes().toString().padStart(2, "0");
+  const ss = date.getSeconds().toString().padStart(2, "0");
   return `${year}-${month}-${day} ${hh}:${mm}:${ss}`;
 });
 
@@ -214,17 +202,17 @@ Vue.use(DropdownMenu);
 const messages = {
   en: {
     message: "hello",
-    ...enLocale
+    ...enLocale,
   },
   zh: {
     message: "你好",
-    ...zhLocale
-  }
+    ...zhLocale,
+  },
 };
 
 const i18n = new VueI18n({
   locale: window.localStorage.getItem("lang") || "zh",
-  messages // set locale messages
+  messages, // set locale messages
 });
 
 ElementLocale.i18n((key, value) => i18n.t(key, value));
@@ -244,5 +232,5 @@ new Vue({
   i18n,
   store,
   router,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
