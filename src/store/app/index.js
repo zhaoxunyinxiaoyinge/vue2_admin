@@ -8,16 +8,16 @@ export default {
     username: "",
     routeTag: [],
     iconList: [],
-    size: Cookies.get("size") || "Default",
+    size: Cookies.get("size") || "mini",
     avatar:
       "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
     device: Cookies.get("device") ? Cookies.get("device") : "desktop", //默认是桌面端的
     openSidebar:
       Cookies.get("openSidebar") && JSON.parse(Cookies.get("openSidebar"))
         ? Cookies.get("openSidebar")
-        : false, //默认是关闭的
+        : true, //默认是关闭的
     defaultOpen: ["/"],
-    btncolor: "#1989fa"
+    btncolor: "#1989fa",
   },
 
   mutations: {
@@ -52,7 +52,7 @@ export default {
         return;
       }
       let index = state.routeTag.findIndex(
-        item => item.path == pathObject.path
+        (item) => item.path == pathObject.path
       );
       if (index == -1) {
         state.routeTag.push(pathObject);
@@ -60,7 +60,7 @@ export default {
     },
 
     DELETE_ROUTE_TAG(state, path) {
-      let index = state.routeTag.findIndex(item => item.path == path);
+      let index = state.routeTag.findIndex((item) => item.path == path);
       state.routeTag.splice(index, 1);
     },
 
@@ -75,12 +75,12 @@ export default {
     SET_ELEMENT_SIZE(state, size) {
       state.size = size;
       Cookies.set("size", size);
-    }
+    },
   },
 
   getters: {
-    getToken: state => state.token,
-    getRouteTag: state => state.routeTag
+    getToken: (state) => state.token,
+    getRouteTag: (state) => state.routeTag,
   },
 
   actions: {
@@ -93,6 +93,6 @@ export default {
       } else {
         return Promise.reject(false);
       }
-    }
-  }
+    },
+  },
 };

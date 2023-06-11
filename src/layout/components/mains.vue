@@ -13,9 +13,9 @@
     mode="vertical"
   >
     <!-- 设置管理系统的导航栏 -->
-    <div class="title" v-if="device == 'deskTop'">
-      <el-image :src="src" style="height:40px;margin-right:20px"></el-image>
-      <span class="name" v-if="!openSidebar">乐享购</span>
+    <div class="title" v-if="device == 'desktop'">
+      <el-image :src="'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'" fit="contain" style="height:40px;"></el-image>
+      <span class="name" style="margin-left:20px;" v-if="!openSidebar">博客在线</span>
     </div>
 
     <side-bar
@@ -70,7 +70,7 @@ export default {
       if (this.device == "mobile" && this.openSidebar) {
         return "none-width";
       }
-      if (this.openSidebar && this.device == "deskTop") {
+      if (this.openSidebar && this.device == "desktop") {
         return "collapse-width";
       }
 
@@ -129,7 +129,7 @@ export default {
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 30px;
+  justify-content: center;
+  // padding-left: 30px;
 }
 </style>

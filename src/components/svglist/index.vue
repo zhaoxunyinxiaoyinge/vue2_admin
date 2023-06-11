@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input v-model="arg" suffix-icon="el-icon-search"></el-input>
+    <el-input v-model="arg" suffix-icon="el-icon-search" @change="handleChange"></el-input>
     <div class="svg-list" :style="{ maxHeight: height }">
       <div
         class="svg-list-item"
@@ -48,13 +48,17 @@ export default {
     handleClick(item) {
       this.$emit("checked", item);
     },
+
+    handleChange(value){
+       this.$emit("checked", value);
+    }
   },
 
 watch: {
     value:{
         immediate:true,
         handler(news,old){
-            this.arg=news
+            this.arg=news;
         }
     }
 },

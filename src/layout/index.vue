@@ -30,7 +30,7 @@
             id="breacrubm-container"
             class="breacrubm-container"
             :data="breadCrumb"
-            v-if="device == 'deskTop'"
+            v-if="device == 'desktop'"
           />
           <Header />
         </div>
@@ -47,6 +47,7 @@
         <!-- </el-scrollbar> -->
       </div>
       <div class="beian">
+          <el-image :src="src" style="margin-right:5px;width:22px;height:20px"></el-image>
         <span><a style="color:rgba(40, 34, 34, 0.834)" href="https://beian.miit.gov.cn"  target="_blank">鄂ICP备2022006963号-1</a></span>
         <span>&nbsp;development by zhaoxunyin</span>
         </div>
@@ -63,7 +64,6 @@ import BreadCrumb from "./components/breaked.vue";
 import UpDown from "./components/backTo.vue";
 import Mains from "./components/mains.vue";
 import Header from "./components/header.vue";
-// import Top from "./components/navBar.vue";
 import Style from "./../assets/scss/index.scss";
 import resizeHandle from "./mixins/resizeHandler";
 
@@ -75,6 +75,7 @@ export default {
       menuList: [],
       breadCrumb: [],
       Style,
+      src:require("@/assets/guohui.png")
     };
   },
 
@@ -135,7 +136,7 @@ export default {
   height: 100%;
   background-color: #000;
   opacity: 0.1;
-  z-index: 10;
+  z-index: -1;
 }
 
 .aside {
@@ -202,17 +203,23 @@ export default {
   right: 30px;
   bottom: 100px;
   z-index: 40;
+
+
 }
 
 .beian {
+  display:flex;
+  justify-content:center;
+  align-items:center;
   position: fixed;
   bottom:0;
   left:0;
   width:100%;
   height:40px;
-  text-align: center;
   line-height: 40px;
   font-size: 14px;
-  color:rgba(40, 34, 34, 0.834);
+  color:rgba(67, 38, 38, 0.834);
+  background:#fff;
+  z-index:-1;
 }
 </style>

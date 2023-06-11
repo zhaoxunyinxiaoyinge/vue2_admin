@@ -101,12 +101,12 @@ import ZkTable from "vue-table-with-tree-grid";
 require("./directers/index");
 
 //自动注册运行mock
-import { runMock } from "./mock";
+// import { runMock } from "./mock";
 
 if (process.env) {
 }
 
-runMock();
+// runMock();
 
 Vue.component("el-form-renderer", ElFormRenderer);
 Vue.component("el-data-table", ElDataTable);
@@ -134,10 +134,8 @@ Vue.filter("fitlerTime", function (val) {
 
 import { router } from "./routes/index.js";
 import "./assets/css/reset.css";
-// import "./assets/element-ui-css/index.css"
-// import "./../theme/index.css"
+
 import "@/assets/scss/index.scss";
-import Cookies from "js-cookie";
 
 require("./perssion");
 

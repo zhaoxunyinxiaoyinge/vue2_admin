@@ -31,6 +31,7 @@
 
 <script>
 import Upload from "components/upload/upload";
+import _ from "lodash"
 export default {
     name: "filed",
     props: {
@@ -74,7 +75,7 @@ export default {
 
     methods: {
         handlequery(){
-            this.$emit("query",this.form)
+            this.$emit("query",_.cloneDeep(this.form))
         },
 
        handleReset(){

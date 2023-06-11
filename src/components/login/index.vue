@@ -1,4 +1,4 @@
-<template>
+     <template>
   <div class="from">
     <div class="form_box">
       <h2>欢迎登陆商品管理系统！</h2>
@@ -6,27 +6,41 @@
         ref="formRef"
         :model="datas"
         :rules="rules"
+        :inline="true"
         label-width="100px"
-        class="demo-ruleForm form_input"
       >
+      <el-row>
         <el-form-item label="userNames:" prop="userName">
           <el-input
             type="text"
             v-model="datas.userName"
             prefix-icon="el-icon-user-solid"
-          ></el-input>
+          ></el-input>      
         </el-form-item>
-        <el-form-item label="passWords:" prop="password">
+
+      </el-row>
+
+      <el-row> <el-col>
+         <el-form-item label="passWords:" prop="password">
           <el-input
             type="password"
             v-model="datas.password"
             prefix-icon="el-icon-s-cooperation"
           ></el-input>
         </el-form-item>
-        <el-form-item class="form_button">
+       </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col>
+          <el-form-item class="form_button">
           <el-button type="primary" @click="login">登陆</el-button>
           <el-button @click="form_reset">重置</el-button>
         </el-form-item>
+        </el-col>
+      </el-row>
+    
+
         <div class="tips">请输入默认管理员账号:admin,密码:zxy123456.com</div>
       </el-form>
     </div>
@@ -35,6 +49,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import { getLogin } from "./../api";
+import Cookies from "js-cookie"
 
 export default {
   mounted() {},
@@ -81,7 +96,10 @@ export default {
         console.log(ret)
         if (ret.data.code === 0) {
           let token = ret.data.data[0].token;
+          console.log(token,"token");
           this.SET_TOKEN(token);
+          Cookies.set('token',token);
+          Cookies.set("fdkfjd",259)
           this.$Message({
             message: "登录成功!",
             type: "success",
@@ -125,20 +143,24 @@ export default {
 div.from {
   background:url("./img/bg.jpeg")  no-repeat;
   background-size: cover;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  div.form_box {
+  height: 100vh;
+  width: 100vw;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+ 
+  .tips {
+    font-size: 14px;
+    color:rgb(177, 169, 169)
+  }
+}
+
+ div.form_box {
     height: 300px;
-    width: 600px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
+    width:80%;
     background-color: #ffffff;
     border-radius: 10px;
+    padding:10px;
     h2 {
       font-size: 16px;
       height: 30px;
@@ -163,9 +185,20 @@ div.from {
     }
   }
 
-  .tips {
-    font-size: 14px;
-    color:rgb(177, 169, 169)
+
+</style>
+
+<style scoped>
+  @media screen and (max-width:750px){
+      .el-form {
+        text-align:left
+      }
   }
-}
+
+    @media screen and (min-width:751px){
+   div.form_box {
+        width:30%;
+      }
+  }
+
 </style>

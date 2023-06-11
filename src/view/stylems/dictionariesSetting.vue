@@ -1,6 +1,11 @@
 <template>
   <div>
     <el-card>
+      <Form :formField="formField"          
+         :inline="true"
+        labelWidth="100px"
+        @query="hanldeQuery"></Form>
+        
     <div class="add">
       <el-button type="primary"  @click="handleAdd" icon="el-icon-plus">新增</el-button>
     </div>
@@ -27,6 +32,10 @@
 
           <div v-else-if="item.label === '更新时间'">
                 {{scope.row[item.prop]|fitlerTime}}
+          </div>
+
+          <div v-else-if="item.label==='状态'">
+              {{scope.row[item.prop]==1?'是':'否'}}
           </div>
 
 
@@ -60,11 +69,15 @@
 import Adddition from "./components/add/adddictionaries.vue";
 import Pagetion from "components/pagination/index";
 import { getDictList,deleteDictList } from "./api/index";
+import Form from "@/components/formFeild/index"
+
+
 
 import _ from "lodash"
 
 export default {
-  components: { Adddition, Pagetion },
+  components: { Adddition, Pagetion,Form },
+
   mounted() {
     this.getList();
   },
@@ -102,6 +115,44 @@ export default {
           fixed:"right"
         },
       ],
+
+      formField:[
+        {
+          type:'input',
+          label:"字典名称",
+          field:'dict_name'
+        },
+        {
+          type:'input',
+          label:"字典类型",
+          field:'dict_type'
+        },
+
+        {
+          type:'select',
+          label:"状态",
+          field:'dict_status',
+          options:[{
+            label:"是",
+            value:1
+        },{
+          label:'否',
+          value:0
+        }],
+          option_label:'label',
+          option_value:"value"
+        },
+
+        {
+          type:'daterange',
+          field:"time",
+          label:"开始时间"
+        },
+        {
+          type:'btn'
+        }
+      ]
+
     };
   },
 
@@ -156,8 +207,21 @@ export default {
           if(e=='cancel'){return }
           this.$Message.error("删除失败");
         });
+    },
+
+    hanldeQuery(val){
+      this.listQuery.page=1;
+      val.time=val.time&&val.time.join(",");
+      getDictList({...this.listQuery,...val}).then(res=>{
+          if (res.data.code == 0) {
+          this.list = res.data.data.rows;
+          this.listQuery.page = Number(res.data.page);
+          this.listQuery.pageSize = Number(res.data.pageSize);
+          this.total = Number(res.data.data.count);
+        }
+      })
     }
-  },
+  }
 };
 </script>
 

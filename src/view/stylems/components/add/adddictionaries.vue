@@ -2,7 +2,7 @@
   <el-dialog
     :title="title"
     :visible.sync="getDialogVisible"
-    width="30%"
+    width="60%"
     :before-close="handleClose"
   >
     <el-form label-width="100px" :model="dictionData">

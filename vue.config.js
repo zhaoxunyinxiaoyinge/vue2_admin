@@ -18,7 +18,7 @@ module.exports = {
     open: true,
     proxy: {
       "/list": {
-        target: "http://v.juhe.cn",
+        target: "https://v.juhe.cn",
         changeOrigin: true,
         pathRewrite: {
           "^/list": "",

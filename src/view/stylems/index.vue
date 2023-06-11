@@ -55,7 +55,8 @@
         draggable="true"
         label="操作"
         fixed="right"
-        width="360px"
+        width="300px"
+
       >
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" type="primary" @click="handleEdit(scope.row)"

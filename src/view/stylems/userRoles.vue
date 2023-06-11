@@ -1,7 +1,12 @@
 <template>
   <div>
     <el-card>
-      <Form></Form>
+      <Form
+        :formField="formField"
+        :inline="true"
+        labelWidth="100px"
+        @query="hanldeQuery"
+      ></Form>
       <div class="add">
         <el-button type="primary" @click="handleAdd" icon="el-icon-plus"
           >新增</el-button
@@ -28,20 +33,24 @@
             :label="item.label"
             :prop="item.prop"
             :align="item.align"
+            :fixed="'right'"
+            width="200"
           >
             <template slot-scope="scope">
-              <el-button
-                icon="el-icon-edit"
-                type="primary"
-                @click="handleEdit(scope.row)"
-                >编辑</el-button
-              >
-              <el-button
-                icon="el-icon-delete"
-                type="danger"
-                @click="handleDelete(scope.row.id)"
-                >删除</el-button
-              >
+              <div style="display:flex;justifly-content:center">
+                <el-button
+                  icon="el-icon-edit"
+                  type="primary"
+                  @click="handleEdit(scope.row)"
+                  >编辑</el-button
+                >
+                <el-button
+                  icon="el-icon-delete"
+                  type="danger"
+                  @click="handleDelete(scope.row.id)"
+                  >删除</el-button
+                >
+              </div>
             </template>
           </el-table-column>
 
@@ -57,12 +66,11 @@
         </template>
       </el-table>
 
-
-    <Pagetion
-      :page="listQuery.page"
-      :pageSize="listQuery.pageSize"
-      :total="total"
-    ></Pagetion>    
+      <Pagetion
+        :page="listQuery.page"
+        :pageSize="listQuery.pageSize"
+        :total="total"
+      ></Pagetion>
     </el-card>
     <Add
       :title="title"
@@ -77,7 +85,8 @@
 </template>
 
 <script>
-import Form from "./components/search/form.vue";
+import Form from "@/components/formFeild/index.vue";
+
 import Add from "./components/add/index.vue";
 import Pagetion from "components/pagination/index";
 import {
@@ -147,6 +156,36 @@ export default {
           align: "center",
         },
       ],
+
+      formField: [
+        {
+          type: "input",
+          label: "用户角色名称",
+          field: "role_name",
+        },
+        {
+          type: "select",
+          label: "是否启用",
+          field: "role_status",
+          options: [
+            {
+              label: "是",
+              value: 1,
+            },
+            {
+              label: "否",
+              value: 0,
+            },
+          ],
+             option_label:'label',
+             option_value:"value"
+        },
+
+        {
+          type: "btn",
+          label: "",
+        }
+      ],
     };
   },
 
@@ -158,11 +197,10 @@ export default {
     async getList() {
       getUserRoleList({ all: "all", ...this.listQuery })
         .then((res) => {
+          console.log(res,"res")
           if (res.data.code == 0) {
             this.list = res.data.data.rows;
-            this.listQuery.page = res.page;
-            this.listQuery.pageSize = res.pageSize;
-            this.listQuery.total = res.data.total;
+            this.total = res.data.data.count;
           }
         })
         .catch((e) => {
@@ -241,6 +279,23 @@ export default {
         .catch((e) => {
           this.$Message.error("删除失败");
         });
+    },
+
+    hanldeQuery(val) {
+      console.log(val,"val")
+      this.listQuery.page=1;
+       getUserRoleList({all:"all",...this.listQuery,...val })
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.list = res.data.data.rows;
+            this.listQuery.page = res.page;
+            this.listQuery.pageSize = res.pageSize;
+            this.total = res.data.data.count;
+          }
+        })
+        .catch((e) => {
+          this.$Message.error(e);
+      });
     },
   },
 };

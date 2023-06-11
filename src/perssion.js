@@ -11,12 +11,6 @@ router.beforeEach(async (to, from, next) => {
   NProgress.start();
   // 本地不存在，那么我从全局转态里面获取
   let token = store.getters["app/getToken"];
-  // if (token) {
-  //       await store.dispatch("app/getUserInfo", { token });
-  // } else {
-  //   store.commit("app/CLEAR_TOKEN");
-  // }
-
   if (token) {
     if (to.path === "/login") {
       next({
@@ -24,13 +18,11 @@ router.beforeEach(async (to, from, next) => {
       });
       NProgress.done();
     } else {
-      // let route = store.state.perssion.routes; 本地的
       if (store.state.user.roles.length > 0) {
         next();
         NProgress.done();
       } else {
         try {
-          // 根据token 获取用户个人角色列表。
           store
             .dispatch("user/getUserRoles", token)
             .then((res) => {
@@ -40,12 +32,13 @@ router.beforeEach(async (to, from, next) => {
                   "perssion/getDyicnRoute",
                   res.data.data.rows[0]
                 );
+              } else {
+                return res;
               }
             })
             .then((res) => {
               if (res.data.code == 0) {
                 let data = res.data.data;
-                console.log(res, "length");
                 let treeData = jsonToTree(data);
                 store.commit("perssion/GET_FILTER_ROUTES", treeData);
                 let routes = store.getters["perssion/routeRole"];
@@ -55,14 +48,16 @@ router.beforeEach(async (to, from, next) => {
                   replace: true,
                 });
                 NProgress.done();
+              } else {
+                Cookies.set("token", null);
+                store.commit("app/CLEAR_TOKEN");
+                next();
               }
               next("/welcome/index");
             });
-
-          // 根据角色再获取当前用户对应的路由
-
-          // await store.dispatch("perssion/getMenu");
-        } catch (err) {}
+        } catch (err) {
+          console.log(err, "err");
+        }
       }
     }
   } else {

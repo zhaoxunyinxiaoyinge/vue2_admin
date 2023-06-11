@@ -1,7 +1,7 @@
 <template>
   <div class="tops">
     <RowBar />
-    <div v-if="device=='deskTop'">
+    <div v-if="device=='desktop'">
       <span>{{ wehterData.city }}</span
       >&nbsp;
       <span>{{ wehterData.date_y }}</span>

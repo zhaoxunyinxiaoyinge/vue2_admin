@@ -2,15 +2,15 @@
   <el-header class="header">
     <div class="right">
       <!-- 使用替代搜索框 -->
-      <HeaderSearch v-if="device == 'deskTop'" />
+      <HeaderSearch v-if="device == 'desktop'" />
       <el-color-picker
-       v-if="device =='deskTop'"
+       v-if="device =='desktop'"
         v-model="bg"
         @change="changeTheme"
         style="margin-right:5px"
       ></el-color-picker>
       <!-- 放大缩小配置 -->
-      <span class="el-icon-full-screen iconFont" @click="fullScreen" v-if="device=='deskTop'"></span>
+      <span class="el-icon-full-screen iconFont" @click="fullScreen" v-if="device=='desktop'"></span>
 
       <!-- 设置字体大小 -->
 
@@ -22,7 +22,7 @@
             :className="'size'"
           ></svg-icon>
         </span>
-      <el-dropdown-menu slot="dropdown">
+         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="default" :disabled="size=='default'">default</el-dropdown-item>
           <el-dropdown-item command="medium" :disabled="size=='medium'">medium</el-dropdown-item>
           <el-dropdown-item command="small" :disabled="size=='small'">small</el-dropdown-item>
@@ -30,7 +30,7 @@
         </el-dropdown-menu>
       </el-dropdown>
 
-      <el-button-group class="button-group" v-if="device == 'deskTop'">
+      <el-button-group class="button-group" v-if="device == 'desktop'">
         <el-button type="primary" size="mini" @click="setLangText('zh')"
           >中文</el-button
         >
@@ -39,7 +39,7 @@
         >
       </el-button-group>
 
-      <span v-if="device == 'deskTop'" class="el-icon-bell message"></span>
+      <span v-if="device == 'desktop'" class="el-icon-bell message"></span>
 
       <el-button
         type="primary"
@@ -59,8 +59,9 @@
         </el-dropdown-menu>
       </el-dropdown>
       <el-image
+        :fit='"contain"'
         :src="avatar"
-        style="height:30px;border-radius:5px;margin:0 5px"
+          style="width:80px;height:40px; border-radius:5px;margin:0 5px"
       ></el-image>
     </div>
   </el-header>
@@ -182,10 +183,11 @@ export default {
 
 .header {
   display: flex;
+  --webkit-display:flex;
   box-sizing: border-box;
   justify-content: flex-end;
   align-items: center;
-  width: 80%;
+  // width: 80%;
   background-color: inherit;
   height: 60px !important;
   color: #fff;

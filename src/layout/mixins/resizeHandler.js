@@ -14,8 +14,8 @@ export default {
           Cookies.set("openSidebar", true);
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
 
   beforeMount() {
@@ -49,11 +49,11 @@ export default {
         Cookies.set("device", "mobile");
         Cookies.set("openSidebar", true);
       } else {
-        store.commit("app/SET_DEVEICE", "deskTop");
+        store.commit("app/SET_DEVEICE", "desktop");
         store.commit("app/SET_SIDEBAR", false);
-        Cookies.set("device", "deskTop");
+        Cookies.set("device", "desktop");
         Cookies.set("openSidebar", false);
       }
-    }
-  }
+    },
+  },
 };

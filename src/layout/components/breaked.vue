@@ -1,6 +1,7 @@
 <template>
   <div class="bread-crumb"   >
-    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb  class="breadcrumb">
+
       <el-breadcrumb-item :to="'/'" >面板</el-breadcrumb-item
       >
       <template  v-for="(item, index) in breadCrumb">
@@ -38,10 +39,14 @@ export default {
 <style scoped>
 .bread-crumb {
   display: flex;
-  align-items: center;
+  align-items:center;
+
   width:100%;
   height: 40px;
   padding-left: 10px;
   font-weight: bolder;
+  flex-wrap:nowrap;
+  overflow:hidden;
 }
+
 </style>

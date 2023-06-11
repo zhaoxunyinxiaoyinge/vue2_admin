@@ -1,7 +1,7 @@
 <template>
   <div>
     <Form @search="handleQuery" :config="configs"></Form>
-    <div class="ml-20"><el-button type="primary" icon="el-icon-plus">新增菜单</el-button></div>
+    <div class="ml-20"><el-button type="primary" icon="el-icon-plus" @click="handleAddMenu">新增菜单</el-button></div>
     <el-table
       :data="list"
       style="width: 100%"
@@ -54,6 +54,7 @@
       :menuItem="menuItem"
       :type="type"
       @close="dilogVisble = false"
+      :onlyMu="onlyMu"
     ></Menu>
   </div>
 </template>
@@ -82,6 +83,7 @@ export default {
       list: [],
 
       menuItem: {},
+      onlyMu:false,
       loading: true,
       dilogVisble: false,
       type: "add",
@@ -132,7 +134,7 @@ export default {
         {
           label: "操作",
           prop: "opter",
-          width: "360px",
+          width: "300px",
           type: "template",
           template: "opt",
         },
@@ -229,11 +231,12 @@ export default {
         this.dilogVisble = true;
         this.menuItem = {};
         this.menuItem.id = res.data.data[0].id;
+
         if (res.data.data[0].parentId == 0) {
           this.menuItem.parentName = "layout";
         } else {
+
           let rsp = await getMenuByParentId(res.data.data[0].parentId);
-          console.log(rsp,"555")
           if (rsp.data.code == 0) {
             this.menuItem.parentName = rsp.data.data[0].title;
           }
@@ -243,9 +246,20 @@ export default {
         // Vue.set(this.menuItem, "status", res.data.data[0].status);
         // Vue.set(this.menuItem, "hidden", res.data.data[0].hidden);
         // Vue.set(this.menuItem, "isOutLink", res.data.data[0].isOutLink);
-
       }
     },
+
+    handleAddMenu(){
+      this.type = "add";
+      this.title = "新增选项";
+      this.dilogVisble = true;
+      this.onlyMu=true;
+      Vue.set(this.menuItem, "parentName", "layout");
+      Vue.set(this.menuItem, "isMenu", 0);
+      Vue.set(this.menuItem, "status", 1);
+      Vue.set(this.menuItem, "hidden", 1);
+      Vue.set(this.menuItem, "isOutLink", 0);
+    }
   },
 };
 </script>

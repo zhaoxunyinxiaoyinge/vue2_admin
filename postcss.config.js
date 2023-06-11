@@ -1,11 +1,4 @@
-module.exports = {
-  plugins: {
-    // // 兼容浏览器，添加前缀
-    // 'autoprefixer':{
-    //   browsers: ['Android >= 4.0', 'iOS >= 8']
-    // },
-      "postcss-pxtorem": {
-     
-    },
-  }
-};
+
+const postcssPresetEnv = require('postcss-preset-env');
+module.exports ={
+}

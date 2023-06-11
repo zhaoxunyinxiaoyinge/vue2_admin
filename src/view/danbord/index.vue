@@ -2,7 +2,7 @@
   <div class="carousel">
     <p>欢迎光临后台管理系统！</p>
     <p>
-      <a href=":https://github.com/zhaoxunyinxiaoyingge"
+      <a href="https://github.com/zhaoxunyinxiaoyingge"
         >个人gitHub地址:https://github.com/zhaoxunyinxiaoyingge</a
       >
     </p>

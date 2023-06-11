@@ -113,14 +113,14 @@ export default {
 
 .sideBar {
   width: 100%;
-  background-color: rgba(15, 16, 16, 0.824);
+  background-color: rgba(92, 17, 17, 0.824);
   &:hover .item {
     // color: #4e1818;
   }
 }
 
 .el-submenu {
-  background-color: rgba(15, 16, 16, 0.824);
+  background-color: rgba(92, 17, 17, 0.824);
   width: 100%;
 }
 
@@ -177,7 +177,7 @@ i.icon {
 .el-submenu__title:focus,
 .el-menu-item:focus,
 .el-menu-item:hover {
-  background-color: rgb(5, 43, 43) !important;
+  background-color: hsl(355, 69%, 17%) !important;
 }
 
 .el-submenu__title {

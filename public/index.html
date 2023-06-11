@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/default.min.css">
+    <link rel="icon" href="/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/default.min.css"> -->
     <title>
       <%= htmlWebpackPlugin.options.isProd ? 'prodution':"dev-开发模式" %>
     </title>
@@ -52,10 +52,6 @@ https://cdn.staticfile.org/quill/2.0.0-dev.4/quill.bubble.min.css"
     
     <% }%>
 
-    <!-- <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js"></script> -->
-    <!-- <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script> -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"> -->
   <script>
   </script>
   </head>
@@ -132,29 +128,10 @@ to {
       document.documentElement.style.fontSize=size+"px"
   }
   // 初始化
-  // setRem();
-  // 改变窗口大小时重新设置 rem
-        // setTimeout(()=>{
-        //   L2Dwidget.init({
-        //    "model":{
-        //     jsonPath: "https://unpkg.com/live2d-widget-model-tororo@1.0.5/assets/tororo.model.json",
-        //      "scale": 1
-        //    },
-        //    "display": {
-        //     "superSample": 2,
-        //     "position": "right",
-        //     "width": 150,
-        //     "height": 300,
-        //     "hOffset": 0,
-        //     "vOffset": -20
-        // },
-
-        //  });   
-        // },2000)
- 
-  // window.onresize = () => {
-  //   setRem();
-  // };
+  setRem();
+  window.onresize = () => {
+    setRem();
+  };
 </script>
 
 

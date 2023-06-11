@@ -17,7 +17,6 @@
 
       <el-image
         class="img"
-        :preview-src-list="imgList"
         :lazy="true"
         :alt="'图像'"
         :src="userInfo.avatar"
@@ -37,11 +36,6 @@ export default {
 
   data() {
     return {
-      imgList: [
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimage.cnhnb.com%2Fimage%2Fpng%2Fhead%2F2020%2F02%2F25%2Ff8f3abeeaa8441d8a7cca6d1079beb9c.png&refer=http%3A%2F%2Fimage.cnhnb.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1635646516&t=f265bcd4255efbea16bf3f17e0e92ce2",
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-0c1995ec100dac911add7618d539b32d_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1635646516&t=85b861d70c3867b45f711a970463cc87",
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171204%2F712e29f300674ee78cc039db381c89cd.jpeg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1635646516&t=637d29554e9490af78c49374989fefb8",
-      ],
     };
   },
 
@@ -79,6 +73,14 @@ export default {
   },
 };
 </script>
+<style scoped>
+  @media screen and (max-width:750px){
+    .card {
+      width:80%;
+    }
+  }
+
+</style>
 <style scoped lang="scss">
 
 .card {
