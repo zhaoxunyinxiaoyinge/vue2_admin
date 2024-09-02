@@ -15,7 +15,7 @@
     <!-- 设置管理系统的导航栏 -->
     <div class="title" v-if="device == 'desktop'">
       <el-image :src="'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'" fit="contain" style="height:40px;"></el-image>
-      <span class="name" style="margin-left:20px;" v-if="!openSidebar">博客在线</span>
+      <span class="name" style="margin-left:20px;" v-if="!openSidebar">短视频</span>
     </div>
 
     <side-bar
@@ -131,5 +131,8 @@ export default {
   align-items: center;
   justify-content: center;
   // padding-left: 30px;
+}
+.name {
+  font-weight: thin;
 }
 </style>

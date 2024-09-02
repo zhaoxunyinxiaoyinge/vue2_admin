@@ -34,12 +34,14 @@ export default {
   },
 
   mutations: {
+    ["GET_FILTER_MENUS"](state, playLoad) {
+      let res = filterAsyncMenus(playLoad);
+      state.menus.unshift(...res);
+    },
+
     ["GET_FILTER_ROUTES"](state, playLoad) {
-      // state.menus = playLoad;
-      state.menus.unshift(...playLoad);
-      // 这里默认的时所有权限，超级管理员。
-      let res = filterAsyncRoutes(playLoad, ["admin"]);
-      state.routes = res;
+      let res = filterRoutes(playLoad);
+      state.routes.push(...res);
     },
   },
 
@@ -50,30 +52,16 @@ export default {
   actions: {
     //从服务器获取路由菜单到本地
     async getDyicnRoute({ commit, dispatch }, playLoad) {
-      return getRoleRoute({ ids: playLoad.role_name });
+      return getRoleRoute({ ids: playLoad.id });
     },
-    // 本地对路由的权限过誉
-    // async getMenu({ commit, dispatch }) {
-    //   // let { data } = await getMenus();权限路由和本地路由其实是一回事。
-    //   commit("GET_FILTER_ROUTES", orderRoute(asyncRoute));
-    // },
   },
 };
 
-// function hasPermission(roles, route) {
-//   if (route.roles && route.roles) {
-//     return roles.some((role) => route.roles.includes(role));
-//   } else {
-//     // 如果没有角色,默认是全部通过，也让它通过。
-//     return true;
-//   }
-// }
-
-function filterAsyncRoutes(routes) {
+function filterAsyncMenus(menus) {
   let res = [];
-  routes.forEach((route) => {
+  menus.forEach((menu) => {
     const tmp = {
-      ...route,
+      ...menu,
     };
     if (tmp.parentId == 0) {
       tmp.component = Layout;
@@ -82,7 +70,36 @@ function filterAsyncRoutes(routes) {
       tmp.component = loadView(_.cloneDeep(tmp.component));
     }
     if (tmp.children) {
-      tmp.children = filterAsyncRoutes(_.cloneDeep(tmp.children));
+      tmp.children = filterAsyncMenus(_.cloneDeep(tmp.children));
+    }
+    res.push(tmp);
+  });
+  return res;
+}
+
+function filterRoutes(routes) {
+  let res = [];
+  routes.forEach((route) => {
+    const tmp = {
+      name: route.name,
+      meta: {
+        title: route.title,
+        icon: route.icon,
+        hidden: route.hidden,
+        operationPerssion: route.operationPerssion,
+      },
+      children: route.children,
+      component: route.component,
+      path: route.path,
+    };
+    if (tmp.parentId == 0) {
+      tmp.component = Layout;
+    }
+    if (tmp.component && tmp.parentId != 0) {
+      tmp.component = loadView(_.cloneDeep(tmp.component));
+    }
+    if (tmp.children) {
+      tmp.children = filterAsyncMenus(_.cloneDeep(tmp.children));
     }
     res.push(tmp);
   });

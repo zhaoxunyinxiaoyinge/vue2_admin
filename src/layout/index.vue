@@ -49,7 +49,7 @@
       <div class="beian">
           <el-image :src="src" style="margin-right:5px;width:22px;height:20px"></el-image>
         <span><a style="color:rgba(40, 34, 34, 0.834)" href="https://beian.miit.gov.cn"  target="_blank">鄂ICP备2022006963号-1</a></span>
-        <span>&nbsp;development by zhaoxunyin</span>
+        <span>&nbsp;本系统由赵训银开发，版权所有，盗版必究</span>
         </div>
     </el-main>
   </el-container>

@@ -1,86 +1,41 @@
 <template>
   <div>
     <el-card>
-      <Form
-        :formField="formField"
-        :inline="true"
-        labelWidth="100px"
-        @query="hanldeQuery"
-      ></Form>
+      <Form :formField="formField" :inline="true" labelWidth="100px" @query="hanldeQuery"></Form>
       <div class="add">
-        <el-button type="primary" @click="handleAdd" icon="el-icon-plus"
-          >新增</el-button
-        >
+        <el-button type="primary" @click="handleAdd" icon="el-icon-plus">新增</el-button>
       </div>
     </el-card>
     <el-card>
       <el-table :data="list">
         <template v-for="item in tableConfig">
-          <el-table-column
-            v-if="item.label == '启用'"
-            :key="item.id"
-            :label="item.label"
-            :prop="item.prop"
-            :align="item.align"
-          >
+          <el-table-column v-if="item.label == '启用'" :key="item.id" :label="item.label" :prop="item.prop"
+            :align="item.align">
             <template slot-scope="{ row }">
               <span>{{ row.role_status == 1 ? "启用" : "失效" }}</span>
             </template>
           </el-table-column>
-          <el-table-column
-            v-else-if="item.label == '操作'"
-            :key="item.id"
-            :label="item.label"
-            :prop="item.prop"
-            :align="item.align"
-            :fixed="'right'"
-            width="200"
-          >
+          <el-table-column v-else-if="item.label == '操作'" :key="item.id" :label="item.label" :prop="item.prop"
+            :align="item.align" :fixed="'right'" width="200">
             <template slot-scope="scope">
               <div style="display:flex;justifly-content:center">
-                <el-button
-                  icon="el-icon-edit"
-                  type="primary"
-                  @click="handleEdit(scope.row)"
-                  >编辑</el-button
-                >
-                <el-button
-                  icon="el-icon-delete"
-                  type="danger"
-                  @click="handleDelete(scope.row.id)"
-                  >删除</el-button
-                >
+                <el-button icon="el-icon-edit" type="primary" :disabled="userInfo.role_name=='admin'"  v-isAdmin="userInfo.role_name
+"   @click="handleEdit(scope.row)">编辑</el-button>
+                <el-button icon="el-icon-delete" type="danger" :disabled="userInfo.role_name=='admin'"  v-isAdmin="userInfo.role_name"   @click="handleDelete(scope.row.id)">删除</el-button>
               </div>
             </template>
           </el-table-column>
 
-          <el-table-column
-            v-else
-            :key="item.id"
-            :label="item.label"
-            :prop="item.prop"
-            :align="item.align"
-            :formatter="formatter"
-          >
+          <el-table-column v-else :key="item.id" :label="item.label" :prop="item.prop" :align="item.align"
+            :formatter="formatter">
           </el-table-column>
         </template>
       </el-table>
 
-      <Pagetion
-        :page="listQuery.page"
-        :pageSize="listQuery.pageSize"
-        :total="total"
-      ></Pagetion>
+      <Pagetion :page="listQuery.page" :pageSize="listQuery.pageSize" :total="total"></Pagetion>
     </el-card>
-    <Add
-      :title="title"
-      :type="type"
-      @update:list="getList()"
-      :dialogVisible="dialogVisible"
-      :menuData="treeMenu"
-      :outData="outData"
-      @close="handClose"
-    ></Add>
+    <Add :title="title" :type="type" @update:list="getList()" :dialogVisible="dialogVisible" :menuData="treeMenu"
+      :outData="outData" @close="handClose"></Add>
   </div>
 </template>
 
@@ -93,6 +48,7 @@ import {
   getMenuList,
   getUserRoleList,
   deleteUserRoleItem,
+  getMenuByRoleId
 } from "./api/index.js";
 import { jsonToTree } from "./../../utils/comon.js";
 import { mapState } from "vuex";
@@ -112,7 +68,9 @@ export default {
       dialogVisible: false,
       title: "新增角色",
       type: "add",
-      outData: {},
+      outData: {
+        menu_id:[]
+      },
       listQuery: {
         page: 1,
         pageSize: 10,
@@ -177,8 +135,8 @@ export default {
               value: 0,
             },
           ],
-             option_label:'label',
-             option_value:"value"
+          option_label: 'label',
+          option_value: "value"
         },
 
         {
@@ -191,13 +149,13 @@ export default {
 
   computed: {
     ...mapState("perssion", ["routes"]),
+    ...mapState("user", ["userInfo"]),
   },
 
   methods: {
     async getList() {
       getUserRoleList({ all: "all", ...this.listQuery })
         .then((res) => {
-          console.log(res,"res")
           if (res.data.code == 0) {
             this.list = res.data.data.rows;
             this.total = res.data.data.count;
@@ -215,6 +173,11 @@ export default {
       } catch (e) {
         this.$Message.error(e);
       }
+    },
+
+    async getMenuByRoleIds(role_id){
+      let res=  await getMenuByRoleId(role_id);
+      return res.data;
     },
 
     async getMenus() {
@@ -238,12 +201,17 @@ export default {
       this.outData.menu_id = [];
     },
 
-    handleEdit(val) {
+   async handleEdit(val) {
+     let menus= await  this.getMenuByRoleIds(val.id);
       this.title = "编辑用户角色";
       this.type = "edit";
       this.dialogVisible = true;
       this.outData = _.cloneDeep(val);
-      this.outData.menu_id = this.outData.menu_id.split(",");
+      this.outData.menu_id = [];
+      menus.forEach(menuRole => {
+      this.outData.menu_id.push(menuRole.menu_id);
+     });
+
     },
 
     handClose() {
@@ -282,9 +250,9 @@ export default {
     },
 
     hanldeQuery(val) {
-      console.log(val,"val")
-      this.listQuery.page=1;
-       getUserRoleList({all:"all",...this.listQuery,...val })
+      console.log(val, "val")
+      this.listQuery.page = 1;
+      getUserRoleList({ all: "all", ...this.listQuery, ...val })
         .then((res) => {
           if (res.data.code == 0) {
             this.list = res.data.data.rows;
@@ -295,7 +263,7 @@ export default {
         })
         .catch((e) => {
           this.$Message.error(e);
-      });
+        });
     },
   },
 };
@@ -303,6 +271,7 @@ export default {
 
 <style lang="scss" scoped>
 $add: 20px;
+
 .add {
   margin-left: $add;
   margin-bottom: $add;

@@ -4,6 +4,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Cookies from "js-cookie";
 import { jsonToTree } from "./utils/comon";
+import _ from "lodash";
 
 // 白名单
 const whiteList = ["/login", "/404"];
@@ -39,7 +40,9 @@ router.beforeEach(async (to, from, next) => {
             .then((res) => {
               if (res.data.code == 0) {
                 let data = res.data.data;
-                let treeData = jsonToTree(data);
+                let newData = _.cloneDeep(data);
+                let treeData = jsonToTree(newData);
+                store.commit("perssion/GET_FILTER_MENUS", treeData);
                 store.commit("perssion/GET_FILTER_ROUTES", treeData);
                 let routes = store.getters["perssion/routeRole"];
                 router.addRoutes(routes);
